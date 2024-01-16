@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>CineVerse - Registration</title>
+    </head>
+    <main>
+        <section>
+            <h1>CineVerse</h1>
+            <h2>Registrazione</h2>
+            <form action="RegistrationPage.php" method="post">
+                
+                <fieldset id="PersonalInfo">
+                    <ul>
+                        <li>
+                            <label for="name">Nome</label>
+                            <input type="text" name="name" id="name" required>
+                        </li>
+                        <li>
+                            <label for="surname">Cognome</label>
+                            <input type="text" name="surname" id="surname" required>
+                        </li>
+                        <li>
+                            <label for="username">Username</label>
+                            <input type="text" name="username" id="username" required>
+                        </li>
+                        <li>
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" required>
+                        </li>
+                        <li>
+                            <label for="confirmEmail">Conferma Email</label>
+                            <input type="email" name="confirmEmail" id="confirmEmail" required>
+                        </li>
+                        <li>
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" required>
+                        </li>
+                        <li>
+                            <label for="confirmPassword">Conferma Password</label>
+                            <input type="password" name="confirmPassword" id="confirmPassword" required>
+                        </li>
+                    </ul>
+
+                    <fieldset id="birthDateInfo">
+                        <ul>
+                            <li>
+                                <label>Data di nascita</label>
+                                <input type="date" name="birthDate" id="birthDate" required>
+                            </li>
+                        </ul> 
+                    </fieldset>
+        
+                    <fieldset id="genderInfo">
+                        <ul>
+                            <li>
+                                <label for="Gender">Genere (Opzionale)</label>
+                            </li>
+                            <li>
+                                <label for="male">Maschio</label>
+                                <input type="radio" id="male" name="gender" value="male">
+                            </li>
+                            <li>
+                                <label for="female">Femmina</label>
+                                <input type="radio" id="female" name="gender" value="female">
+                            </li>
+                            <li>
+                                <label for="other">Altro</label>
+                                <input type="radio" id="other" name="gender" value="other">
+                            </li>
+                        </ul>
+                    </fieldset>
+
+                </fieldset>
+                <fieldset id="ProfileInfo">
+                    <ul>
+                        <li>
+                            <label for="bio">Descrizione del profilo</label>
+                            <textarea name="bio" id="bio" cols="30" rows="10" required></textarea>
+                        </li>
+                        <li>
+                            <label for="profilePicture">Immagine del profilo</label>
+                            <input type="file" name="profilePicture" id="profilePicture" required>
+                        </li>
+                    </ul>
+                    <label for="interests">Interessi</label>
+                    <ul>
+                        <li><button>Cinema</button></li>
+                        <li><button>Serie tv</button></li>
+                        <li><button>Anime</button></li>
+                        <li><button>Film</button></li>
+                        <li><button>Horror</button></li>
+                        <li><button>Fantasy</button></li>
+                    </ul>
+                </fieldset>
+                
+                <fieldset id="submitField"></fieldset>
+                    <input type="submit" value="Registrati" id="RegisterButton">
+                </fieldset>   
+            </form>
+        </section>
+
+    </main>
+
+
+</html>
