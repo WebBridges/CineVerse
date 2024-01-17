@@ -9,13 +9,14 @@ h1{
     color: #FFFFFF;
     font-family: 'Electrolize';
     font-weight: normal;
-    font-size: 70px;
-    text-align: center;
-    margin-top: 0px;
+    font-size: 65px;
     margin: 0px 400px;
-
     border-color: red;
     border-style: solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     
 }
 
@@ -35,23 +36,25 @@ li {
     list-style: none;
 }
 
+fieldset > ul > li{
+    margin-bottom: 10px;
+}
+
 ul > li > input {
-    /* Username_field */
-    box-sizing: border-box;
-    position:relative;
-    
+    box-sizing: border-box;    
     width: 279px;
-    height: 37px;
-    left: 140.99px;
-    top: 91px;
+    height: 25px;
 
     background: #F8F7FF;
     border: 1px solid black;
     border-radius: 10px;
+    padding-left: 5px;
+    outline: none;
 }
 
-
-
+fieldset> ul> li > label, fieldset> ul> li > input {
+    display:block;
+}
 
 fieldset{
     border: none;
@@ -60,14 +63,24 @@ fieldset{
 
 fieldset > fieldset{
     border: none;
-    background-color: #ffffff;
+    background-color: #7B2CBF;
+}
+
+fieldset > ul > li > label{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 21px;
+    color: #E0E0E0;
+    margin-bottom: 3px;
+    margin-left: 3px;
 }
 
 
 
-
 /* Access_button */
-input.buttonOrange{
+input.buttonOrange, a.buttonOrange{
     box-sizing: border-box;
     position: relative;
     width: 147px;
@@ -95,11 +108,50 @@ input.buttonOrange{
     align-items: center;
     text-align: center;
     text-transform: capitalize;
+    text-decoration: none;
     transition: background-color 0.5s ease;
     color: #000000;
 }
 
-input.buttonOrange:hover{
+input.buttonOrange:hover, a.buttonOrange:hover{
     background-color: #FFC000;
-    
+}
+
+a.buttonViolet{
+box-sizing: border-box;
+    position: relative;
+    width: 147px;
+    height: 45px;
+    left: 206.99px;
+    top: 239px;
+
+    background: #9D4EDD;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+
+    position: relative;
+    width: 134px;
+    height: 39px;
+    left: 6px;
+    top: 3px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-transform: capitalize;
+    text-decoration: none;
+    transition: background-color 0.5s ease;
+    color: #000000;
+    margin-top: 8px;
+}
+
+
+a.buttonViolet:hover{
+    background-color: #B86BFF;
 }
