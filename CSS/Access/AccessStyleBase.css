@@ -1,3 +1,105 @@
+@import url('https://fonts.googleapis.com/css?family=Electrolize');
+@import url('https://fonts.googleapis.com/css?family=Inter');
+
 body{
-    background-color: #3c096c;
+    background-color: #3C096C;
+}
+
+h1{
+    color: #FFFFFF;
+    font-family: 'Electrolize';
+    font-weight: normal;
+    font-size: 70px;
+    text-align: center;
+    margin-top: 0px;
+    margin: 0px 400px;
+
+    border-color: red;
+    border-style: solid;
+    
+}
+
+h2{
+    color: #FFFFFF;
+    font-family: 'Inter';
+    font-weight:lighter;
+    font-size: 25px;
+    text-align: center;
+    
+
+    border-color: red;
+    border-style: solid
+}
+
+li {
+    list-style: none;
+}
+
+ul > li > input {
+    /* Username_field */
+    box-sizing: border-box;
+    position:relative;
+    
+    width: 279px;
+    height: 37px;
+    left: 140.99px;
+    top: 91px;
+
+    background: #F8F7FF;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+
+
+
+fieldset{
+    border: none;
+    background-color: #7B2CBF;
+} 
+
+fieldset > fieldset{
+    border: none;
+    background-color: #ffffff;
+}
+
+
+
+
+/* Access_button */
+input.buttonOrange{
+    box-sizing: border-box;
+    position: relative;
+    width: 147px;
+    height: 45px;
+    left: 206.99px;
+    top: 239px;
+
+    background: #FF9E00;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+
+    position: relative;
+    width: 134px;
+    height: 39px;
+    left: 6px;
+    top: 3px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-transform: capitalize;
+    transition: background-color 0.5s ease;
+    color: #000000;
+}
+
+input.buttonOrange:hover{
+    background-color: #FFC000;
+    
 }
