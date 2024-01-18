@@ -11,7 +11,7 @@
         <section>
             <h1>CineVerse</h1>
             <h2>Registrazione</h2>
-            <form action="RegistrationPage.php" method="post">
+            <form action="DataBase.php" method="post">
                 
                 <fieldset id="PersonalInfo">
                     <ul>
@@ -32,8 +32,8 @@
                             <input type="email" name="email" id="email" required>
                         </li>
                         <li>
-                            <label for="confirmEmail">Conferma Email</label>
-                            <input type="email" name="confirmEmail" id="confirmEmail" required>
+                            <label for="confirmEmail">Email di recupero</label>
+                            <input type="email" name="recoveryEmail" id="recoveryEmail" required>
                         </li>
                         <li>
                             <label for="password">Password</label>
@@ -83,17 +83,17 @@
                         </li>
                         <li>
                             <label for="profilePicture">Immagine del profilo</label>
-                            <input type="file" name="profilePicture" id="profilePicture" required>
+                            <input type="file" name="profilePicture" id="profilePicture" accept=".jpg, .jpeg, .png" required>
                         </li>
                     </ul>
                     <label for="interests">Interessi</label>
                     <ul>
-                        <li><button>Cinema</button></li>
-                        <li><button>Serie tv</button></li>
-                        <li><button>Anime</button></li>
-                        <li><button>Film</button></li>
-                        <li><button>Horror</button></li>
-                        <li><button>Fantasy</button></li>
+                        <li><button type="topic_tag" name="topic[]" id="cinema">Cinema</button></li>
+                        <li><button type="topic_tag" name="topic[]" id="Serie tv">Serie tv</button></li>
+                        <li><button type="topic_tag" name="topic[]" id="Anime">Anime</button></li>
+                        <li><button type="topic_tag" name="topic[]" id="Film">Film</button></li>
+                        <li><button type="topic_tag" name="topic[]" id="Horror">Horror</button></li>
+                        <li><button type="topic_tag" name="topic[]" id="Fantasy">Fantasy</button></li>
                     </ul>
                 </fieldset>
                 
