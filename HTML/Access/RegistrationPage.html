@@ -3,7 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <title>CineVerse - Registration</title>
+        <link href="../../CSS/Access/AccessStyleBase.css" rel="stylesheet" type="text/css"/>
     </head>
+
+    <body>
     <main>
         <section>
             <h1>CineVerse</h1>
@@ -58,15 +61,15 @@
                             </li>
                             <li>
                                 <label for="male">Maschio</label>
-                                <input type="radio" id="male" name="gender" value="male">
+                                <input type="radio" id="male" name="gender" value="male" class="radioType">
                             </li>
                             <li>
                                 <label for="female">Femmina</label>
-                                <input type="radio" id="female" name="gender" value="female">
+                                <input type="radio" id="female" name="gender" value="female" class="radioType">
                             </li>
                             <li>
                                 <label for="other">Altro</label>
-                                <input type="radio" id="other" name="gender" value="other">
+                                <input type="radio" id="other" name="gender" value="other" class="radioType">
                             </li>
                         </ul>
                     </fieldset>
@@ -95,12 +98,11 @@
                 </fieldset>
                 
                 <fieldset id="submitField"></fieldset>
-                    <input type="submit" value="Registrati" id="RegisterButton">
+                    <input type="submit" value="Registrati" id="RegisterButton" class="buttonOrange">
                 </fieldset>   
             </form>
         </section>
-
     </main>
-
+    </body>
 
 </html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="it">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>CineVerse - 2authLogin</title>
+        <link href="../../CSS/Access/AccessStyleBase.css" rel="stylesheet" type="text/css"/>
+    </head>
+
+    <body>
+        <h1>CineVerse</h1>
+        <section>
+            <h2>Autenticazione</h2>
+            <p>Inserisci il codice arrivato tramite E-mail o Dall'App Authenticator:</p>
+            <form action="2authLogin.php" method="post">
+                <fieldset id="2authLoginInfo">
+                    <ul>
+                        <li>
+                            <label for="2authCode">Codice</label>
+                            <input type="text" name="2authCode" id="2authCode" placeholder="Codice" required>
+                        </li>
+                        <li>
+                            <input type="submit" value="Conferma" id="2authLoginButton" class="buttonOrange">
+                        </li>
+                    </ul>
+                </fieldset>
+            </form>
+        </section>
+    </body>
+</html>
