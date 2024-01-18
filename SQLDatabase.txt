@@ -13,86 +13,86 @@
 -- _____________ 
 
 create table COMMENTO (
-     Post_Username_Utente char(30) not null,
+     Post_Username_Utente varchar(30) not null,
      Post_IDpost numeric(1) not null,
-     Username_Utente char(30) not null,
-     Corpo char(50) not null,
+     Username_Utente varchar(30) not null,
+     Corpo varchar(50) not null,
      IDcommento numeric(1) not null,
-     Padre_Post_Username_Utente char(30) not null,
+     Padre_Post_Username_Utente varchar(30) not null,
      Padre_Post_IDpost numeric(1) not null,
-     Padre_Username_Utente char(30) not null,
+     Padre_Username_Utente varchar(30) not null,
      Padre_IDcommento numeric(1) not null,
      constraint ID_COMMENTO_ID primary key (Post_Username_Utente, Post_IDpost, Username_Utente, IDcommento));
 
 create table FOTO_VIDEO (
-     Post_Username_Utente char(30) not null,
+     Post_Username_Utente varchar(30) not null,
      Post_IDpost numeric(1) not null,
-     Foto_Video char(1) not null,
-     Descrizione char(50),
+     Foto_Video varchar(1) not null,
+     Descrizione varchar(50),
      constraint ID_FOTO_VIDEO_ID primary key (Post_Username_Utente, Post_IDpost, Foto_Video),
      constraint SID_FOTO__POST_ID unique (Post_Username_Utente, Post_IDpost));
 
 create table LIKE_COMMENTO (
-     Post_Username_Utente char(30) not null,
+     Post_Username_Utente varchar(30) not null,
      Post_IDpost numeric(1) not null,
-     Commento_Username_Utente char(30) not null,
+     Commento_Username_Utente varchar(30) not null,
      IDcommento numeric(1) not null,
-     Like_Username_Utente char(30) not null,
+     Like_Username_Utente varchar(30) not null,
      constraint ID_LIKE_COMMENTO_ID primary key (Post_Username_Utente, Post_IDpost, Commento_Username_Utente, IDcommento, Like_Username_Utente));
 
 create table LIKE_POST (
-     Post_Username_Utente char(30) not null,
+     Post_Username_Utente varchar(30) not null,
      Post_IDpost numeric(1) not null,
-     Username_Utente char(30) not null,
+     Username_Utente varchar(30) not null,
      constraint ID_LIKE_POST_ID primary key (Post_Username_Utente, Post_IDpost, Username_Utente));
 
 create table OPZIONE (
-     Post_Username_Utente char(30) not null,
+     Post_Username_Utente varchar(30) not null,
      Post_IDpost numeric(1) not null,
-     Testo char(30) not null,
-     Selezionato char not null,
+     Testo varchar(30) not null,
+     Selezionato varchar not null,
      constraint ID_OPZIONE_ID primary key (Post_Username_Utente, Post_IDpost, Testo));
 
 create table POST (
-     Username_Utente char(30) not null,
-     Titolo char(50) not null,
+     Username_Utente varchar(30) not null,
+     Titolo varchar(50) not null,
      IDpost numeric(1) not null,
-     Archiviato char not null,
-     Nome_tag_Topic char(30) not null,
+     Archiviato varchar not null,
+     Nome_tag_Topic varchar(30) not null,
      constraint ID_POST_ID primary key (Username_Utente, IDpost));
 
 create table RELAZIONE (
-     Username_Seguito char(30) not null,
-     Username_Segue char(30) not null,
+     Username_Seguito varchar(30) not null,
+     Username_Segue varchar(30) not null,
      constraint ID_RELAZIONE_ID primary key (Username_Seguito, Username_Segue));
 
 create table TESTO (
-     Post_Username_Utente char(30) not null,
+     Post_Username_Utente varchar(30) not null,
      Post_IDpost numeric(1) not null,
-     Corpo char(150) not null,
+     Corpo varchar(150) not null,
      constraint ID_TESTO_ID primary key (Post_Username_Utente, Post_IDpost, Corpo),
      constraint SID_TESTO_POST_ID unique (Post_Username_Utente, Post_IDpost));
 
 create table TOPIC (
-     Nome_tag char(30) not null,
+     Nome_tag varchar(30) not null,
      constraint ID_TOPIC_ID primary key (Nome_tag));
 
 create table TOPIC_UTENTE (
-     Username char(30) not null,
-     Nome_tag char(30) not null);
+     Username varchar(30) not null,
+     Nome_tag varchar(30) not null);
 
 create table UTENTE (
-     Nome char(30) not null,
-     Cognome char(30) not null,
-     Username char(30) not null,
+     Nome varchar(30) not null,
+     Cognome varchar(30) not null,
+     Username varchar(30) not null,
      Data_nascita date not null,
-     Email char(50) not null,
-     Email_di_recupero char(50),
-     Password char(30) not null,
-     Foto_profilo char(1) not null,
-     Sesso char(30),
-     Descrizione char(50) not null,
-     Foto_background char(1) not null,
+     Email varchar(50) not null,
+     Email_di_recupero varchar(50),
+     Password varchar(30) not null,
+     Foto_profilo varchar(1) not null,
+     Sesso varchar(30),
+     Descrizione varchar(50) not null,
+     Foto_background varchar(1) not null,
      constraint ID_UTENTE_ID primary key (Username));
 
 
