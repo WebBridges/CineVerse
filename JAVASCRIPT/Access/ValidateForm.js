@@ -1,4 +1,8 @@
-function checkForm(){
+
+document.getElementById("FormRegistration").addEventListener('submit', function(event) {
+    
+    event.preventDefault();
+
     let name = document.getElementById("name").value;
     let surname = document.getElementById("surname").value;
     let username = document.getElementById("username").value;
@@ -8,14 +12,12 @@ function checkForm(){
     let confirmPassword = document.getElementById("confirmPassword").value;
     let birthDate = document.getElementById("birthDate").value;
     let bio = document.getElementById("bio").value;
-    let profilePic = document.getElementById("profilePic").value;
     let ageControl = new Date();
-    ageControl.setFullYear(currentDate.getFullYear() - 13);
+    ageControl.setFullYear(ageControl.getFullYear() - 13);
 
     let regex= /[^a-zA-Z ]/g;
     let regexExtended = /[^a-zA-Z0-9 _]/g;
     let regexPassword = /[^a-zA-Z0-9 _!@#$%^*]/g;
-
 
     if(regex.test(name) == true){
         swal({
@@ -145,5 +147,27 @@ function checkForm(){
         });
         return false;
     }
-    return true;
-}
+
+    console.log("Form is valid");
+    // Se il form è valido, invialo
+
+    var formData = new FormData(event.target);
+
+    // Invia il form utilizzando fetch
+    fetch(event.target.action, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        // Apri una nuova scheda dopo l'invio del form
+        window.open('https://www.google.com', '_blank');
+    })
+    .catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+    });
+
+    event.target.submit();
+});
