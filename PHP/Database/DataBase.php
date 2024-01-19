@@ -42,5 +42,32 @@ class DataBase{
         $stmt->bind_param("s", $topic);
         $stmt->execute();
     }
+
+    public function CheckUsernameExistence($username){
+        $query = "SELECT Username FROM utente WHERE Username = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $stmt->store_result();
+        if($stmt->num_rows > 0)
+            return "Username already taken";
+        else
+            return "Username available";
+    }
+
+    public function CheckEmailExistence($email){
+        $query = "SELECT Email FROM utente WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $stmt->store_result();
+        if($stmt->num_rows > 0)
+            return "Email already taken";
+        else
+            return "Email available";
+    }
+
+
+
 }
 ?>

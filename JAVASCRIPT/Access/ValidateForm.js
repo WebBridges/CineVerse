@@ -45,7 +45,57 @@ function checkForm(){
             button: "OK",
         });        
         return false;
+    } else {
+
+        /*Verifichiamo che lo username non sia già presente nel database */
+        fetch('CheckUsername.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `username=${username}`,
+        })
+        .then(response => response.text())
+        .then(data => {
+            if (data === "Username already taken") {
+                swal({
+                    title: "Attenzione!",
+                    text: "Username già presente",
+                    icon: "warning",
+                    button: "OK",
+                });
+                return false;
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
     }
+
+    /*Verifichiamo che la email non sia già presente nel database */
+  
+    fetch('CheckEmail.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `username=${email}`,
+        })
+        .then(response => response.text())
+        .then(data => {
+            if (data === "Email already taken") {
+                swal({
+                    title: "Attenzione!",
+                    text: "Email già presente",
+                    icon: "warning",
+                    button: "OK",
+                });
+                return false;
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });    
 
     if(recoveryEmail && email == recoveryEmail){
         swal({
