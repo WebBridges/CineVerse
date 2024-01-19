@@ -7,42 +7,42 @@
 
     </head>
 
-    <body>
+    <body onload="loadTopicCheckboxes()">
     <main>
         <section>
             <h1>CineVerse</h1>
             <h2>Registrazione</h2>
-            <form action="../../PHP/Access/ProcessRegistration.php" method="post">
+            <form action="../../PHP/Access/ProcessRegistration.php" method="post" onsubmit="return checkForm()">
                 
                 <fieldset id="PersonalInfo">
                     <ul>
                         <li>
                             <label for="name">Nome</label>
-                            <input type="text" name="name" id="name" required>
+                            <input type="text" name="name" id="name" maxlength="30" required>
                         </li>
                         <li>
                             <label for="surname">Cognome</label>
-                            <input type="text" name="surname" id="surname" required>
+                            <input type="text" name="surname" id="surname" maxlength="30" required>
                         </li>
                         <li>
                             <label for="username">Username</label>
-                            <input type="text" name="username" id="username" required>
+                            <input type="text" name="username" id="username" maxlength="30" required>
                         </li>
                         <li>
                             <label for="email">Email</label>
-                            <input type="email" name="email" id="email" required>
+                            <input type="email" name="email" id="email" maxlength="50" required>
                         </li>
                         <li>
                             <label for="confirmEmail">Email di recupero</label>
-                            <input type="email" name="recoveryEmail" id="recoveryEmail" required>
+                            <input type="email" name="recoveryEmail" id="recoveryEmail" maxlength="50">
                         </li>
                         <li>
                             <label for="password">Password</label>
-                            <input type="password" name="password" id="password" required>
+                            <input type="password" name="password" id="password" maxlength="30" required>
                         </li>
                         <li>
                             <label for="confirmPassword">Conferma Password</label>
-                            <input type="password" name="confirmPassword" id="confirmPassword" required>
+                            <input type="password" name="confirmPassword" id="confirmPassword" maxlength="30" required>
                         </li>
                     </ul>
 
@@ -58,7 +58,7 @@
                     <fieldset id="genderInfo">
                         <ul>
                             <li>
-                                <label for="Gender">Genere (Opzionale)</label>
+                                <label for="gender">Genere (Opzionale)</label>
                             </li>
                             <li>
                                 <label for="male">Maschio</label>
@@ -80,7 +80,7 @@
                     <ul>
                         <li>
                             <label for="bio">Descrizione del profilo</label>
-                            <textarea name="bio" id="bio" cols="30" rows="10" required></textarea>
+                            <textarea name="bio" id="bio" cols="30" rows="10" maxlength="50" required></textarea>
                         </li>
                         <li>
                             <label for="profilePicture">Immagine del profilo</label>
@@ -88,7 +88,7 @@
                         </li>
                     </ul>
                     <label for="interests">Interessi</label>
-                    <ul id="topic_button">
+                    <ul id="topic_checkbox">
                         
                     </ul>
                 </fieldset>
@@ -101,6 +101,7 @@
     </main>
 
     <script src="../../JAVASCRIPT/Access/RegistrationFunction.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </body>
 
 </html>

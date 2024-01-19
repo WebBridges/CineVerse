@@ -66,7 +66,7 @@ fieldset > fieldset{
     background-color: #7B2CBF;
 }
 
-fieldset > ul > li > label{
+fieldset > ul > li > label, fieldset > label{
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
@@ -153,5 +153,30 @@ box-sizing: border-box;
 
 
 a.buttonViolet:hover{
+    background-color: #B86BFF;
+}
+
+/* Nascondi la checkbox originale */
+input[type="checkbox"] {
+    display: none;
+}
+
+/* Crea un nuovo "bottone" per la checkbox */
+input[type="checkbox"] + label {
+    padding: 10px;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    display: inline-block;
+    text-align: center;
+    text-transform: capitalize;
+    text-decoration: none;
+    transition: background-color 0.5s ease;
+    margin-top: 8px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+/* Cambia il colore di sfondo quando la checkbox è selezionata */
+input[type="checkbox"]:checked + label {
     background-color: #B86BFF;
 }
