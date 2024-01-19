@@ -145,4 +145,5 @@ function checkForm(){
         });
         return false;
     }
+    return true;
 }
