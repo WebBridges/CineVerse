@@ -1,0 +1,56 @@
+{
+"topic": [
+
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "cinema",
+            "label": "Cinema"
+        },
+
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "serie_tv",
+            "label": "Serie TV"
+        },
+
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "marvel",
+            "label": "Marvel"
+        },
+
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "dc",
+            "label": "DC"
+        },
+
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "star_wars",
+            "label": "Star Wars"
+        },
+
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "harry_potter",
+            "label": "Harry Potter"
+        },
+
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "goku",
+            "label": "Goku"
+        }
+        
+    ]
+
+
+}
