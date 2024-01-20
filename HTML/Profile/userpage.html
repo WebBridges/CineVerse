@@ -12,17 +12,39 @@
 </head>
 <body>
     <div class="container-fluid p-0 overflow-hidden" id="body_container"> 
-        <header class="text-center" id="profile_header">
+        <header id="profile_header">
             <img src="../../img/default-background.jpg" alt="background profile image" class="img-fluid overflow-hidden" id="background_image">
             <svg xmlns="http://www.w3.org/2000/svg" width="76" height="50" viewBox="0 0 76 50" fill="none">
                 <path d="M3 2.71213H73" stroke="#FF9E00" stroke-width="5" stroke-linecap="round"/>
                 <path d="M3 46.5505H73" stroke="#FF9E00" stroke-width="5" stroke-linecap="round"/>
                 <path d="M3 24.6313H73" stroke="#FF9E00" stroke-width="5" stroke-linecap="round"/>
             </svg>
-            <img src="../../img/default-user.webp" alt="user image" class="img-fluid overflow-hidden" id="user_image">
-            <p id="username">username</p>
+            <div class="row justify-content-start" id="user_info">
+                <div class="col-auto">
+                    <img src="../../img/default-user.webp" alt="user image" class="img-fluid overflow-hidden" id="user_image">
+                </div>
+                <div class="col-auto">
+                    <p id="username">username</p>
+                    <div class="row justify-content-center" id="user_number">
+                        <div class="col-auto">
+                            <p>Post</p>
+                            <p id="nPost">0</p>
+                        </div>
+                        <div class="col-auto">
+                            <p>Follower</p>
+                            <p id="nFollower">0</p>
+                        </div>
+                        <div class="col-auto">
+                            <p>Seguiti</p>
+                            <p id="nSeguiti">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </header>
+        <main class="container-fluid mt-3">
 
+        </main>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
