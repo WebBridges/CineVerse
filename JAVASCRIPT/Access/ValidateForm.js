@@ -1,7 +1,8 @@
 
 document.getElementById("FormRegistration").addEventListener('submit', function(event) {
-    
+
     event.preventDefault();
+
 
     let name = document.getElementById("name").value;
     let surname = document.getElementById("surname").value;
@@ -12,6 +13,7 @@ document.getElementById("FormRegistration").addEventListener('submit', function(
     let confirmPassword = document.getElementById("confirmPassword").value;
     let birthDate = document.getElementById("birthDate").value;
     let bio = document.getElementById("bio").value;
+    let DateControl = new Date(birthDate);
     let ageControl = new Date();
     ageControl.setFullYear(ageControl.getFullYear() - 13);
 
@@ -19,7 +21,9 @@ document.getElementById("FormRegistration").addEventListener('submit', function(
     let regexExtended = /[^a-zA-Z0-9 _]/g;
     let regexPassword = /[^a-zA-Z0-9 _!@#$%^*]/g;
 
-    if(regex.test(name) == true){
+    
+
+    if(name.match(regex)){
         swal({
             title: "Attenzione!",
             text: "Il nome può contenere solo lettere e spazi",
@@ -29,7 +33,7 @@ document.getElementById("FormRegistration").addEventListener('submit', function(
         return false;
     }
 
-    if(regex.test(surname) == true){
+    if(surname.match(regex)){
         swal({
             title: "Attenzione!",
             text: "Il cognome può contenere solo lettere e spazi",
@@ -39,7 +43,7 @@ document.getElementById("FormRegistration").addEventListener('submit', function(
         return false;
     }
 
-    if(regexExtended.test(username) == true){
+    if(username.match(regexExtended)){
         swal({
             title: "Attenzione!",
             text: "Lo username può contenere solo lettere, numeri, spazi e l'underscore",
@@ -50,7 +54,8 @@ document.getElementById("FormRegistration").addEventListener('submit', function(
     } else {
 
         /*Verifichiamo che lo username non sia già presente nel database */
-        fetch('CheckUsername.php', {
+        /*ricordarsi di cambiare il path nel proprio localhost*/
+        fetch('../../template/CheckUsername.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -62,7 +67,7 @@ document.getElementById("FormRegistration").addEventListener('submit', function(
             if (data === "Username already taken") {
                 swal({
                     title: "Attenzione!",
-                    text: "Username già presente",
+                    text: "Username già presente ",
                     icon: "warning",
                     button: "OK",
                 });
@@ -75,20 +80,20 @@ document.getElementById("FormRegistration").addEventListener('submit', function(
     }
 
     /*Verifichiamo che la email non sia già presente nel database */
-  
-    fetch('CheckEmail.php', {
+    /*ricordarsi di cambiare il path nel proprio localhost*/
+    fetch('../../template/CheckEmail.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: `username=${email}`,
+        body: `email=${email}`,
         })
         .then(response => response.text())
         .then(data => {
             if (data === "Email already taken") {
                 swal({
                     title: "Attenzione!",
-                    text: "Email già presente",
+                    text: "Email già presente ",
                     icon: "warning",
                     button: "OK",
                 });
@@ -109,7 +114,17 @@ document.getElementById("FormRegistration").addEventListener('submit', function(
         return false;
         }
 
-    if(regexPassword.test(password)==true){
+    if(password.length < 8){
+        swal({
+            title: "Attenzione!",
+            text: "La password deve contenere almeno 8 caratteri",
+            icon: "warning",
+            button: "OK",
+        });
+        return false;
+    }
+
+    if(password.match(regexPassword)){
         swal({
             title: "Attenzione!",
             text: "La password può contenere solo lettere, numeri \n e i seguenti caratteri speciali: _!@#$%^*",
@@ -128,7 +143,7 @@ document.getElementById("FormRegistration").addEventListener('submit', function(
         return false;
     }
 
-    if(birthDate > ageControl){
+    if(DateControl > ageControl){
         swal({
             title: "Attenzione!",
             text: "Devi avere almeno 13 anni per registrarti",
@@ -141,33 +156,13 @@ document.getElementById("FormRegistration").addEventListener('submit', function(
     if(!document.querySelectorAll("input[type='checkbox']:checked").length){
         swal({
             title: "Attenzione!",
-            text: "Puoi selezionare al massimo 5 argomenti",
+            text: "Devi selezionare almeno un topic di interesse",
             icon: "warning",
             button: "OK",
         });
         return false;
     }
-
-    console.log("Form is valid");
+    console.log("Form is valid, submitting");
     // Se il form è valido, invialo
-
-    var formData = new FormData(event.target);
-
-    // Invia il form utilizzando fetch
-    fetch(event.target.action, {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        // Apri una nuova scheda dopo l'invio del form
-        window.open('https://www.google.com', '_blank');
-    })
-    .catch(error => {
-        console.error('There has been a problem with your fetch operation:', error);
-    });
-
     event.target.submit();
 });
