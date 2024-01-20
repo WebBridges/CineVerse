@@ -52,7 +52,7 @@ class DataBase{
         $stmt->execute();
         $stmt->store_result();
         if($stmt->num_rows > 0)
-            return "Username_already_taken";
+            return "Username_exist";
         else
             return "Username_available";
     }
@@ -64,12 +64,24 @@ class DataBase{
         $stmt->execute();
         $stmt->store_result();
         if($stmt->num_rows > 0)
-            return "Email_already_taken";
+            return "Email_exist";
         else
             return "Email_available";
     }
 
-
+    public function CheckPassword($password,$email){
+        $query = "SELECT Password FROM utente WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($hashedPassword);
+        $stmt->fetch();
+        if(password_verify($password,$hashedPassword))
+            return "Password_correct";
+        else
+            return "Password_wrong";
+    }
 
 }
 ?>

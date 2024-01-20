@@ -137,7 +137,7 @@ async function checkUsername(username) {
 
     const data = await response.text();
 
-    if (data === "Username_already_taken") {
+    if (data === "Username_exist") {
         swal({
             title: "Attenzione!",
             text: "Username già presente",
@@ -161,7 +161,7 @@ async function checkEmail(email) {
 
     const data = await response.text();
 
-    if (data === "Email_already_taken") {
+    if (data === "Email_exist") {
         swal({
             title: "Attenzione!",
             text: "Email già presente",
