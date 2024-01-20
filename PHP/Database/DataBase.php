@@ -29,7 +29,7 @@ class DataBase{
 
         /*Insert topic of interest related with the new account*/
         foreach ($_POST['topic'] as $topic) {
-            $query = "INSERT INTO topic_utente (Nome_tag, Username) VALUES (?, ?)";
+            $query = "INSERT INTO topic_utente (Nome_tag_Topic, Username_Utente) VALUES (?, ?)";
             $stmt = $this->db->prepare($query);
             $stmt->bind_param("ss", $topic, $_POST['username']);
             $stmt->execute();
