@@ -9,6 +9,7 @@ class DataBase{
         if ($this->db->connect_errno) {
             die("Connection failed: " . $this->db->connect_error);
         }
+        
     }
    
     public function close(){
@@ -21,7 +22,7 @@ class DataBase{
         $stmt = $this->db->prepare($query);
 
         $recoveryEmail = isset($_POST['recoveryEmail']) ? $_POST['recoveryEmail'] : NULL;
-        $gender = isset($_POST['Gender']) ? $_POST['Gender'] : NULL;
+        $gender = isset($_POST['gender']) ? $_POST['gender'] : NULL;
 
         $stmt->bind_param("sssssssssb", $_POST['name'], $_POST['surname'], $_POST['username'], $_POST['email'], $recoveryEmail, $_POST['password'], $_POST['birthDate'], $gender, $_POST['bio'], $_POST['profilePicture']);
         $stmt->execute();
@@ -30,7 +31,7 @@ class DataBase{
         foreach ($_POST['topic'] as $topic) {
             $query = "INSERT INTO topic_utente (Nome_tag, Username) VALUES (?, ?)";
             $stmt = $this->db->prepare($query);
-            $stmt->bind_param("ss", $_POST['username'], $topic);
+            $stmt->bind_param("ss", $topic, $_POST['username']);
             $stmt->execute();
         }
     }
@@ -41,5 +42,32 @@ class DataBase{
         $stmt->bind_param("s", $topic);
         $stmt->execute();
     }
+
+    public function CheckUsernameExistence($username){
+        $query = "SELECT Username FROM utente WHERE Username = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $stmt->store_result();
+        if($stmt->num_rows > 0)
+            return "Username already taken";
+        else
+            return "Username available";
+    }
+
+    public function CheckEmailExistence($email){
+        $query = "SELECT Email FROM utente WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $stmt->store_result();
+        if($stmt->num_rows > 0)
+            return "Email already taken";
+        else
+            return "Email available";
+    }
+
+
+
 }
 ?>
