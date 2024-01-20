@@ -18,13 +18,15 @@ class DataBase{
 
     public function insertNewAccount(){
         /*Insert a new account in database*/
+
         $query = "INSERT INTO utente (Nome, Cognome, Username, Email, Email_di_recupero, Password, Data_nascita, Sesso, Descrizione, Foto_profilo ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
 
         $recoveryEmail = isset($_POST['recoveryEmail']) ? $_POST['recoveryEmail'] : NULL;
         $gender = isset($_POST['gender']) ? $_POST['gender'] : NULL;
+        $hashedPassword =password_hash($_POST['password'],PASSWORD_BCRYPT);
 
-        $stmt->bind_param("sssssssssb", $_POST['name'], $_POST['surname'], $_POST['username'], $_POST['email'], $recoveryEmail, $_POST['password'], $_POST['birthDate'], $gender, $_POST['bio'], $_POST['profilePicture']);
+        $stmt->bind_param("sssssssssb", $_POST['name'], $_POST['surname'], $_POST['username'], $_POST['email'], $recoveryEmail, $hashedPassword, $_POST['birthDate'], $gender, $_POST['bio'], $_POST['profilePicture']);
         $stmt->execute();
 
         /*Insert topic of interest related with the new account*/
@@ -50,9 +52,9 @@ class DataBase{
         $stmt->execute();
         $stmt->store_result();
         if($stmt->num_rows > 0)
-            return "Username already taken";
+            return "Username_already_taken";
         else
-            return "Username available";
+            return "Username_available";
     }
 
     public function CheckEmailExistence($email){
@@ -62,9 +64,9 @@ class DataBase{
         $stmt->execute();
         $stmt->store_result();
         if($stmt->num_rows > 0)
-            return "Email already taken";
+            return "Email_already_taken";
         else
-            return "Email available";
+            return "Email_available";
     }
 
 

@@ -1,5 +1,5 @@
 
-document.getElementById("FormRegistration").addEventListener('submit', function(event) {
+document.getElementById("FormRegistration").addEventListener('submit',async function(event) {
 
     event.preventDefault();
 
@@ -51,58 +51,17 @@ document.getElementById("FormRegistration").addEventListener('submit', function(
             button: "OK",
         });        
         return false;
-    } else {
+    } 
 
-        /*Verifichiamo che lo username non sia già presente nel database */
-        /*ricordarsi di cambiare il path nel proprio localhost*/
-        fetch('../../template/CheckUsername.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `username=${username}`,
-        })
-        .then(response => response.text())
-        .then(data => {
-            if (data === "Username already taken") {
-                swal({
-                    title: "Attenzione!",
-                    text: "Username già presente ",
-                    icon: "warning",
-                    button: "OK",
-                });
-                return false;
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+    /*verificare se lo username è già presente nel database*/
+    if(await checkUsername(username)=== false){
+        return false;
     }
 
-    /*Verifichiamo che la email non sia già presente nel database */
-    /*ricordarsi di cambiare il path nel proprio localhost*/
-    fetch('../../template/CheckEmail.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `email=${email}`,
-        })
-        .then(response => response.text())
-        .then(data => {
-            if (data === "Email already taken") {
-                swal({
-                    title: "Attenzione!",
-                    text: "Email già presente ",
-                    icon: "warning",
-                    button: "OK",
-                });
-                return false;
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });    
+    /*verificare se la mail è già presente nel database*/
+    if(await checkEmail(email)=== false){
+        return false;
+    }
 
     if(recoveryEmail && email == recoveryEmail){
         swal({
@@ -164,4 +123,53 @@ document.getElementById("FormRegistration").addEventListener('submit', function(
     }
     // Se il form è valido, invialo
     event.target.submit();
+
 });
+
+async function checkUsername(username) {
+    const response = await fetch('../../template/CheckUsername.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `username=${username}`,
+    });
+
+    const data = await response.text();
+
+    if (data === "Username_already_taken") {
+        swal({
+            title: "Attenzione!",
+            text: "Username già presente",
+            icon: "warning",
+            button: "OK",
+        });
+        return false;
+    }
+
+    return true;
+}
+
+async function checkEmail(email) {
+    const response = await fetch('../../template/CheckEmail.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `email=${email}`,
+    });
+
+    const data = await response.text();
+
+    if (data === "Email_already_taken") {
+        swal({
+            title: "Attenzione!",
+            text: "Email già presente",
+            icon: "warning",
+            button: "OK",
+        });
+        return false;
+    }
+
+    return true;
+}
