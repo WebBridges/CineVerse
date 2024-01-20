@@ -162,7 +162,6 @@ document.getElementById("FormRegistration").addEventListener('submit', function(
         });
         return false;
     }
-    console.log("Form is valid, submitting");
     // Se il form è valido, invialo
     event.target.submit();
 });
