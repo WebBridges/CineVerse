@@ -77,10 +77,11 @@ class DataBase{
         $stmt->store_result();
         $stmt->bind_result($hashedPassword);
         $stmt->fetch();
-        if(password_verify($password,$hashedPassword))
+        if(password_verify($password,$hashedPassword)){
             return "Password_correct";
-        else
+        } else {
             return "Password_wrong";
+        }
     }
 
 }
