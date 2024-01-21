@@ -1,6 +1,6 @@
 <?php
-    require_once("../Utils/Bootstrap.php");
+    require_once("../Bootstrap.php");
     $db->insertNewAccount();
     //da cambiare il percorso
-    header("Location: ../../Access/2authLogin.html")
+    header("Location: ../2authLogin.html")
 ?>
