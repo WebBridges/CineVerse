@@ -12,19 +12,21 @@
         <section>
             <h2>Autenticazione</h2>
             <p>Inserisci il codice arrivato tramite E-mail:</p>
-            <form action="2authLogin.php" method="post">
+            <form action="template/Process2FA.php" method="post">
                 <fieldset id="2authLoginInfo">
                     <ul>
                         <li>
                             <label for="2authCode">Codice</label>
-                            <input type="text" name="2authCode" id="2authCode" placeholder="Codice" required>
+                            <input type="text" name="2faCode" id="2faCode" placeholder="Codice" required>
                         </li>
                         <li>
-                            <input type="submit" value="Conferma" id="2authLoginButton" class="buttonOrange">
+                            <input type="submit" value="Conferma" id="2faButton" class="buttonOrange">
                         </li>
                     </ul>
                 </fieldset>
             </form>
         </section>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="JAVASCRIPT/Access/Login2FA.js" type="text/javascript"></script>
     </body>
 </html>
