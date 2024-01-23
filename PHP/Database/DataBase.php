@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 class DataBase{
 
     private $db;
@@ -24,10 +26,12 @@ class DataBase{
 
         $recoveryEmail = isset($_POST['recoveryEmail']) ? $_POST['recoveryEmail'] : NULL;
         $gender = isset($_POST['gender']) ? $_POST['gender'] : NULL;
-        $hashedPassword =password_hash($_POST['password'],PASSWORD_BCRYPT);
+        $hashedPassword =password_hash($_POST['password'],PASSWORD_DEFAULT);
 
         $stmt->bind_param("sssssssssb", $_POST['name'], $_POST['surname'], $_POST['username'], $_POST['email'], $recoveryEmail, $hashedPassword, $_POST['birthDate'], $gender, $_POST['bio'], $_POST['profilePicture']);
         $stmt->execute();
+
+        $_SESSION['email'] = $_POST['email'];
 
         /*Insert topic of interest related with the new account*/
         foreach ($_POST['topic'] as $topic) {
@@ -45,7 +49,7 @@ class DataBase{
         $stmt->execute();
     }
 
-    public function CheckUsernameExistence($username){
+    public function checkUsernameExistence($username){
         $query = "SELECT Username FROM utente WHERE Username = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $username);
@@ -57,7 +61,7 @@ class DataBase{
             return "Username_available";
     }
 
-    public function CheckEmailExistence($email){
+    public function checkEmailExistence($email){
         $query = "SELECT Email FROM utente WHERE Email = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $email);
@@ -69,7 +73,7 @@ class DataBase{
             return "Email_available";
     }
 
-    public function CheckPassword($password,$email){
+    public function checkPassword($password,$email){
         $query = "SELECT Password FROM utente WHERE Email = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $email);
@@ -78,11 +82,57 @@ class DataBase{
         $stmt->bind_result($hashedPassword);
         $stmt->fetch();
         if(password_verify($password,$hashedPassword)){
+            $_SESSION['email'] = $email;
             return "Password_correct";
         } else {
             return "Password_wrong";
         }
     }
 
+    public function active2FA(){
+        $query = "UPDATE utente SET 2FA = 1 WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $_SESSION['email']);
+        $stmt->execute();
+    }
+
+    public function setCode2FA(){
+        $code = bin2hex(random_bytes(5));
+        $_SESSION['code2FA'] = $code;
+        echo $code;
+        if($_SESSION['code2FA'] != NULL){
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
+    public function sendCodeWithEmail(){
+
+    }
+    
+    public function check2FA($code){
+        if ($_SESSION['code2FA'] && $code == $_SESSION['code2FA']){
+            unset($_SESSION['code2FA']);
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
+    public function check2FA_Active(){
+        $query = "SELECT 2FA FROM utente WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $_SESSION['email']);
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($active);
+        $stmt->fetch();
+        if($active == 1){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 ?>
