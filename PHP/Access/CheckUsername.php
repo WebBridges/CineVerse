@@ -1,4 +1,4 @@
 <?php
 require_once("../Bootstrap.php");
-echo $db->CheckUsernameExistence($_POST['username']);
+echo $db->checkUsernameExistence($_POST['username']);
 ?>

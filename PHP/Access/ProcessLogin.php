@@ -1,3 +1,3 @@
 <?php
-    header("Location: ../userpage.html");
+    header("Location: ../2FAConfiguration.html");
 ?>
