@@ -119,5 +119,20 @@ class DataBase{
             return "false";
         }
     }
+
+    public function check2FA_Active(){
+        $query = "SELECT 2FA FROM utente WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $_SESSION['email']);
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($active);
+        $stmt->fetch();
+        if($active == 1){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 ?>
