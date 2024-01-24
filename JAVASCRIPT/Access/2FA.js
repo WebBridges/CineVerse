@@ -5,6 +5,7 @@ document.getElementById("Process").addEventListener("click",async function() {
             <input type='text' name='2fa' id='2fa' placeholder='codice' maxlength="10" required>
             <input type='submit' value='conferma' id='conferma' class='buttonOrange'>
         </form>
+        <button id='resend' class='buttonOrange'>Rinvia codice</button>
     `;
 
     if( await createCodeFor2FA()) {
@@ -25,6 +26,9 @@ document.getElementById("Process").addEventListener("click",async function() {
                     return false;
                 }
                 
+            });
+            document.getElementById("resend").addEventListener("click",async function(event) {
+              await createCodeFor2FA();
             });
         }, 0);
     }

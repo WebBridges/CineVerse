@@ -114,6 +114,13 @@ class DataBase{
     }
 
     public function setCode2FA(){
+        $now = time();
+        $lastTime = isset($_SESSION['lastTime']) ? $_SESSION['lastTime'] : 0;
+        $waitTime = 60;
+        if($now - $lastTime > $waitTime){
+            return "false";
+        }
+        $_SESSION['lastTime'] = $now;
         $code = bin2hex(random_bytes(5));
         $_SESSION['code2FA'] = $code;
         echo $_SESSION['code2FA'];

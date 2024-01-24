@@ -19,6 +19,9 @@ if(data === "true"){
                         return false;
                     }
     });
+    document.getElementById("resend").addEventListener("click",async function(event) {
+        await createCodeFor2FA();
+    });
 }
 async function checkCodeFor2FA(code){
     const response = await fetch('../../template/Check2FA.php', {
