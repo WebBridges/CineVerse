@@ -7,21 +7,14 @@ document.getElementById("Process").addEventListener("click",async function() {
         </form>
     `;
 
-    if( await createCodeFor2FA() || true) {
+    if( await createCodeFor2FA()) {
         setTimeout(function() {
             document.getElementById("conferma").addEventListener("click",async function(event) {
                 event.preventDefault();
                 let code = document.getElementById("2fa").value;
                 let result = await checkCodeFor2FA(code);
                 if( result == "true") {
-                   fetch('../../template/SetActive2FA.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                    });
                     event.target.form.submit();
-
                 } else {
                     swal({
                         title: "Attenzione!",
