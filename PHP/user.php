@@ -2,6 +2,8 @@
 
 namespace Utente {
 
+    require_once ("./Utils/bootstrap.php");
+
     class DBUtente{
         private $nome;
         private $cognome;
@@ -92,46 +94,52 @@ namespace Utente {
             return password_verify($password, $this->password);
         }
         
-        public function db_serialize(\DBDriver $driver) {
+        public function db_serialize() {
+            $db = getDB();
             if ($this->password == null) {
                 throw new \Exception("Password not set");
             }
-            $sql = "INSERT INTO utente (nome, cognome, username, data_nascita, email, email_recupero, password, foto_profilo, sesso, descrizione, foto_background) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            try {
-                $driver->query($sql, $this->nome, $this->cognome, $this->username, $this->data_nascita, $this->email, 
-                        $this->email_recupero, $this->password, $this->foto_profilo, $this->sesso, $this->descrizione, $this->foto_background);
-            } catch (\Exception $e) {
-                throw new \Exception("Error while querying the database: " . $e->getMessage());
+            
+            $query = "INSERT INTO utente (nome, cognome, username, data_nascita, email, email_recupero, password, foto_profilo, sesso, descrizione, foto_background) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("sssssssbssb", $this->nome, $this->cognome, $this->username, $this->data_nascita, $this->email, 
+                $this->email_recupero, $this->password, $this->foto_profilo, $this->sesso, $this->descrizione, $this->foto_background);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
             }
-
         }
 
-        public function update_infos(\DBDriver $driver, string $nome, string $cognome, string $username, string $data_nascita, string $email, 
+        public function update_infos(string $nome, string $cognome, string $username, string $data_nascita, string $email, 
                 string $email_recupero, string $foto_profilo, string $sesso, string $descrizione, string $foto_background) {
-            $sql = "UPDATE utente SET nome = ?, cognome = ?, username = ?, data_nascita = ?, email = ?, email_recupero = ?, foto_profilo = ?, 
-                    sesso = ?, descrizione = ?, foto_background = ? WHERE username = ?";
-            try {
-                $driver->query($sql, $nome, $cognome, $username, date($data_nascita), $email, $email_recupero, 
-                $foto_profilo, $sesso, $descrizione, $foto_background, $username);
-            } catch (\Exception $e) {
-                throw new \Exception("Error while querying the database: " . $e->getMessage());
+            $db = getDB();
+            $query = "UPDATE utente SET nome = ?, cognome = ?, username = ?, data_nascita = ?, email = ?, email_recupero = ?, foto_profilo = ?, 
+                sesso = ?, descrizione = ?, foto_background = ? WHERE username = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("ssssssbssbs", $nome, $cognome, $username, $data_nascita, $email, $email_recupero, $foto_profilo, $sesso, $descrizione, $foto_background, $username);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
             }
         }
     }
 
     class UserUtility {
-        public static function get_utente_by_username($driver, string $username) {
-            $sql = "SELECT u.*, 
-            (SELECT COUNT(*) FROM relazione WHERE Username_Seguito = ?) as follower,
-            (SELECT COUNT(*) FROM relazione WHERE Username_Segue = ?) as seguiti
-            FROM utente u 
-            WHERE u.username = ?;";
-            try {
-                $result = $driver->query($sql, $username, $username, $username);
-            } catch (\Exception $e) {
-                throw new \Exception("Error while querying the database: " . $e->getMessage());
+        public static function get_utente_by_username(string $username) {
+            $db = getDB();
+            $query = "SELECT u.*, 
+                (SELECT COUNT(*) FROM relazione WHERE Username_Seguito = ?) as follower,
+                (SELECT COUNT(*) FROM relazione WHERE Username_Segue = ?) as seguiti
+                FROM utente u 
+                WHERE u.username = ?;";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("sss", $username, $username, $username);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
             }
+            $result = $stmt->get_result();
 
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
@@ -145,14 +153,17 @@ namespace Utente {
             return $user;
         }
 
-        public static function get_utente_by_email(\DBDriver $driver, string $email) {
-            $user = null;
-            $sql = "SELECT * FROM utente WHERE email = ?";
-            try {
-                $result = $driver->query($sql, $email);
-            } catch (\Exception $e) {
-                throw new \Exception("Error while querying the database: " . $e->getMessage());
+        public static function get_utente_by_email(string $email) {
+            $db = getDB();
+            $query = "SELECT * FROM utente WHERE email = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("s", $email);
+            $success = $stmt->execute();
+            if(!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
             }
+
+            $result = $stmt->get_result();
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
                 $user = new DBUtente($row["nome"], $row["cognome"], $row["username"], $row["data_nascita"], $row["email"], 
@@ -166,97 +177,71 @@ namespace Utente {
 
         }
 
-        public static function from_db_with_phone(\DBDriver $driver, string $phone) {
-            $user = null;
-            $sql = "SELECT * FROM user WHERE phone = ?";
-            try {
-                $result = $driver->query($sql, $phone);
-            } catch (\Exception $e) {
-                throw new \Exception("Error while querying the database: " . $e->getMessage());
-            }
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-                $user = new DBUser($row["username"], $row["email"], $row["name"], $row["surname"], $row["birth_date"], 
-                        $row["profile_photo"], $row["background"], $row["bio"], $row["phone"], $row["password"], $row["online"]
-                );
-            } else {
-                return null;
-            }
-            return $user;
-
-        }
-
-        public static function check_if_available(\DBDriver $driver, $username = "", $email = "", $phone = ""): void {
+        public static function check_if_available($username = "", $email = "", $phone = ""): void {
+            $db = getDB();
             if (!empty($username)) {
-                $sql = "SELECT * FROM user WHERE username = ?";
-                try {
-                    $result = $driver->query($sql, $username);
-                } catch (\Exception $e) {
-                    throw new \Exception("Error while querying the database: " . $e->getMessage());
+                $query = "SELECT * FROM utente WHERE username = ?";
+                $stmt = $db->prepare($query);
+                $stmt->bind_param("s", $username);
+                $success = $stmt->execute();
+                if (!$success) {
+                    throw new \Exception("Error while querying the database: " . mysqli_error($db));
                 }
+
+                $result = $stmt->get_result();
                 if ($result->num_rows > 0) {
-                    throw new UsernameTaken("Username already taken");
+                    throw new \Exception("Username already taken");
                 }
             } else if (!empty($email)) {
-                $sql = "SELECT * FROM user WHERE email = ?";
-                try {
-                    $result = $driver->query($sql, $email);
-                } catch (\Exception $e) {
-                    throw new \Exception("Error while querying the database: " . $e->getMessage());
+                $query = "SELECT * FROM utente WHERE email = ?";
+                $stmt = $db->prepare($query);
+                $stmt->bind_param("s", $email);
+                $success = $stmt->execute();
+                if (!$success) {
+                    throw new \Exception("Error while querying the database: " . mysqli_error($db));
                 }
+                $result = $stmt->get_result();
                 if ($result->num_rows > 0) {
-                    throw new EmailTaken("Email already taken");
-                }
-            } else if (!empty($phone)) {
-                $sql = "SELECT * FROM user WHERE phone = ?";
-                try {
-                    $result = $driver->query($sql, $phone);
-                } catch (\Exception $e) {
-                    throw new \Exception("Error while querying the database: " . $e->getMessage());
-                }
-                if ($result->num_rows > 0) {
-                    throw new PhoneTaken("Phone already taken");
+                    throw new \Exception("Email already taken");
                 }
             }
         }
 
-        public static function retrieve_username_from_token($token): string {
-            if (preg_match("/Bearer\s(\S+)/", $token, $matches) !== 1) {
-                throw new \Exception("Invalid token");
-            } else {
-                $token = $matches[1];
-                $decoded = JWT::decode($token, new Key(getenv("PL_JWTKEY"), 'HS256'));
-                return ((array) $decoded)["username"];
+        public static function retrieve_followed($username) {
+            $db = getDB();
+            $query = "SELECT u.* FROM utente u, relazione r 
+                    WHERE u.username = r.Username_Seguito AND r.Username_Segue = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("s", $username);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
             }
-        }
-
-        public static function retrieve_online_followed($driver, $username) {
-            $sql = "SELECT u.* FROM user u, relationship r 
-                    WHERE u.username = r.followed AND r.follows = ? AND u.online = 1";
-            try {
-                $result = $driver->query($sql, $username);
-            } catch (\Exception $e) {
-                throw new \Exception("Error while querying the database: " . $e->getMessage());
-            }
+            $result = $stmt->get_result();
             $users = array();
             if ($result->num_rows > 0) {
                 for ($i = 0; $i < $result->num_rows; $i++) {
                     $row = $result->fetch_array();
-                    $user = new DBUser($row["username"], $row["email"], $row["name"], $row["surname"], $row["birth_date"], 
-                            $row["profile_photo"], $row["background"], $row["bio"], $row["phone"], $row["password"], $row["online"]);
+                    $user = new DBUtente($row["nome"], $row["cognome"], $row["username"], $row["data_nascita"], $row["email"], 
+                            $row["email_recupero"], $row["password"], $row["foto_profilo"], $row["sesso"], $row["descrizione"], 
+                            $row["foto_background"]);
                     array_push($users, $user);
                 }
             }
             return $users;
         }
 
-        public static function retrieve_profile_picture($driver, $username) {
+        public static function retrieve_profile_photo($username) {
+            $db = getDB();
             $sql = "SELECT profile_photo FROM user WHERE username = ?";
-            try {
-                $result = $driver->query($sql, $username);
-            } catch (\Exception $e) {
-                throw new \Exception("Error while querying the database: " . $e->getMessage());
+            $query = "SELECT foto_profilo FROM utente WHERE username = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("s", $username);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
             }
+            $result = $stmt->get_result();
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
                 return $row["profile_photo"];
@@ -265,51 +250,76 @@ namespace Utente {
             }
         }
 
-        public static function retrieve_settings($driver, $username) {
-            $sql = "SELECT * FROM settings WHERE username = ?";
-            try {
-                $result = $driver->query($sql, $username);
-            } catch (\Exception $e) {
-                throw new \Exception("Error while querying the database: " . $e->getMessage());
+        public static function retrieve_background($username) {
+            $db = getDB();
+            $query = "SELECT foto_background FROM utente WHERE username = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("s", $username);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
             }
+            $result = $stmt->get_result();
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
-                $settings = new DBSettings($row["username"], $row["language"], $row["notifications"], $row["2fa"], $row["organizer"]);
+                return $row["foto_background"];
             } else {
                 return null;
             }
-            return $settings;
         }
 
-        public static function retrieve_followers($driver, $username) {
-            $sql = "SELECT u.* FROM user u, relationship r 
-                    WHERE u.username = r.follows
-                    AND r.followed = ?";
-            try {
-                $result = $driver->query($sql, $username);
-            } catch (\Exception $e) {
-                throw new \Exception("Error while querying the database: " . $e->getMessage());
+        public static function retrieve_bio($username) {
+            $db = getDB();
+            $query = "SELECT descrizione FROM utente WHERE username = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("s", $username);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
             }
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                return $row["descrizione"];
+            } else {
+                return null;
+            }
+        }
+        public static function retrieve_followers($username) {
+            $db = getDB();
+            $query = "SELECT u.* FROM utente u, relazione r 
+                    WHERE u.username = r.Username_Segue AND r.Username_Seguito = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("s", $username);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
+            }
+            $result = $stmt->get_result();
             $users = array();
             if ($result->num_rows > 0) {
                 for ($i = 0; $i < $result->num_rows; $i++) {
                     $row = $result->fetch_array();
-                    $user = new DBUser($row["username"], $row["email"], $row["name"], $row["surname"], $row["birth_date"], 
-                            $row["profile_photo"], $row["background"], $row["bio"], $row["phone"], $row["password"], $row["online"]);
+                    $user = new DBUtente($row["nome"], $row["cognome"], $row["username"], $row["data_nascita"], $row["email"], 
+                            $row["email_recupero"], $row["password"], $row["foto_profilo"], $row["sesso"], $row["descrizione"], 
+                            $row["foto_background"]);
                     array_push($users, $user);
                 }
             }
             return $users;
         }
 
-        public static function retrieve_email($driver, $username) {
-            $sql = "SELECT email FROM user WHERE username = ?";
-            try {
-                $result = $driver->query($sql, $username);
-            } catch (\Exception $e) {
-                throw new \Exception("Error while querying the database: " . $e->getMessage());
+        public static function retrieve_email($username) {
+            $db = getDB();
+            $query = "SELECT email FROM utente WHERE username = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("s", $username);
+            $success = $stmt->execute();
+            if(!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
             }
 
+            $result = $stmt->get_result();
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
                 return $row["email"];
@@ -318,58 +328,49 @@ namespace Utente {
             }
         }
 
-        public static function insert_tfa($driver, $username, $code) {
-            $sql = "SELECT username FROM tfa_code WHERE username = ?";
-            try {
-                $result = $driver->query($sql, $username);
-            } catch (\Exception $e) {
-                throw new \Exception("Error while querying the database: " . $e->getMessage());
+        public static function insert_2FA($username, $code) {
+            $db = getDB();
+            $query = "SELECT username FROM utente WHERE username = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("s", $username);
+            $success = $stmt->execute();
+            if(!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
             }
+
+            $result = $stmt->get_result();
             if($result->num_rows > 0) {
-                $sql = "UPDATE tfa_code SET code = ? WHERE username = ?";
-                try {
-                    $driver->query($sql, $code, $username);
-                } catch (\Exception $e) {
-                    throw new \Exception("Error while querying the database: " . $e->getMessage());
+                $query = "UPDATE utente SET 2FA = ? WHERE username = ?";
+                $stmt = $db->prepare($query);
+                $stmt->bind_param("ss", $code, $username);
+                $success = $stmt->execute();
+                if(!$success) {
+                    throw new \Exception("Error while querying the database: " . mysqli_error($db));
                 }
             } else {
-                $sql = "INSERT INTO tfa_code (username, code) VALUES (?, ?)";
-                try {
-                    $driver->query($sql, $username, $code);
-                } catch (\Exception $e) {
-                    throw new \Exception("Error while querying the database: " . $e->getMessage());
-                }
+                throw new \Exception("Error while querying the database: ");
             }
         }
 
-        public static function retrieve_tfa($driver, $username) {
-            $sql = "SELECT code FROM tfa_code WHERE username = ?";
-            try {
-                $result = $driver->query($sql, $username);
-            } catch (\Exception $e) {
-                throw new \Exception("Error while querying the database: " . $e->getMessage());
+        public static function retrieve_2FA($username) {
+            $db = getDB();
+            $query = "SELECT 2FA FROM utente WHERE username = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("s", $username);
+            $success = $stmt->execute();
+            if(!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
             }
-
+            
+            $result = $stmt->get_result();
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
-                return $row["code"];
+                return $row["2FA"];
             } else {
                 return null;
             }
         }
-
-        public static function reset_tfa($driver, $username) {
-            $sql = "UPDATE tfa_code SET code = 0 WHERE username = ?";
-            try {
-                $driver->query($sql, $username);
-            } catch (\Exception $e) {
-                throw new \Exception("Error while querying the database: " . $e->getMessage());
-            }
-        }
     }
-    class UsernameTaken extends \Exception { }
-    class EmailTaken extends \Exception { }
-    class PhoneTaken extends \Exception { }
 }
 
 ?>
