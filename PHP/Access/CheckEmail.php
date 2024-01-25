@@ -1,4 +1,4 @@
 <?php
-require_once("../Bootstrap.php");
-echo $db->checkEmailExistence($_POST['email']);
+    require_once("../db/AccessDB.php");
+    echo checkEmailExistence($_POST['email']);
 ?>
