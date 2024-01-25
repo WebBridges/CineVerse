@@ -1,6 +1,8 @@
 <?php
 require_once("../Bootstrap.php");
+include "../Session.php";
 
+sec_session_start();
 if(check2FA($_POST['2fa'])=="false"){
     http_response_code(400); // Bad Request
     echo "There was an error during validation of account. Please try again.";
