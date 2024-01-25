@@ -5,23 +5,25 @@ document.getElementById("Process").addEventListener("click",async function() {
             <input type='text' name='2fa' id='2fa' placeholder='codice' maxlength="10" required>
             <input type='submit' value='conferma' id='conferma' class='buttonOrange'>
         </form>
+        <button id='resend' class='buttonOrange'>Rinvia codice</button>
     `;
+    setTimeout(function() {
+        const resendButton = document.getElementById("resend");
+        if (resendButton) {
+            resendButton.addEventListener("click", async function() {
+                await createCodeFor2FA();
+            });
+        }
+    }, 0);
 
-    if( await createCodeFor2FA() || true) {
+    if( await createCodeFor2FA()) {
         setTimeout(function() {
             document.getElementById("conferma").addEventListener("click",async function(event) {
                 event.preventDefault();
                 let code = document.getElementById("2fa").value;
                 let result = await checkCodeFor2FA(code);
                 if( result == "true") {
-                   fetch('../../template/SetActive2FA.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                    });
                     event.target.form.submit();
-
                 } else {
                     swal({
                         title: "Attenzione!",

@@ -1,3 +1,12 @@
+<?php
+    include "Session.php";
+    sec_session_start();
+    if(isset($_SESSION['email']) && $_SESSION['2FA'] == 1){
+        header("Location: userpage.php");
+    }
+?>
+
+
 <!DOCTYPE html>
 
 <html lang="it">
@@ -17,11 +26,11 @@
                         <ul>
                             <li>
                                 <label for="Email">Email</label>
-                                <input type="email" name="email" id="email" placeholder="email" required>
+                                <input type="email" name="email" id="email" maxlength="50" placeholder="email" required>
                             </li>
                             <li>
                                 <label for="Password">Password</label>
-                                <input type="password" name="password" id="password" placeholder="password" required>
+                                <input type="password" name="password" id="password" maxlength="30" placeholder="password" required>
                             </li>
                             <li>
                                 <input type="submit" value="Access" id="LoginButton" class="buttonOrange">

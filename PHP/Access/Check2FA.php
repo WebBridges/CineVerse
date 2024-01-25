@@ -1,4 +1,4 @@
 <?php
     require_once("../Bootstrap.php");
-    echo $db->check2FA();
+    echo check2FA($POST['code']);
 ?>

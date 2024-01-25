@@ -1,6 +1,8 @@
 <?php
-
-session_start();
+//include "../Utils/CheckInputForms.php";
+include_once "../Session.php";
+sec_session_start();
+include_once "../CheckInputForms.php";
 
 class DataBase{
 
@@ -21,24 +23,30 @@ class DataBase{
     public function insertNewAccount(){
         /*Insert a new account in database*/
 
-        $query = "INSERT INTO utente (Nome, Cognome, Username, Email, Email_di_recupero, Password, Data_nascita, Sesso, Descrizione, Foto_profilo ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $this->db->prepare($query);
+        if(\validateRegistrationInfo() && $this->checkUsernameExistence($_POST['username']) == "Username_available" && $this->checkEmailExistence($_POST['email']) == "Email_available"){
 
-        $recoveryEmail = isset($_POST['recoveryEmail']) ? $_POST['recoveryEmail'] : NULL;
-        $gender = isset($_POST['gender']) ? $_POST['gender'] : NULL;
-        $hashedPassword =password_hash($_POST['password'],PASSWORD_DEFAULT);
-
-        $stmt->bind_param("sssssssssb", $_POST['name'], $_POST['surname'], $_POST['username'], $_POST['email'], $recoveryEmail, $hashedPassword, $_POST['birthDate'], $gender, $_POST['bio'], $_POST['profilePicture']);
-        $stmt->execute();
-
-        $_SESSION['email'] = $_POST['email'];
-
-        /*Insert topic of interest related with the new account*/
-        foreach ($_POST['topic'] as $topic) {
-            $query = "INSERT INTO topic_utente (Nome_tag_Topic, Username_Utente) VALUES (?, ?)";
+            $query = "INSERT INTO utente (Nome, Cognome, Username, Email, Email_di_recupero, Password, Data_nascita, Sesso, Descrizione, Foto_profilo ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->db->prepare($query);
-            $stmt->bind_param("ss", $topic, $_POST['username']);
+
+            $recoveryEmail = isset($_POST['recoveryEmail']) ? $_POST['recoveryEmail'] : NULL;
+            $gender = isset($_POST['gender']) ? $_POST['gender'] : NULL;
+            $hashedPassword =password_hash($_POST['password'],PASSWORD_DEFAULT);
+
+            $stmt->bind_param("sssssssssb", $_POST['name'], $_POST['surname'], $_POST['username'], $_POST['email'], $recoveryEmail, $hashedPassword, $_POST['birthDate'], $gender, $_POST['bio'], $_POST['profilePicture']);
             $stmt->execute();
+
+            $_SESSION['email'] = $_POST['email'];
+
+            /*Insert topic of interest related with the new account*/
+            foreach ($_POST['topic'] as $topic) {
+                $query = "INSERT INTO topic_utente (Nome_tag_Topic, Username_Utente) VALUES (?, ?)";
+                $stmt = $this->db->prepare($query);
+                $stmt->bind_param("ss", $topic, $_POST['username']);
+                $stmt->execute();
+            }
+            return true;
+        } else {
+            return false;
         }
     }
     
@@ -50,6 +58,9 @@ class DataBase{
     }
 
     public function checkUsernameExistence($username){
+        if(!\checkInputUsername()){
+            return "Username_invalid";
+        }
         $query = "SELECT Username FROM utente WHERE Username = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $username);
@@ -62,18 +73,25 @@ class DataBase{
     }
 
     public function checkEmailExistence($email){
-        $query = "SELECT Email FROM utente WHERE Email = ?";
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $stmt->store_result();
-        if($stmt->num_rows > 0)
-            return "Email_exist";
-        else
-            return "Email_available";
+        if(\checkInputEmail()){
+            $query = "SELECT Email FROM utente WHERE Email = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $stmt->store_result();
+            if($stmt->num_rows > 0)
+                return "Email_exist";
+            else
+                return "Email_available";
+        } else {
+            return "Email_invalid";
+        }
     }
 
     public function checkPassword($password,$email){
+        if(!\checkInputPassword() || !\checkInputEmail()){
+            return "Password_invalid";
+        }
         $query = "SELECT Password FROM utente WHERE Email = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $email);
@@ -97,9 +115,20 @@ class DataBase{
     }
 
     public function setCode2FA(){
+        $now = time();
+        if (!isset($_SESSION['lastTime'])) {
+            $_SESSION['lastTime'] = $now;
+        }
+        $lastTime = $_SESSION['lastTime'];
+        $waitTime = 60;
+        if($now - $lastTime < $waitTime){
+
+            return "false";
+        }
+        $_SESSION['lastTime'] = $now;
         $code = bin2hex(random_bytes(5));
         $_SESSION['code2FA'] = $code;
-        echo $code;
+        echo $_SESSION['code2FA'];
         if($_SESSION['code2FA'] != NULL){
             return "true";
         } else {
@@ -110,15 +139,6 @@ class DataBase{
     public function sendCodeWithEmail(){
 
     }
-    
-    public function check2FA($code){
-        if ($_SESSION['code2FA'] && $code == $_SESSION['code2FA']){
-            unset($_SESSION['code2FA']);
-            return "true";
-        } else {
-            return "false";
-        }
-    }
 
     public function check2FA_Active(){
         $query = "SELECT 2FA FROM utente WHERE Email = ?";
@@ -128,11 +148,12 @@ class DataBase{
         $stmt->store_result();
         $stmt->bind_result($active);
         $stmt->fetch();
-        if($active == 1){
+        if($active !=NULL && $active == 1){
             return true;
         } else {
             return false;
         }
     }
 }
+
 ?>

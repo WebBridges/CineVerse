@@ -1,11 +1,20 @@
 
 //creiamo ed inviamo il codice
 let data = createCodeFor2FA();
+setTimeout(function() {
+    const resendButton = document.getElementById("resend");
+    if (resendButton) {
+        resendButton.addEventListener("click", async function() {
+            await createCodeFor2FA();
+        });
+    }
+}, 0);
+
 if(data === "true"){
     //nel bottone verifichiamo se il codice è corretto
     document.getElementById("2faButton").addEventListener("click",async function(event) {
         event.preventDefault();
-                    let code = document.getElementById("2faCode").value;
+                    let code = document.getElementById("2fa").value;
                     let result = await checkCodeFor2FA(code);
                     if( result == "true") {
                         event.target.form.submit();
