@@ -1,22 +1,17 @@
 html, body, #body_container{
+    min-width: 300px;
     height: 100%;
     width: 100%;
 }
 
 #profile_header {
-    height: 120px;
+    height: 170px;
     width: 100%;
-}
-
-#profile_header svg{ 
-    position: absolute;
-    right: 1%;
-    height: 75px;
-    width: 75px;
+    background-color: #3C096C;
 }
 
 #background_image{
-    max-height: 100%;
+    max-height: 110px;
     width: 100%;
 }
 
@@ -110,6 +105,7 @@ main p, .btn.btn-default{
     background-color: #7B2CBF;
 }
 
+
 .navbar-custom{
     background-color: #240046;
 }
@@ -119,7 +115,7 @@ li{
     margin-right: 5px;
 }
 
-.navbar{
+.bottom-navbar{
     width: 400px;
     height: 70px;
     border-radius: 25px;
@@ -127,7 +123,7 @@ li{
 }
 
 @media (max-width: 500px) {
-    .navbar{
+    .bottom-navbar{
         width: 100%;
         height: 70px;
         border-radius: 0px;
@@ -136,4 +132,57 @@ li{
     main{
         margin-bottom: 70px;
     }
+}
+
+.sidebar {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  top: 0;
+  right: 0;
+  background-color: #5A189A; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+}
+
+/* The sidebar links */
+.sidebar a {
+  padding: 8px 8px 8px 8px;
+  text-decoration: none;
+  font-size: 20px;
+  color: white;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebarField{
+    border-bottom: 2px solid black;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidebar a:hover {
+  background-color: #7B2CBF;
+}
+
+/* Position and style the close button (top right corner) */
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* The button used to open the sidebar */
+.openbtn {
+    float: right;
+    height: 60px;
+    width: 80px;
+    background-color: inherit;
+    border: none;
+}
+
+.openbtn:hover {
+  background-color: #7B2CBF;
 }
