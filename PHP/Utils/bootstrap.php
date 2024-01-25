@@ -4,6 +4,13 @@ require_once("Session.php");
 sec_session_start();
 
 require_once("CheckInputForms.php");
-require_once("../db/DataBase.php");
-$db = new DataBase("localhost", "root", "", "cineverse", 3306);
+require_once("../db/Database.php");
+
+$database = DataBase::getInstance("localhost", "root", "", "cineverse", 3306);
+$db = $database->getDatabase();
+
+function getDb() {
+    global $db;
+    return $db;
+}
 ?>

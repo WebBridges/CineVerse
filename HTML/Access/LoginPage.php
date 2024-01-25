@@ -1,8 +1,10 @@
 <?php
-    include "Session.php";
-    sec_session_start();
-    if(isset($_SESSION['email']) && $_SESSION['2FA'] == 1){
-        header("Location: userpage.php");
+    include "../Bootstrap.php";
+    if(isset($_SESSION['email'])){
+        header("Location: ../userpage.html");
+    } else if(isset($_COOKIE['email'])){
+        $_SESSION['email'] = $_COOKIE['email'];
+        header("Location: ../userpage.html");
     }
 ?>
 
