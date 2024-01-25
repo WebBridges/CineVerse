@@ -27,7 +27,7 @@ document.getElementById("Process").addEventListener("click",async function() {
                 }
                 
             });
-            document.getElementById("resend").addEventListener("click",async function(event) {
+            document.getElementById("resend").addEventListener("click",async function() {
               await createCodeFor2FA();
             });
         }, 0);

@@ -1,6 +1,6 @@
 <?php
     require_once("../Bootstrap.php");
-
+    
     if($db->checkEmailExistence($_POST['email']) == "Email_available" ||
         $db->checkEmailExistence($_POST['email']) == "Email_invalid" ||
         $db->checkPassword($_POST['password'],$_POST['email']) == "Password_wrong" ||

@@ -19,7 +19,7 @@ if(data === "true"){
                         return false;
                     }
     });
-    document.getElementById("resend").addEventListener("click",async function(event) {
+    document.getElementById("resend").addEventListener("click",async function() {
         await createCodeFor2FA();
     });
 }
