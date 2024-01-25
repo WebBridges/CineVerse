@@ -56,11 +56,11 @@ function checkInputPassword(){
 }
 
 function check2FA($code){
-    sec_session_start();
     if(!isset($_SESSION['code2FA']) || strlen($code) != 10 || !ctype_xdigit($code)){
         return "false";
     }
      else if ($code == $_SESSION['code2FA']){
+        $_SESSION['2FA'] = 1;
         return "true";
     } else {
         return "false";

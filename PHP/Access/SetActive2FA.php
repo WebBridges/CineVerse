@@ -1,6 +1,5 @@
 <?php
     require_once("../Bootstrap.php");
-    include "../CheckInputForms.php";
     if(check2FA($POST['code']) == "true"){
         echo $db->Active2FA();
     } else{

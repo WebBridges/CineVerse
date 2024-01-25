@@ -1,7 +1,8 @@
 <?php
 //include "../Utils/CheckInputForms.php";
-include "../CheckInputForms.php";
-include "../Session.php";
+include_once "../Session.php";
+sec_session_start();
+include_once "../CheckInputForms.php";
 
 class DataBase{
 
@@ -88,7 +89,6 @@ class DataBase{
     }
 
     public function checkPassword($password,$email){
-        sec_session_start();
         if(!\checkInputPassword() || !\checkInputEmail()){
             return "Password_invalid";
         }
@@ -108,7 +108,6 @@ class DataBase{
     }
 
     public function active2FA(){
-        sec_session_start();
         $query = "UPDATE utente SET 2FA = 1 WHERE Email = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $_SESSION['email']);
@@ -116,11 +115,14 @@ class DataBase{
     }
 
     public function setCode2FA(){
-        sec_session_start();
         $now = time();
-        $lastTime = isset($_SESSION['lastTime']) ? $_SESSION['lastTime'] : 0;
+        if (!isset($_SESSION['lastTime'])) {
+            $_SESSION['lastTime'] = $now;
+        }
+        $lastTime = $_SESSION['lastTime'];
         $waitTime = 60;
         if($now - $lastTime < $waitTime){
+
             return "false";
         }
         $_SESSION['lastTime'] = $now;
@@ -139,7 +141,6 @@ class DataBase{
     }
 
     public function check2FA_Active(){
-        sec_session_start();
         $query = "SELECT 2FA FROM utente WHERE Email = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $_SESSION['email']);

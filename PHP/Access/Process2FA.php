@@ -1,6 +1,5 @@
 <?php
 require_once("../Bootstrap.php");
-include "../Session.php";
 
 sec_session_start();
 if(check2FA($_POST['2fa'])=="false"){

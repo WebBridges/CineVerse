@@ -1,3 +1,12 @@
+<?php
+    include "Session.php";
+    sec_session_start();
+    if(isset($_SESSION['email']) && $_SESSION['2FA'] == 1){
+        header("Location: userpage.php");
+    }
+?>
+
+
 <!DOCTYPE html>
 
 <html lang="it">

@@ -7,6 +7,14 @@ document.getElementById("Process").addEventListener("click",async function() {
         </form>
         <button id='resend' class='buttonOrange'>Rinvia codice</button>
     `;
+    setTimeout(function() {
+        const resendButton = document.getElementById("resend");
+        if (resendButton) {
+            resendButton.addEventListener("click", async function() {
+                await createCodeFor2FA();
+            });
+        }
+    }, 0);
 
     if( await createCodeFor2FA()) {
         setTimeout(function() {
@@ -26,9 +34,6 @@ document.getElementById("Process").addEventListener("click",async function() {
                     return false;
                 }
                 
-            });
-            document.getElementById("resend").addEventListener("click",async function() {
-              await createCodeFor2FA();
             });
         }, 0);
     }
