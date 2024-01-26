@@ -1,6 +1,6 @@
 <?php
     include "../Bootstrap.php";
-    if(isset($_SESSION['email'])){
+    if(isset($_SESSION['email']) || isset($_COOKIE['email'])){
         header("Location: ../userpage.html");
     } else if(isset($_COOKIE['email'])){
         $_SESSION['email'] = $_COOKIE['email'];

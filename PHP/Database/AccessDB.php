@@ -32,7 +32,13 @@ include_once "../CheckInputForms.php";
             
             /*creation of a new usercookie*/
             if (!isset($_COOKIE['email'])) {
-                setcookie('email', $_POST['email'], time() + 3600, "/");
+                setcookie('email', $_POST['email'], [
+                    'expires' => time() + 3600,
+                    'path' => '/',
+                    'secure' => false,  // This means the cookie will only be set if a secure HTTPS connection exists.
+                    'httponly' => true,  // This means the cookie can only be accessed through the HTTP protocol and not by scripting languages like JavaScript.
+                    'samesite' => 'Strict',  // This can prevent the cookie from being sent in some cross-site requests, improving security.
+                ]);
             }
             return true;
         } else {
@@ -100,7 +106,13 @@ include_once "../CheckInputForms.php";
         if(password_verify($password,$hashedPassword)){
             $_SESSION['email'] = $email;
             if (!isset($_COOKIE['email'])) {
-                setcookie('email', $email, time() + 3600, "/");
+                setcookie('email', $_POST['email'], [
+                    'expires' => time() + 3600,
+                    'path' => '/',
+                    'secure' => false,  // This means the cookie will only be set if a secure HTTPS connection exists.
+                    'httponly' => true,  // This means the cookie can only be accessed through the HTTP protocol and not by scripting languages like JavaScript.
+                    'samesite' => 'Strict',  // This can prevent the cookie from being sent in some cross-site requests, improving security.
+                ]);
             }
             return "Password_correct";
         } else {
