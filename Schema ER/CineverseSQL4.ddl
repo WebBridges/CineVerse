@@ -3,14 +3,16 @@
 -- *--------------------------------------------
 -- * DB-MAIN version: 11.0.2              
 -- * Generator date: Sep 14 2021              
--- * Generation date: Thu Jan 18 23:17:11 2024 
+-- * Generation date: Fri Jan 26 11:15:30 2024 
 -- * LUN file: C:\xampp\htdocs\CineVerse\Schema ER\concettuale.lun 
--- * Schema: Cineverse logico 3.2/SQL 
+-- * Schema: Cineverse logico 4.2/SQL 
 -- ********************************************* 
 
 
 -- Database Section
 -- ________________ 
+
+create database Cineverse logico 4.2;
 
 
 -- DBSpace Section
@@ -22,40 +24,45 @@
 
 create table COMMENTO (
      Corpo varchar(50) not null,
-     IDcommento integer auto_increment not null,
-     IDpost integer not null,
+     IDcommento numeric(1) not null,
+     IDpost numeric(1) not null,
      Username_Utente varchar(30) not null,
-     IDcommento_Padre integer,
+     IDcommento_Padre numeric(1),
      constraint ID_COMMENTO_ID primary key (IDcommento));
 
+create table VOTO (
+     Username_Utente varchar(30) not null,
+     IDpost numeric(1) not null,
+     Testo_Opzione varchar(30) not null,
+     constraint ID_VOTO_ID primary key (Username_Utente, IDpost, Testo_Opzione));
+
 create table FOTO_VIDEO (
-     IDpost_foto_video integer auto_increment not null,
-     IDpost integer not null,
-     Foto_Video longblob not null,
+     IDpost_foto_video numeric(1) not null,
+     IDpost numeric(1) not null,
+     Foto_Video char(1) not null,
      Descrizione varchar(50),
      constraint ID_FOTO_VIDEO_ID primary key (IDpost_foto_video),
      constraint SID_FOTO__POST_ID unique (IDpost));
 
 create table LIKE_COMMENTO (
-     IDcommento integer not null,
+     IDcommento numeric(1) not null,
      Username_Utente varchar(30) not null,
      constraint ID_LIKE_COMMENTO_ID primary key (IDcommento, Username_Utente));
 
 create table LIKE_POST (
-     IDpost integer not null,
+     IDpost numeric(1) not null,
      Username_Utente varchar(30) not null,
      constraint ID_LIKE_POST_ID primary key (IDpost, Username_Utente));
 
 create table OPZIONE (
-     IDpost integer not null,
+     IDpost numeric(1) not null,
      Testo varchar(30) not null,
-     Selezionato boolean not null,
      constraint ID_OPZIONE_ID primary key (IDpost, Testo));
 
 create table POST (
      Titolo varchar(50) not null,
-     IDpost integer auto_increment not null,
-     Archiviato boolean not null,
+     IDpost numeric(1) not null,
+     Archiviato char not null,
      Username_Utente varchar(30) not null,
      Nome_tag_Topic varchar(30),
      constraint ID_POST_ID primary key (IDpost));
@@ -66,8 +73,8 @@ create table RELAZIONE (
      constraint ID_RELAZIONE_ID primary key (Username_Seguito, Username_Segue));
 
 create table TESTO (
-     IDpost_testo integer auto_increment not null,
-     IDpost integer not null,
+     IDpost_testo numeric(1) not null,
+     IDpost numeric(1) not null,
      Corpo varchar(150) not null,
      constraint ID_TESTO_ID primary key (IDpost_testo),
      constraint SID_TESTO_POST_ID unique (IDpost));
@@ -89,10 +96,11 @@ create table UTENTE (
      Email varchar(50) not null,
      Email_di_recupero varchar(50),
      Password varchar(30) not null,
-     Foto_profilo mediumblob not null,
+     Foto_profilo char(1) not null,
      Sesso varchar(30),
      Descrizione varchar(50) not null,
-     Foto_background mediumblob not null,
+     Foto_background char(1) not null,
+     2FA char not null,
      constraint ID_UTENTE_ID primary key (Username));
 
 
@@ -101,67 +109,79 @@ create table UTENTE (
 
 alter table COMMENTO add constraint REF_COMME_POST_FK
      foreign key (IDpost)
-     references POST(IDpost);
+     references POST;
 
 alter table COMMENTO add constraint REF_COMME_UTENT_FK
      foreign key (Username_Utente)
-     references UTENTE(Username);
+     references UTENTE;
 
 alter table COMMENTO add constraint REF_COMME_COMME_FK
      foreign key (IDcommento_Padre)
-     references COMMENTO(IDcommento);
+     references COMMENTO;
+
+alter table VOTO add constraint REF_VOTO_UTENT
+     foreign key (Username_Utente)
+     references UTENTE;
+
+alter table VOTO add constraint REF_VOTO_OPZIO_FK
+     foreign key (IDpost, Testo_Opzione)
+     references OPZIONE;
 
 alter table FOTO_VIDEO add constraint SID_FOTO__POST_FK
      foreign key (IDpost)
-     references POST(IDpost);
+     references POST;
 
 alter table LIKE_COMMENTO add constraint REF_LIKE__COMME
      foreign key (IDcommento)
-     references COMMENTO(IDcommento);
+     references COMMENTO;
 
 alter table LIKE_COMMENTO add constraint REF_LIKE__UTENT_1_FK
      foreign key (Username_Utente)
-     references UTENTE(Username);
+     references UTENTE;
 
 alter table LIKE_POST add constraint REF_LIKE__POST
      foreign key (IDpost)
-     references POST(IDpost);
+     references POST;
 
 alter table LIKE_POST add constraint REF_LIKE__UTENT_FK
      foreign key (Username_Utente)
-     references UTENTE(Username);
+     references UTENTE;
 
 alter table OPZIONE add constraint REF_OPZIO_POST
      foreign key (IDpost)
-     references POST(IDpost);
+     references POST;
 
 alter table POST add constraint REF_POST_UTENT_FK
      foreign key (Username_Utente)
-     references UTENTE(Username);
+     references UTENTE;
 
 alter table POST add constraint REF_POST_TOPIC_FK
      foreign key (Nome_tag_Topic)
-     references TOPIC(Nome_tag);
+     references TOPIC;
 
 alter table RELAZIONE add constraint REF_RELAZ_UTENT_1
      foreign key (Username_Seguito)
-     references UTENTE(Username);
+     references UTENTE;
 
 alter table RELAZIONE add constraint REF_RELAZ_UTENT_FK
      foreign key (Username_Segue)
-     references UTENTE(Username);
+     references UTENTE;
 
 alter table TESTO add constraint SID_TESTO_POST_FK
      foreign key (IDpost)
-     references POST(IDpost);
+     references POST;
 
 alter table TOPIC_UTENTE add constraint EQU_TOPIC_UTENT
      foreign key (Username_Utente)
-     references UTENTE(Username);
+     references UTENTE;
 
 alter table TOPIC_UTENTE add constraint REF_TOPIC_TOPIC_FK
      foreign key (Nome_tag_Topic)
-     references TOPIC(Nome_tag);
+     references TOPIC;
+
+alter table UTENTE add constraint ID_UTENTE_CHK
+     check(exists(select * from TOPIC_UTENTE
+                  where TOPIC_UTENTE.Username_Utente = Username)); 
 
 
 -- Index Section
@@ -178,6 +198,12 @@ create index REF_COMME_UTENT_IND
 
 create index REF_COMME_COMME_IND
      on COMMENTO (IDcommento_Padre);
+
+create index REF_VOTO_OPZIO_IND
+     on VOTO (IDpost, Testo_Opzione);
+
+create unique index ID_VOTO_IND
+     on VOTO (Username_Utente, IDpost, Testo_Opzione);
 
 create unique index ID_FOTO_VIDEO_IND
      on FOTO_VIDEO (IDpost_foto_video);
@@ -232,32 +258,4 @@ create unique index ID_TOPIC_UTENTE_IND
 
 create unique index ID_UTENTE_IND
      on UTENTE (Username);
-
--- Query post creation
--- __________________
-
-ALTER TABLE utente ADD 2FA BOOLEAN NULL DEFAULT NULL AFTER Foto_background;
-
-create table VOTO (
-     Username_Utente varchar(30) not null,
-     IDpost integer not null,
-     Testo_Opzione varchar(30) not null,
-     constraint ID_VOTO_ID primary key (Username_Utente, IDpost, Testo_Opzione));
-
-alter table VOTO add constraint REF_VOTO_UTENT
-     foreign key (Username_Utente)
-     references UTENTE(Username);
-
-alter table VOTO add constraint REF_VOTO_OPZIO_FK
-     foreign key (IDpost, Testo_Opzione)
-     references OPZIONE(IDpost, Testo);
-
-create index REF_VOTO_OPZIO_IND
-     on VOTO (IDpost, Testo_Opzione);
-
-create unique index ID_VOTO_IND
-     on VOTO (Username_Utente, IDpost, Testo_Opzione);
-
-ALTER TABLE `opzione`
-  DROP `Selezionato`;
 
