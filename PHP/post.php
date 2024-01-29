@@ -694,6 +694,10 @@ namespace Post {
          * mancano le query per inserire e archiviare i post e inserire i commenti
          */
 
+
+
+
+        
         /*public static function comments_with_post(\DBDriver $driver, $post_id, $username)
         {
             $sql = "SELECT C.*, U.profile_photo
