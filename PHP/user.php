@@ -16,13 +16,14 @@ namespace Utente {
         private $sesso;
         private $descrizione;
         private $foto_background;
+        private $tFA;
         private $follower;
         private $seguiti;
 
 
         // TODO: add relationship to other user
         public function __construct($nome = null, $cognome = null, $username = null, $data_nascita = null, $email = null, 
-            $email_recupero = null, $password = null, $foto_profilo = null, $sesso = null, $descrizione = null, $foto_background = null, $follower = null, $seguiti = null) {
+            $email_recupero = null, $password = null, $foto_profilo = null, $sesso = null, $descrizione = null, $foto_background = null, $tFA = null, $follower = null, $seguiti = null) {
             $this->nome = $nome;
             $this->cognome = $cognome;
             $this->username = $username;
@@ -34,6 +35,7 @@ namespace Utente {
             $this->sesso = $sesso;
             $this->descrizione = $descrizione;
             $this->foto_background = $foto_background;
+            $this->tFA = $tFA;
             $this->follower = $follower;
             $this->seguiti = $seguiti;
         }
@@ -82,6 +84,10 @@ namespace Utente {
             return $this->foto_background;
         }
 
+        public function get_2FA(){
+            return $this->tFA;
+        }
+
         public function get_follower(){
             return $this->follower;
         }
@@ -100,11 +106,11 @@ namespace Utente {
                 throw new \Exception("Password not set");
             }
             
-            $query = "INSERT INTO utente (nome, cognome, username, data_nascita, email, email_recupero, password, foto_profilo, sesso, descrizione, foto_background) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $query = "INSERT INTO utente (nome, cognome, username, data_nascita, email, email_recupero, password, foto_profilo, sesso, descrizione, foto_background, tFA) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $db->prepare($query);
-            $stmt->bind_param("sssssssbssb", $this->nome, $this->cognome, $this->username, $this->data_nascita, $this->email, 
-                $this->email_recupero, $this->password, $this->foto_profilo, $this->sesso, $this->descrizione, $this->foto_background);
+            $stmt->bind_param("sssssssbssbi", $this->nome, $this->cognome, $this->username, $this->data_nascita, $this->email, 
+                $this->email_recupero, $this->password, $this->foto_profilo, $this->sesso, $this->descrizione, $this->foto_background, $this->tFA);
             $success = $stmt->execute();
             if (!$success) {
                 throw new \Exception("Error while querying the database: " . mysqli_error($db));
@@ -112,12 +118,12 @@ namespace Utente {
         }
 
         public function update_infos(string $nome, string $cognome, string $username, string $data_nascita, string $email, 
-                string $email_recupero, string $foto_profilo, string $sesso, string $descrizione, string $foto_background) {
+                string $email_recupero, string $foto_profilo, string $sesso, string $descrizione, string $foto_background, int $tFA) {
             $db = getDB();
             $query = "UPDATE utente SET nome = ?, cognome = ?, username = ?, data_nascita = ?, email = ?, email_recupero = ?, foto_profilo = ?, 
-                sesso = ?, descrizione = ?, foto_background = ? WHERE username = ?";
+                sesso = ?, descrizione = ?, foto_background = ?, 2FA = ? WHERE username = ?";
             $stmt = $db->prepare($query);
-            $stmt->bind_param("ssssssbssbs", $nome, $cognome, $username, $data_nascita, $email, $email_recupero, $foto_profilo, $sesso, $descrizione, $foto_background, $username);
+            $stmt->bind_param("ssssssbssbis", $nome, $cognome, $username, $data_nascita, $email, $email_recupero, $foto_profilo, $sesso, $descrizione, $foto_background, $tFA, $username);
             $success = $stmt->execute();
             if (!$success) {
                 throw new \Exception("Error while querying the database: " . mysqli_error($db));
@@ -177,7 +183,7 @@ namespace Utente {
 
         }
 
-        public static function check_if_available($username = "", $email = "", $phone = ""): void {
+        public static function check_if_available($username = "", $email = ""): void {
             $db = getDB();
             if (!empty($username)) {
                 $query = "SELECT * FROM utente WHERE username = ?";
@@ -233,7 +239,6 @@ namespace Utente {
 
         public static function retrieve_profile_photo($username) {
             $db = getDB();
-            $sql = "SELECT profile_photo FROM user WHERE username = ?";
             $query = "SELECT foto_profilo FROM utente WHERE username = ?";
             $stmt = $db->prepare($query);
             $stmt->bind_param("s", $username);
@@ -244,7 +249,7 @@ namespace Utente {
             $result = $stmt->get_result();
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
-                return $row["profile_photo"];
+                return $row["foto_profilo"];
             } else {
                 return null;
             }
