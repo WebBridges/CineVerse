@@ -21,6 +21,9 @@ include_once "../CheckInputForms.php";
             $stmt->execute();
 
             $_SESSION['email'] = $_POST['email'];
+            $_SESSION['username'] = $_POST['username'];
+
+            setCookies();
 
             /*Insert topic of interest related with the new account*/
             foreach ($_POST['topic'] as $topic) {
@@ -30,16 +33,8 @@ include_once "../CheckInputForms.php";
                 $stmt->execute();
             }
             
-            /*creation of a new usercookie*/
-            if (!isset($_COOKIE['email'])) {
-                setcookie('email', $_POST['email'], [
-                    'expires' => time() + 3600,
-                    'path' => '/',
-                    'secure' => false,  // This means the cookie will only be set if a secure HTTPS connection exists.
-                    'httponly' => true,  // This means the cookie can only be accessed through the HTTP protocol and not by scripting languages like JavaScript.
-                    'samesite' => 'Strict',  // This can prevent the cookie from being sent in some cross-site requests, improving security.
-                ]);
-            }
+            setCookies();
+
             return true;
         } else {
             return false;
@@ -92,7 +87,7 @@ include_once "../CheckInputForms.php";
 
      function checkPassword($password,$email){
         $db = getDb();
-        
+        $hashedPassword="";
         if(!\checkInputPassword() || !\checkInputEmail()){
             return "Password_invalid";
         }
@@ -105,15 +100,15 @@ include_once "../CheckInputForms.php";
         $stmt->fetch();
         if(password_verify($password,$hashedPassword)){
             $_SESSION['email'] = $email;
-            if (!isset($_COOKIE['email'])) {
-                setcookie('email', $_POST['email'], [
-                    'expires' => time() + 3600,
-                    'path' => '/',
-                    'secure' => false,  // This means the cookie will only be set if a secure HTTPS connection exists.
-                    'httponly' => true,  // This means the cookie can only be accessed through the HTTP protocol and not by scripting languages like JavaScript.
-                    'samesite' => 'Strict',  // This can prevent the cookie from being sent in some cross-site requests, improving security.
-                ]);
-            }
+            $query="SELECT Username FROM utente WHERE Email = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $stmt->store_result();
+            $stmt->bind_result($username);
+            $stmt->fetch();
+            $_SESSION['username'] = $username;
+            setCookies();
             return "Password_correct";
         } else {
             return "Password_wrong";
@@ -156,6 +151,7 @@ include_once "../CheckInputForms.php";
 
      function check2FA_Active(){
         $db = getDb();
+        $active="";
 
         $query = "SELECT 2FA FROM utente WHERE Email = ?";
         $stmt = $db->prepare($query);
@@ -171,5 +167,34 @@ include_once "../CheckInputForms.php";
         }
     }
 
+    function setCookies(){
+        if(isset($_COOKIE['email'])){
+            setcookie('email', '', time() - 3600, '/');
+        }
+        /*creation of a new usercookie*/
+        if (!isset($_COOKIE['email'])) {
+            setcookie('email', $_SESSION['email'], [
+                'expires' => time() + 3600,
+                'path' => '/',
+                'secure' => false,  
+                'httponly' => true, 
+                'samesite' => 'Strict', 
+            ]);
+        }
+
+        if(isset($_COOKIE['username'])){
+            setcookie('username', '', time() - 3600, '/');
+        }
+
+        if (!isset($_COOKIE['username'])) {
+            setcookie('username', $_SESSION['username'], [
+                'expires' => time() + 3600,
+                'path' => '/',
+                'secure' => false,  
+                'httponly' => true,  
+                'samesite' => 'Strict',
+            ]);
+        }
+    }
 
 ?>
