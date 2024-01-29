@@ -2,181 +2,112 @@
 @import url('https://fonts.googleapis.com/css?family=Inter');
 
 body{
-    background-color: #3C096C;
+    background-color: #3c096c;
+}
+
+.site-title{
+    color: #fffaea;
+    font-family: 'Electrolize';
+    text-align: center;
+    margin-bottom: 150px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-color: red;
+    border-style: solid;
 }
 
 h1{
-    color: #FFFFFF;
-    font-family: 'Electrolize';
-    font-weight: normal;
-    font-size: 65px;
-    margin: 0px 400px;
-    border-color: red;
-    border-style: solid;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    
+    font-size: 70px;
 }
 
-h2{
-    color: #FFFFFF;
-    font-family: 'Inter';
-    font-weight:lighter;
-    font-size: 25px;
-    text-align: center;
-    
-
-    border-color: red;
-    border-style: solid
-}
-
-li {
-    list-style: none;
-}
-
-fieldset > ul > li{
-    margin-bottom: 10px;
-}
-
-ul > li > input {
-    box-sizing: border-box;    
-    width: 279px;
-    height: 25px;
-
-    background: #F8F7FF;
-    border: 1px solid black;
+.square{
+    width: 70%;
+    height: 100%;
+    background-color: #9d4edd;
     border-radius: 10px;
-    padding-left: 5px;
+    border-color: #28282B;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.row{
+    height: 200px;
+    margin-bottom: 40px;
+}
+
+.container-fluid{
+    background-color: #3c096c;
+    padding-top: 0;
+}
+
+#title{
+    height: 800px;
+    margin-top: 0%;
+    padding-top: 5px;
+}
+
+.btn-primary{
+    background-color: #ff9e00;
+    border-color:transparent;
+    border:none;
+    width: 40%;
+    transition: background-color 0.5s ease;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.5);
+    padding-top: 2px;
+}
+
+.btn-primary:hover{
+    background-color: #ff7900;
+    border-color:transparent;
+    border:none;
+}
+
+.btn-primary:focus {
     outline: none;
 }
 
-fieldset> ul> li > label, fieldset> ul> li > input {
-    display:block;
+.btn-primary:active{
+    background-color: #ff7900;
+    border-color:transparent;
+    border:none;
+    box-shadow: inset 0px -2px 0px rgba(0, 0, 0, 0.5);
+}
+a {
+    color: transparent;
+    outline: none; 
+    font-weight: normal; 
 }
 
-fieldset{
-    border: none;
-    background-color: #7B2CBF;
-} 
-
-fieldset > fieldset{
-    border: none;
-    background-color: #7B2CBF;
+a:focus {
+    outline: none;
 }
 
-fieldset > ul > li > label, fieldset > label{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 21px;
-    color: #E0E0E0;
-    margin-bottom: 3px;
-    margin-left: 3px;
-}
-
-
-
-/* Access_button */
-input.buttonOrange, a.buttonOrange{
-    box-sizing: border-box;
-    position: relative;
-    width: 147px;
-    height: 45px;
-    left: 206.99px;
-    top: 239px;
-
-    background: #FF9E00;
-    border: 2px solid rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-
-    position: relative;
-    width: 134px;
-    height: 39px;
-    left: 6px;
-    top: 3px;
-
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 19px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    text-transform: capitalize;
-    text-decoration: none;
+.btn-secondary{
+    background-color: #7b2cbf;
+    border-color:transparent;
+    border:none;
+    width: 40%;
     transition: background-color 0.5s ease;
-    color: #000000;
-}
-
-input.buttonOrange:hover, a.buttonOrange:hover{
-    background-color: #FFC000;
-}
-
-a.buttonViolet{
-box-sizing: border-box;
-    position: relative;
-    width: 147px;
-    height: 45px;
-    left: 206.99px;
-    top: 239px;
-
-    background: #9D4EDD;
-    border: 2px solid rgba(0, 0, 0, 0.5);
     border-radius: 10px;
-
-    position: relative;
-    width: 134px;
-    height: 39px;
-    left: 6px;
-    top: 3px;
-
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 19px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    text-transform: capitalize;
-    text-decoration: none;
-    transition: background-color 0.5s ease;
-    color: #000000;
-    margin-top: 8px;
+    font-weight: bold;
+    box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.5);
+    padding-top: 2px;
 }
 
-
-a.buttonViolet:hover{
-    background-color: #B86BFF;
+.btn-secondary:hover{
+    background-color: #5a189a;
+    border-color:transparent;
+    border:none;
 }
 
-/* Nascondi la checkbox originale */
-input[type="checkbox"] {
-    display: none;
+.btn-secondary:focus {
+    outline: none;
 }
 
-/* Crea un nuovo "bottone" per la checkbox */
-input[type="checkbox"] + label {
-    padding: 10px;
-    background-color: #4CAF50; /* Green */
-    color: white;
-    display: inline-block;
-    text-align: center;
-    text-transform: capitalize;
-    text-decoration: none;
-    transition: background-color 0.5s ease;
-    margin-top: 8px;
-    cursor: pointer;
-    border-radius: 10px;
-}
-
-/* Cambia il colore di sfondo quando la checkbox è selezionata */
-input[type="checkbox"]:checked + label {
-    background-color: #B86BFF;
+.btn-secondary:active{
+    background-color: #7b2cbf;
+    border-color:transparent;
+    border:none;
+    box-shadow: inset 0px -2px 0px rgba(0, 0, 0, 0.5);
 }
