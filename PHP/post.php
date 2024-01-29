@@ -113,7 +113,7 @@ namespace Post {
         }
     }
 
-    class DBLike_post   
+    class DBLike_post
     {
         private $IDpost;
         private $username_utente;
@@ -261,7 +261,7 @@ namespace Post {
         {
             return $this->IDpost;
         }
-        
+
         public function get_testo_opzione()
         {
             return $this->testo_opzione;
@@ -396,7 +396,7 @@ namespace Post {
             if (!$success) {
                 throw new \Exception("Error while querying the database: " . $stmt->error);
             }
-            
+
             $result = $stmt->get_result();
             if ($result->num_rows == 0) {
                 return null;
@@ -512,7 +512,7 @@ namespace Post {
             }
             return $opzioni;
         }
-        
+
         public static function recent_posts_followed($username, $max_posts)
         {
             $db = getDB();
@@ -530,7 +530,7 @@ namespace Post {
             if (!$success) {
                 throw new \Exception("Error while querying the database: " . $stmt->error);
             }
-                    
+
             $result = $stmt->get_result();
             $posts = array();
             if ($result->num_rows > 0) {
@@ -586,7 +586,7 @@ namespace Post {
             $stmt->bind_param("sis", $username_utente, $IDpost, $testo_opzione);
             $success = $stmt->execute();
             if (!$success) {
-                throw new \Exception("Error while querying the database: " . $stmt->error); 
+                throw new \Exception("Error while querying the database: " . $stmt->error);
             }
 
             $result = $stmt->get_result();
@@ -609,7 +609,7 @@ namespace Post {
             $stmt->bind_param("is", $IDpost, $testo_opzione);
             $success = $stmt->execute();
             if (!$success) {
-                throw new \Exception("Error while querying the database: " . $stmt->error); 
+                throw new \Exception("Error while querying the database: " . $stmt->error);
             }
 
             $result = $stmt->get_result();
@@ -619,6 +619,80 @@ namespace Post {
             $row = $result->fetch_assoc();
             return $row["count"];
         }
+
+        public static function get_count_like_post_by_IDpost($IDpost)
+        {
+            $db = getDB();
+            $query = "SELECT COUNT(*) AS count FROM like_post WHERE IDpost = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("i", $IDpost);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . $stmt->error);
+            }
+            $result = $stmt->get_result();
+            if ($result->num_rows == 0) {
+                return null;
+            }
+            $row = $result->fetch_assoc();
+            return $row["count"];
+        }
+
+        public static function get_count_like_commento_by_IDcommento($IDcommento)
+        {
+            $db = getDB();
+            $query = "SELECT COUNT(*) AS count FROM like_commento WHERE IDcommento = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("i", $IDcommento);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . $stmt->error);
+            }
+            $result = $stmt->get_result();
+            if ($result->num_rows == 0) {
+                return null;
+            }
+            $row = $result->fetch_assoc();
+            return $row["count"];
+        }
+
+        public static function check_like_post($IDpost, $username_utente)
+        {
+            $db = getDB();
+            $query = "SELECT * FROM like_post WHERE IDpost = ? AND Username_Utente = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("is", $IDpost, $username_utente);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . $stmt->error);
+            }
+            $result = $stmt->get_result();
+            if ($result->num_rows == 0) {
+                return false;
+            }
+            return true;
+        }
+
+        public static function check_like_commento($IDcommento, $username_utente)
+        {
+            $db = getDB();
+            $query = "SELECT * FROM like_commento WHERE IDcommento = ? AND Username_Utente = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("is", $IDcommento, $username_utente);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . $stmt->error);
+            }
+            $result = $stmt->get_result();
+            if ($result->num_rows == 0) {
+                return false;
+            }
+            return true;
+        }
+
+        /**
+         * mancano le query per inserire e archiviare i post e inserire i commenti
+         */
 
         /*public static function comments_with_post(\DBDriver $driver, $post_id, $username)
         {
