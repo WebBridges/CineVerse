@@ -39,6 +39,25 @@ namespace Utente {
             $this->follower = $follower;
             $this->seguiti = $seguiti;
         }
+
+        public function jsonSerialize() {
+            return [
+                "nome" => $this->nome,
+                "cognome" => $this->cognome,
+                "username" => $this->username,
+                "data_nascita" => $this->data_nascita,
+                "email" => $this->email,
+                "email_recupero" => $this->email_recupero,
+                "password" => $this->password,
+                "foto_profilo" => $this->foto_profilo,
+                "sesso" => $this->sesso,
+                "descrizione" => $this->descrizione,
+                "foto_background" => $this->foto_background,
+                "tFA" => $this->tFA,
+                "follower" => $this->follower,
+                "seguiti" => $this->seguiti
+            ];
+        }
         
         public function get_nome(){
             return $this->nome;

@@ -20,6 +20,17 @@ namespace Post {
             $this->nome_tag_topic = $nome_tag_topic;
         }
 
+        public function jsonSerialize()
+        {
+            return [
+                "titolo" => $this->titolo,
+                "IDpost" => $this->IDpost,
+                "archiviato" => $this->archiviato,
+                "username_utente" => $this->username_utente,
+                "nome_tag_topic" => $this->nome_tag_topic
+            ];
+        }
+
         public function get_titolo()
         {
             return $this->titolo;
@@ -75,6 +86,17 @@ namespace Post {
             $this->IDcommento_padre = $IDcommento_padre;
         }
 
+        public function jsonSerialize()
+        {
+            return [
+                "corpo" => $this->corpo,
+                "IDcommento" => $this->IDcommento,
+                "IDpost" => $this->IDpost,
+                "username_utente" => $this->username_utente,
+                "IDcommento_padre" => $this->IDcommento_padre
+            ];
+        }
+
         public function get_corpo()
         {
             return $this->corpo;
@@ -124,6 +146,14 @@ namespace Post {
             $this->username_utente = $username_utente;
         }
 
+        public function jsonSerialize()
+        {
+            return [
+                "IDpost" => $this->IDpost,
+                "username_utente" => $this->username_utente
+            ];
+        }
+
         public function get_IDpost()
         {
             return $this->IDpost;
@@ -168,6 +198,14 @@ namespace Post {
         {
             $this->IDcommento = $IDcommento;
             $this->username_utente = $username_utente;
+        }
+
+        public function jsonSerialize()
+        {
+            return [
+                "IDcommento" => $this->IDcommento,
+                "username_utente" => $this->username_utente
+            ];
         }
 
         public function get_IDcommento()
@@ -216,6 +254,14 @@ namespace Post {
             $this->testo = $testo;
         }
 
+        public function jsonSerialize()
+        {
+            return [
+                "IDpost" => $this->IDpost,
+                "testo" => $this->testo
+            ];
+        }
+
         public function get_IDpost()
         {
             return $this->IDpost;
@@ -250,6 +296,15 @@ namespace Post {
             $this->IDpost = $IDpost;
             $this->username_utente = $username_utente;
             $this->testo_opzione = $testo_opzione;
+        }
+
+        public function jsonSerialize()
+        {
+            return [
+                "IDpost" => $this->IDpost,
+                "username_utente" => $this->username_utente,
+                "testo_opzione" => $this->testo_opzione
+            ];
         }
 
         public function get_username_utente()
@@ -304,6 +359,15 @@ namespace Post {
             $this->corpo = $corpo;
         }
 
+        public function jsonSerialize()
+        {
+            return [
+                "IDpost_testo" => $this->IDpost_testo,
+                "IDpost" => $this->IDpost,
+                "corpo" => $this->corpo
+            ];
+        }
+
         public function get_IDpost_testo()
         {
             return $this->IDpost_testo;
@@ -347,6 +411,16 @@ namespace Post {
             $this->IDpost = $IDpost;
             $this->foto_video = $foto_video;
             $this->descriione = $descriione;
+        }
+
+        public function jsonSerialize()
+        {
+            return [
+                "IDpost_foto_video" => $this->IDpost_foto_video,
+                "IDpost" => $this->IDpost,
+                "foto_video" => $this->foto_video,
+                "descriione" => $this->descriione
+            ];
         }
 
         public function get_IDpost_foto_video()
