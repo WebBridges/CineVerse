@@ -3,8 +3,9 @@
 namespace Post {
 
     require_once("bootstrap.php");
+    require_once("dbObject.php");
 
-    class DBPost
+    class DBPost implements \DBObject
     {
         private $titolo;
         private $IDpost;
@@ -69,7 +70,7 @@ namespace Post {
         }
     }
 
-    class DBCommento
+    class DBCommento implements \DBObject
     {
         private $corpo;
         private $IDcommento;
@@ -135,7 +136,7 @@ namespace Post {
         }
     }
 
-    class DBLike_post
+    class DBLike_post implements \DBObject
     {
         private $IDpost;
         private $username_utente;
@@ -189,7 +190,7 @@ namespace Post {
         }
     }
 
-    class DBLike_commento
+    class DBLike_commento implements \DBObject
     {
         private $IDcommento;
         private $username_utente;
@@ -243,7 +244,7 @@ namespace Post {
         }
     }
 
-    class DBOpzione
+    class DBOpzione implements \DBObject
     {
         private $IDpost;
         private $testo;
@@ -285,7 +286,7 @@ namespace Post {
         }
     }
 
-    class DBVoto
+    class DBVoto implements \DBObject
     {
         private $username_utente;
         private $IDpost;
@@ -346,7 +347,7 @@ namespace Post {
         }
     }
 
-    class DBTesto
+    class DBTesto implements \DBObject
     {
         private $IDpost_testo;
         private $IDpost;
@@ -398,7 +399,7 @@ namespace Post {
         }
     }
 
-    class DBFoto_video
+    class DBFoto_video implements \DBObject
     {
         private $IDpost_foto_video;
         private $IDpost;
