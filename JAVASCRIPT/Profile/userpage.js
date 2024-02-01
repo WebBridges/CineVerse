@@ -30,11 +30,6 @@ async function loadPhotos() {
         credentials: "include"
     });
     const posts = await response.json();
-    /*const postsArray = [];
-    posts.forEach(element => {
-        postsArray.push(element);
-    });
-    return postsArray;*/
     return posts
 }
 
@@ -74,6 +69,7 @@ async function getType(type) {
     posts.forEach(element => {
         returnarray.push(element);
     });
+    console.log(returnarray.length);
     return returnarray;
 }
 
