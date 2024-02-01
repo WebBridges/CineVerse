@@ -29,9 +29,13 @@ async function loadPhotos() {
         },
         credentials: "include"
     });
-    console.log(response);
     const posts = await response.json();
-    return posts;
+    /*const postsArray = [];
+    posts.forEach(element => {
+        postsArray.push(element);
+    });
+    return postsArray;*/
+    return posts
 }
 
 async function loadText() {
@@ -85,11 +89,12 @@ async function showpost(type) {
     } else {
         if(type === 0){
             let dim = 0;
-            for (let photo_index = 0; photo_index < photos.length; photo_index++) {
+            for (let photo_index = 0; photo_index < loadedPosts.length; photo_index++) {
+                loadedPost = loadedPosts[photo_index];
                 let clone = document.importNode(template.content, true);
                 clone.querySelector("#photo-id").src = "../../img/default-image.png";
+                clone.querySelector("#photo-id").alt = loadedPost.titolo;
                 //clone.querySelector("#photo-id").addEventListener("click", function () { openModal(photo); });
-                loadedPost = loadedPosts[photo_index];
                 photosDiv.appendChild(clone);
                 dim++;
             }
@@ -101,7 +106,7 @@ async function showpost(type) {
             }
             for (let j = 0; j < i; j++) {
                 let clone = document.importNode(template.content, true);
-                clone.querySelector("#photo-id").src = "../../img/default-user.png";
+                clone.querySelector("#photo-id").src = "../../img/default-user.webp";
                 clone.querySelector("#photo-id").style.visibility = "hidden";
                 photosDiv.appendChild(clone);
             }
