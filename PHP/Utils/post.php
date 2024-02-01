@@ -439,7 +439,7 @@ namespace Post {
             return $this->foto_video;
         }
 
-        public function get_descriione()
+        public function get_descrizione()
         {
             return $this->descriione;
         }
@@ -447,7 +447,7 @@ namespace Post {
         public function db_serialize()
         {
             $db = getDB();
-            $query = "INSERT INTO foto_video (IDpost, Foto_video, Descrizione) VALUES (?, ?, ?)";
+            $query = "INSERT INTO foto_video (IDpost, Foto_Video, Descrizione) VALUES (?, ?, ?)";
             $stmt = $db->prepare($query);
             $stmt->bind_param("iss", $this->IDpost, $this->foto_video, $this->descriione);
             $success = $stmt->execute();
@@ -627,7 +627,7 @@ namespace Post {
             return new DBFoto_video(
                 $row["IDpost_foto_video"],
                 $row["IDpost"],
-                $row["Foto_video"],
+                $row["Foto_Video"],
                 $row["Descrizione"]
             );
         }
