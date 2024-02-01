@@ -3,6 +3,19 @@
     use post\PostUtility;
     
     $posts = PostUtility::get_posts_by_username_utente_foto_video("bacco"/*$_SESSION['username']*/);
+    $photos = array();
+    foreach($posts as $post) {
+        $photo = PostUtility::get_foto_video_post_by_IDpost($post->get_IDpost());
+        if($photo != null) {
+            array_push($photos, $photo);
+        }
+    }
+    $postsEncoded = json_encode($posts, JSON_PRETTY_PRINT);
+    $photosEncoded = json_encode($photos, JSON_PRETTY_PRINT);
     header('Content-Type: application/json');
-    echo json_encode($posts, JSON_PRETTY_PRINT);
+    echo $postsEncoded;
+    /*$merged = array_merge($posts, $photos);
+    $mergedEncoded = json_encode($merged, JSON_PRETTY_PRINT);
+    header('Content-Type: application/json');
+    echo $mergedEncoded;*/
 ?>
