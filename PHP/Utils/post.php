@@ -404,14 +404,14 @@ namespace Post {
         private $IDpost_foto_video;
         private $IDpost;
         private $foto_video;
-        private $descriione;
+        private $descrizione;
 
-        public function __construct($IDpost_foto_video = null, $IDpost = null, $foto_video = null, $descriione = null)
+        public function __construct($IDpost_foto_video = null, $IDpost = null, $foto_video = null, $descrizione = null)
         {
             $this->IDpost_foto_video = $IDpost_foto_video;
             $this->IDpost = $IDpost;
-            $this->foto_video = $foto_video;
-            $this->descriione = $descriione;
+            $this->foto_video = base64_encode($foto_video);
+            $this->descrizione = $descrizione;
         }
 
         public function jsonSerialize()
@@ -420,7 +420,7 @@ namespace Post {
                 "IDpost_foto_video" => $this->IDpost_foto_video,
                 "IDpost" => $this->IDpost,
                 "foto_video" => $this->foto_video,
-                "descriione" => $this->descriione
+                "descrizione" => $this->descrizione
             ];
         }
 
@@ -441,7 +441,7 @@ namespace Post {
 
         public function get_descrizione()
         {
-            return $this->descriione;
+            return $this->descrizione;
         }
 
         public function db_serialize()
@@ -449,7 +449,7 @@ namespace Post {
             $db = getDB();
             $query = "INSERT INTO foto_video (IDpost, Foto_Video, Descrizione) VALUES (?, ?, ?)";
             $stmt = $db->prepare($query);
-            $stmt->bind_param("iss", $this->IDpost, $this->foto_video, $this->descriione);
+            $stmt->bind_param("iss", $this->IDpost, $this->foto_video, $this->descrizione);
             $success = $stmt->execute();
             if (!$success) {
                 throw new \Exception("Error while querying the database: " . $stmt->error);
