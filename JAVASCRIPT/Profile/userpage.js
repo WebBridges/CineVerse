@@ -69,7 +69,6 @@ async function getType(type) {
     posts.forEach(element => {
         returnarray.push(element);
     });
-    console.log(returnarray.length);
     return returnarray;
 }
 
@@ -85,10 +84,12 @@ async function showpost(type) {
     } else {
         if(type === 0){
             let dim = 0;
-            for (let photo_index = 0; photo_index < loadedPosts.length; photo_index++) {
+            let loadedPhoto;
+            for (let photo_index = 0; photo_index < loadedPosts.length/2; photo_index++) {
                 loadedPost = loadedPosts[photo_index];
+                loadedPhoto = loadedPosts[photo_index + loadedPosts.length/2];
                 let clone = document.importNode(template.content, true);
-                clone.querySelector("#photo-id").src = "../../img/default-image.png";
+                clone.querySelector("#photo-id").src = "data:image/jpeg;base64," + loadedPhoto.foto_video;
                 clone.querySelector("#photo-id").alt = loadedPost.titolo;
                 //clone.querySelector("#photo-id").addEventListener("click", function () { openModal(photo); });
                 photosDiv.appendChild(clone);
