@@ -10,12 +10,8 @@
             array_push($photos, $photo);
         }
     }
-    $postsEncoded = json_encode($posts, JSON_PRETTY_PRINT);
-    $photosEncoded = json_encode($photos, JSON_PRETTY_PRINT);
-    header('Content-Type: application/json');
-    echo $postsEncoded;
-    /*$merged = array_merge($posts, $photos);
+    $merged = array_merge($posts, $photos);
     $mergedEncoded = json_encode($merged, JSON_PRETTY_PRINT);
     header('Content-Type: application/json');
-    echo $mergedEncoded;*/
+    echo $mergedEncoded;
 ?>
