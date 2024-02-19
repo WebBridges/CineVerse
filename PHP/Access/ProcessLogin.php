@@ -1,5 +1,5 @@
 <?php
-    require_once("../db/AccessDB.php");
+    require_once("../Database/AccessDB.php");
     
     if(checkEmailExistence($_POST['email']) == "Email_available" ||
         checkEmailExistence($_POST['email']) == "Email_invalid" ||
@@ -9,8 +9,8 @@
             echo "There was an error during validation of account. Please try again.";
     } else{
         if(check2FA_Active()==true){
-            header("location: ../2FA_Login.html");
+            header("location: ../../HTML/Access/2FA_Login.html");
         }
-        else{header("Location: ../userpage.html");}
+        else{header("Location: ../../HTML/Profile/userpage.html");}
     }
 ?>

@@ -1,5 +1,5 @@
 <?php
-require_once("../db/AccessDB.php");
+require_once("../Database/AccessDB.php");
 
 sec_session_start();
 if(check2FA($_POST['2fa'])=="false"){
@@ -10,6 +10,6 @@ if(check2FA($_POST['2fa'])=="false"){
         active2FA();
     }
     unset($_SESSION['code2FA']);
-    header("location: ../userpage.html");
+    header("location: ../../HTML/Profile/userpage.html");
     }
 ?>

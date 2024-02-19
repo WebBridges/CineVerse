@@ -1,10 +1,10 @@
 <?php
-    include "../Bootstrap.php";
+    include "../../PHP/Utils/Bootstrap.php";
     if(isset($_SESSION['email']) || isset($_COOKIE['email'])){
-        header("Location: ../userpage.html");
+        header("Location: ../Profile/userpage.html");
     } else if(isset($_COOKIE['email'])){
         $_SESSION['email'] = $_COOKIE['email'];
-        header("Location: ../userpage.html");
+        header("Location: ../Profile/userpage.html");
     }
 ?>
 
@@ -15,7 +15,7 @@
     <head>
         <meta charset="UTF-8">
         <title>CineVerse - Login</title>
-        <link href="css/AccessStyleBase.css" rel="stylesheet" type="text/css"/>
+        <link href="../../CSS/Access/AccessStyleBase.css" rel="stylesheet" type="text/css"/>
     </head>
 
     <body>
@@ -23,7 +23,7 @@
             <section>
                 <h1>CineVerse</h1>
                 <h2>Login</h2>
-                <form id="loginForm" action="template/ProcessLogin.php" method="post">
+                <form id="loginForm" action="../../PHP/Access/ProcessLogin.php" method="post">
                     <fieldset id="LoginInfo">
                         <ul>
                             <li>
@@ -45,6 +45,6 @@
             </section>
         </main>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script src="JAVASCRIPT/Access/Login.js" type="text/javascript"></script>
+        <script src="../../JAVASCRIPT/Access/Login.js" type="text/javascript"></script>
     </body>
 </html>

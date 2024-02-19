@@ -30,7 +30,7 @@ if(data === "true"){
     });
 }
 async function checkCodeFor2FA(code){
-    const response = await fetch('../../template/Check2FA.php', {
+    const response = await fetch('../../PHP/Access/Check2FA.php', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded',
@@ -42,7 +42,7 @@ async function checkCodeFor2FA(code){
 }
 
 async function createCodeFor2FA(){
-    let response = await fetch('../../template/2FA.php', {
+    let response = await fetch('../../PHP/Access/2FA.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

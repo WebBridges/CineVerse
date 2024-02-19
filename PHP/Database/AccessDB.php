@@ -1,8 +1,12 @@
 <?php
 //include "../Utils/CheckInputForms.php";
-require_once ("../Bootstrap.php");
+
+use SendGrid\Mail\Mail;
+
+require_once ("../Utils/bootstrap.php");
 sec_session_start();
-include_once "../CheckInputForms.php";
+include_once "../Utils/CheckInputForms.php";
+
 
      function insertNewAccount(){
         /*Insert a new account in database*/
@@ -88,6 +92,7 @@ include_once "../CheckInputForms.php";
      function checkPassword($password,$email){
         $db = getDb();
         $hashedPassword="";
+        $username="";
         if(!\checkInputPassword() || !\checkInputEmail()){
             return "Password_invalid";
         }
@@ -139,6 +144,7 @@ include_once "../CheckInputForms.php";
         $_SESSION['code2FA'] = $code;
         echo $_SESSION['code2FA'];
         if($_SESSION['code2FA'] != NULL){
+            sendCodeWithEmail();
             return "true";
         } else {
             return "false";
@@ -146,7 +152,15 @@ include_once "../CheckInputForms.php";
     }
 
      function sendCodeWithEmail(){
-
+        $sender = new \SendGrid\Mail\Mail();
+        $sender->setFrom("webbridgemail@gmail.com", "noreply");
+        $sender->setSubject("2FA CODE");
+        $sender->addTo($_SESSION['email']);
+        $sender->addContent(
+            "text/plain","Il codice di F2A è: ".$_SESSION['code2FA']
+        );
+        $sendgrid= new \SendGrid(getenv("MailApiKey"));
+        $sendgrid->send($sender);
     }
 
      function check2FA_Active(){

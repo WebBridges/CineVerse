@@ -17,7 +17,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 });
 
 async function checkEmail(email) {
-    const response = await fetch('../../template/CheckEmail.php', {
+    const response = await fetch('../../PHP/Access/CheckEmail.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -41,7 +41,7 @@ async function checkEmail(email) {
 }
 
 async function checkPassword(password,email) {
-    const response = await fetch('../../template/CheckPassword.php', {
+    const response = await fetch('../../PHP/Access/CheckPassword.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

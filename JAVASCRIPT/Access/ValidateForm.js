@@ -127,7 +127,7 @@ document.getElementById("FormRegistration").addEventListener('submit',async func
 });
 
 async function checkUsername(username) {
-    const response = await fetch('../../template/CheckUsername.php', {
+    const response = await fetch('../../PHP/Access/CheckUsername.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -151,7 +151,7 @@ async function checkUsername(username) {
 }
 
 async function checkEmail(email) {
-    const response = await fetch('../../template/CheckEmail.php', {
+    const response = await fetch('../../PHP/Access/CheckEmail.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

@@ -1,5 +1,5 @@
 <?php
-    require_once("../db/AccessDB.php");
+    require_once("../Database/AccessDB.php");
     if(check2FA($POST['code']) == "true"){
         echo Active2FA();
     } else{

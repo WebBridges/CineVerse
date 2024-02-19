@@ -1,7 +1,7 @@
 document.getElementById("Process").addEventListener("click",async function() {
     document.getElementById("underSection").innerHTML = `
         <p>Inserire il codice ricevuto tramite Email</p>
-        <form action='template/Process2FA.php' method='post'>
+        <form action='../../PHP/Access/Process2FA.php' method='post'>
             <input type='text' name='2fa' id='2fa' placeholder='codice' maxlength="10" required>
             <input type='submit' value='conferma' id='conferma' class='buttonOrange'>
         </form>
@@ -41,7 +41,7 @@ document.getElementById("Process").addEventListener("click",async function() {
 
 
 async function createCodeFor2FA() {
-    const response = await fetch('../../template/2FA.php', {
+    const response = await fetch('../../PHP/Access/2FA.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -53,7 +53,7 @@ async function createCodeFor2FA() {
 }
 
 async function checkCodeFor2FA(code){
-    const response = await fetch('../../template/Check2FA.php', {
+    const response = await fetch('../../PHP/Access/Check2FA.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
