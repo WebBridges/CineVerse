@@ -1,4 +1,6 @@
 
+/* Togliere i pop up dell'errore e segnarlo come nei siti moderni, anche in tempo reale se si riesce */
+
 document.getElementById("FormRegistration").addEventListener('submit',async function(event) {
 
     event.preventDefault();

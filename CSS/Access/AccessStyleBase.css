@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Electrolize');
 @import url('https://fonts.googleapis.com/css?family=Inter');
 
+/* sistemare colori e rappresentazione base delle pagine di registrazione e login*/
+
 body{
     background-color: #3c096c;
 }
@@ -18,25 +20,14 @@ body{
 
 h1{
     font-size: 70px;
+    color: white;
+    font-family:'Electrolize';
 }
 
-.square{
-    width: 70%;
-    height: 100%;
+div[id="MainBlock"]{
     background-color: #9d4edd;
     border-radius: 10px;
-    border-color: #28282B;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-}
-
-.row{
-    height: 200px;
-    margin-bottom: 40px;
-}
-
-.container-fluid{
-    background-color: #3c096c;
-    padding-top: 0;
+    box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.8);;
 }
 
 #title{
@@ -44,6 +35,8 @@ h1{
     margin-top: 0%;
     padding-top: 5px;
 }
+
+/*Buttons*/
 
 .btn-primary{
     background-color: #ff9e00;
@@ -55,12 +48,16 @@ h1{
     font-weight: bold;
     box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.5);
     padding-top: 2px;
+    color: #050301;
+    text-rendering: optimizeLegibility;
 }
 
 .btn-primary:hover{
     background-color: #ff7900;
     border-color:transparent;
     border:none;
+    color: #050301;
+    text-rendering: optimizeLegibility;
 }
 
 .btn-primary:focus {
@@ -93,12 +90,16 @@ a:focus {
     font-weight: bold;
     box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.5);
     padding-top: 2px;
+    color: #050301;
+    text-rendering: optimizeLegibility;
 }
 
 .btn-secondary:hover{
     background-color: #5a189a;
     border-color:transparent;
     border:none;
+    color: #050301;
+    text-rendering: optimizeLegibility;
 }
 
 .btn-secondary:focus {

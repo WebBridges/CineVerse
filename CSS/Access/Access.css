@@ -1,14 +1,12 @@
 
-section[id="centralBox"]{
+/*sistemare elementi specifici dell'accesso che potrebbero essere riutilizzati*/
+
+div[id="MainBlock"]{
     background-color: bisque;
     border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 40px 550px 0px 550px;
-    padding-right: 55px;
-    padding-bottom: 35px;
-    padding-top: 30px;
 }
 

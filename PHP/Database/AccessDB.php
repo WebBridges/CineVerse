@@ -3,6 +3,10 @@
 
 use SendGrid\Mail\Mail;
 
+#Sistemare sistema di salvataggio e verifica dell'account
+#Sistemare invio email e creazione token temporaneo
+#Implementare il token dell'utente con jwt (chiave pubblica,crittografia,dati) per implementare meglio il fatto di salvare la sessione (anche li bisogna lavorarci)
+
 require_once ("../Utils/bootstrap.php");
 sec_session_start();
 include_once "../Utils/CheckInputForms.php";

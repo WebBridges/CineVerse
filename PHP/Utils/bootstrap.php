@@ -1,6 +1,6 @@
 <?php
 /*Raggruppiamo tutti gli elementi condivisi tra i vari php */
-require_once("Session.php");
+ require_once("Session.php");
 sec_session_start();
 
 require_once("CheckInputForms.php");

@@ -1,3 +1,5 @@
+
+<!-- Mettere a posto la questione del cookie -->
 <?php
     include "../../PHP/Utils/Bootstrap.php";
     if(isset($_SESSION['email']) || isset($_COOKIE['email'])){
@@ -10,7 +12,7 @@
 
 
 <!DOCTYPE html>
-
+<!-- Mettere a posto il bootstrap -->
 <html lang="it">
     <head>
         <meta charset="UTF-8">
