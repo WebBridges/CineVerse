@@ -24,17 +24,59 @@ h1{
     font-family:'Electrolize';
 }
 
+div[id="BlockBanner"]{
+    color: #050301;
+    background-color: #5a189a;
+    border-top-left-radius:10px;
+    border-top-right-radius: 10px;
+    height:40px;
+    font-size: 21px;
+    font-family: 'Inter';
+    font-weight:300;
+}
+
 div[id="MainBlock"]{
     background-color: #9d4edd;
     border-radius: 10px;
-    box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.8);;
+    box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.8);
 }
 
-#title{
-    height: 800px;
-    margin-top: 0%;
-    padding-top: 5px;
+.form-label{
+    font-family: 'Inter';
 }
+
+.form-control{
+    height: 60%;
+}
+
+a[id=PasswordLink]{
+    color: #050301;
+    text-decoration: none;
+}
+
+a[id=PasswordLink]:hover {
+    text-decoration: underline;
+}
+
+.invalid-feedback{
+    color: #8B0000;
+}
+
+.form-control.is-valid, .was-validated .form-control:valid {
+    border-color: #ced4da;
+    padding-right: .75rem;
+    background-image: none;
+}
+
+.invalid-feedback, .valid-feedback {
+    height: 20px; 
+}
+
+div[id="error-message"]{
+    color: #8B0000;
+}
+
+
 
 /*Buttons*/
 

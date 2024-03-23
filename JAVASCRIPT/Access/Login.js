@@ -1,21 +1,44 @@
-document.getElementById("loginForm").addEventListener("submit", async function(event) {
-    
+const form = document.querySelector("form");
+form.addEventListener("submit", async function(event) {
     event.preventDefault();
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
 
-    if (await checkEmail(email) === false) {
+    form.classList.add("was-validated");
+    
+    if (await checkPassword(password,email) === false || await checkEmail(email) === false) {
+        
+        const errorMessage = document.getElementById("error-message");
+        errorMessage.textContent = "Email or password is incorrect";
+        errorMessage.classList.remove('d-none');
         return false;
-    } else{
-        if (await checkPassword(password,email) === false) {
-            return false;
-        } else {
-            event.target.submit();
-        }
+    } else {
+        event.target.submit();
     }
-
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+    var elements = document.getElementsByTagName("INPUT");
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].oninput = function() {
+            if (this.validity.valid) {
+                this.classList.remove('is-valid');
+            }
+            this.classList.remove('is-invalid');
+        }
+
+        elements[i].onblur = function() {
+            if (!this.validity.valid) {
+                this.classList.add('is-invalid');
+            } else {
+                this.classList.remove('is-invalid');
+            }
+        }
+    }
+});
+
+
+/*Funzioni per controllo */
 async function checkEmail(email) {
     const response = await fetch('../../PHP/Access/CheckEmail.php', {
         method: 'POST',
@@ -27,17 +50,7 @@ async function checkEmail(email) {
 
     const data = await response.text();
 
-    if (data === "Email_exist") {
-        return true;
-    } else {
-        swal({
-            title: "Attenzione!",
-            text: "Email non valida",
-            icon: "warning",
-            button: "OK",
-        });
-        return false;
-    }
+    return data === "Email_exist";
 }
 
 async function checkPassword(password,email) {
@@ -50,16 +63,7 @@ async function checkPassword(password,email) {
     });
 
     const data = await response.text();
+    console.log(data);
 
-    if (data === "Password_wrong") {
-        swal({
-            title: "Attenzione!",
-            text: "Password errata",
-            icon: "warning",
-            button: "OK",
-        });
-        return false;
-    } else {
-        return true;
-    }
+    return data === "Password_correct";
 }

@@ -97,7 +97,7 @@ include_once "../Utils/CheckInputForms.php";
         $db = getDb();
         $hashedPassword="";
         $username="";
-        if(!\checkInputPassword() || !\checkInputEmail()){
+        if( !\checkInputEmail() || !\checkInputPassword()){
             return "Password_invalid";
         }
         $query = "SELECT Password FROM utente WHERE Email = ?";

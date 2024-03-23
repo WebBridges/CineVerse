@@ -1,6 +1,6 @@
 <?php
     require_once("../Database/AccessDB.php");
-    
+
     if(checkEmailExistence($_POST['email']) == "Email_available" ||
         checkEmailExistence($_POST['email']) == "Email_invalid" ||
         checkPassword($_POST['password'],$_POST['email']) == "Password_wrong" ||
