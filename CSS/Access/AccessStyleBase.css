@@ -76,7 +76,10 @@ div[id="error-message"]{
     color: #8B0000;
 }
 
-
+p{
+    color:#001101;
+    font-family: 'Inter';
+}
 
 /*Buttons*/
 
