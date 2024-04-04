@@ -18,14 +18,14 @@ include_once "../Utils/CheckInputForms.php";
         if(\validateRegistrationInfo() && checkUsernameExistence($_POST['username']) == "Username_available" && checkEmailExistence($_POST['email']) == "Email_available"){
             $db = getDb();
 
-            $query = "INSERT INTO utente (Nome, Cognome, Username, Email, Email_di_recupero, Password, Data_nascita, Sesso, Descrizione, Foto_profilo ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $query = "INSERT INTO utente (Nome, Cognome, Username, Email, Password, Data_nascita, Sesso, Descrizione, Foto_profilo, 2FA ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
             $stmt = $db->prepare($query);
 
-            $recoveryEmail = isset($_POST['recoveryEmail']) ? $_POST['recoveryEmail'] : NULL;
             $gender = isset($_POST['gender']) ? $_POST['gender'] : NULL;
             $hashedPassword =password_hash($_POST['password'],PASSWORD_DEFAULT);
+            $void=NULL;
 
-            $stmt->bind_param("sssssssssb", $_POST['name'], $_POST['surname'], $_POST['username'], $_POST['email'], $recoveryEmail, $hashedPassword, $_POST['birthDate'], $gender, $_POST['bio'], $_POST['profilePicture']);
+            $stmt->bind_param("sssssssss", $_POST['name'], $_POST['surname'], $_POST['username'], $_POST['email'], $hashedPassword, $_POST['birthDate'], $gender, $void,$void);
             $stmt->execute();
 
             $_SESSION['email'] = $_POST['email'];

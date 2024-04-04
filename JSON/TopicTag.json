@@ -48,8 +48,122 @@
             "name": "topic[]",
             "id": "goku",
             "label": "Goku"
-        }
+        },
         
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "azione",
+            "label": "Azione"
+        },
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "commedia",
+            "label": "Commedia"
+        },
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "drammatico",
+            "label": "Drammatico"
+        },
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "horror",
+            "label": "Horror"
+        },
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "romantico",
+            "label": "Romantico"
+        },
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "fantascienza",
+            "label": "Fantascienza"
+        },
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "thriller",
+            "label": "Thriller"
+        },
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "fantasy",
+            "label": "Fantasy"
+        },
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "animazione",
+            "label": "Animazione"
+        },
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "supereroe",
+            "label": "Supereroe"
+        },
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "crime",
+            "label": "Crime"
+        },
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "mistero",
+            "label": "Mistero"
+        },
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "storico",
+            "label": "Storico"
+        },
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "biografia",
+            "label": "Biografia"
+        },
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "avventura",
+            "label": "Avventura"
+        },
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "western",
+            "label": "Western"
+        },
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "documentario",
+            "label": "Documentario"
+        },
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "cattivo",
+            "label": "Cattivo"
+        },
+        {
+            "class": "topic_tag",
+            "name": "topic[]",
+            "id": "eroe",
+            "label": "Eroe"
+        }
     ]
 
 

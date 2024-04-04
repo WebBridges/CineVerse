@@ -6,5 +6,7 @@
     } else{
         http_response_code(400); // Bad Request
         echo "There was an error inserting the new account. Please try again.";
+
     }
+
 ?>

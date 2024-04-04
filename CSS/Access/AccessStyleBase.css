@@ -7,17 +7,6 @@ body{
     background-color: #3c096c;
 }
 
-.site-title{
-    color: #fffaea;
-    font-family: 'Electrolize';
-    text-align: center;
-    margin-bottom: 150px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-color: red;
-    border-style: solid;
-}
-
 h1{
     font-size: 70px;
     color: white;
@@ -43,6 +32,7 @@ div[id="MainBlock"]{
 
 .form-label{
     font-family: 'Inter';
+    color: #050301;
 }
 
 .form-control{
@@ -80,6 +70,70 @@ p{
     color:#001101;
     font-family: 'Inter';
 }
+
+#mainblock, #mainblock * {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Hide the default checkbox */
+input[name="topic[]"] {
+    display: none;
+}
+
+/* Create a custom checkbox */
+input[name="topic[]"] + .form-check-label {
+    padding: 9px;
+    background-color: #ff7900;
+    color: #050301;
+    border-radius: 17px;
+    cursor: pointer;
+    display: inline-block;
+    margin: 4px 1px;
+    transition: background-color 0.8s ease;
+}
+
+/* Change the background color when mouse hovers over the custom checkbox */
+input[name="topic[]"] + .form-check-label:hover {
+    background-color: #ff7900;
+}
+
+/* Change the background color of the custom checkbox when it is checked */
+input[name="topic[]"]:checked + .form-check-label {
+    background-color: #2196F3;
+}
+
+#TopicList {
+    border: 3px solid #7b2cbf; /* Change the color and width of the border */
+    background-color: #a25add;
+    padding: 8px; /* Add some space inside the border */
+    border-radius: 10px; /* Round the corners of the border */
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); /* Add some shadow */
+    max-height: 100px;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Style the scrollbar */
+#TopicList::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Style the scrollbar track */
+#TopicList::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Style the scrollbar thumb */
+#TopicList::-webkit-scrollbar-thumb {
+    background: #D3D3D3;
+    border-radius: 15px;
+}
+
+
+
+
+
 
 /*Buttons*/
 

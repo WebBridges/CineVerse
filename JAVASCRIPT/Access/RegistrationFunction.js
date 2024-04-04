@@ -1,3 +1,6 @@
+document.addEventListener('DOMContentLoaded', (event) => {
+    loadTopicCheckboxes();
+});
 
 function loadTopicCheckboxes(){
     fetch("../../JSON/TopicTag.json")
@@ -11,9 +14,16 @@ function loadTopicCheckboxes(){
         let checkboxHTML = '';
         // Utilizza i dati del file JSON per generare l'HTML dei bottoni
         for(let i = 0; i < data.topic.length; i++) {
-            checkboxHTML += `<li><input type="checkbox" id="${data.topic[i].id}" name="${data.topic[i].name}" value="${data.topic[i].id}"><label for="${data.topic[i].id}">${data.topic[i].label}</label></li>`;
+            //checkboxHTML += `<li><input type="checkbox" id="${data.topic[i].id}" name="${data.topic[i].name}" value="${data.topic[i].id}"><label for="${data.topic[i].id}">${data.topic[i].label}</label></li>`;
+              checkboxHTML+=`<div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="${data.topic[i].id}" name="${data.topic[i].name}" value="${data.topic[i].id}">
+                                <label class="form-check-label" for="${data.topic[i].id}">
+                                    ${data.topic[i].label}
+                                </label>
+                                </div>
+                            `
         }
-        document.getElementById('topic_checkbox').innerHTML = checkboxHTML;
+        document.getElementById('TopicList').innerHTML = checkboxHTML;
         document.querySelectorAll("input[type='checkbox']").forEach(function(checkbox) {
             checkbox.addEventListener("change", function() {
                 // Controlla il numero di checkbox selezionate
@@ -21,12 +31,6 @@ function loadTopicCheckboxes(){
                 if(checkedCount > 5) {
                     // Se ci sono più di 5 checkbox selezionate, deseleziona l'ultima checkbox selezionata
                     this.checked = false;
-                    swal({
-                        title: "Attenzione!",
-                        text: "Puoi selezionare al massimo 5 argomenti",
-                        icon: "warning",
-                        button: "OK",
-                    });
                 }
             });
         });
