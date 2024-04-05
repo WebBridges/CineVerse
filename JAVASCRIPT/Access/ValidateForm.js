@@ -16,6 +16,7 @@ document.getElementById('FormRegistration').addEventListener('submit', async fun
     let regex= /[^a-zA-Z ]/g;
     let regexExtended = /[^a-zA-Z0-9 _]/g;
     let regexPassword = /[^a-zA-Z0-9 _!@#$%^*]/g;
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     // Reset dei messaggi di errore
     let errors = document.getElementsByClassName('error-message');
@@ -45,7 +46,7 @@ document.getElementById('FormRegistration').addEventListener('submit', async fun
         }
     }
 
-    if (isValid && (!email || !(await checkEmail(email)))) {
+    if (isValid && (!email || !(await checkEmail(email)) || !(emailRegex.test(email)))) {
         document.getElementById('errorEmail').style.display = 'block';
         isValid = false;
     }

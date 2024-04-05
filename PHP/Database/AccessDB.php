@@ -161,7 +161,16 @@ include_once "../Utils/CheckInputForms.php";
         $sender->setSubject("2FA CODE");
         $sender->addTo($_SESSION['email']);
         $sender->addContent(
-            "text/plain","Il codice di F2A è: ".$_SESSION['code2FA']
+            "text/html", 
+            '<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;">
+                <div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #fff; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+                    <h1 style="text-align: center; color: #333;">Autenticazione a due fattori</h1>
+                    <p style="margin-bottom: 20px; color: #666; text-align: center;">Salve,</p>
+                    <p style="margin-bottom: 20px; color: #666; text-align: center;">Per favore, inserisci il seguente codice per completare la procedura di autenticazione a due fattori:</p>
+                    <div style="text-align: center; font-size: 24px; color: #007bff; margin-bottom: 30px;">' . $_SESSION['code2FA'] . '</div>
+                    <p style="margin-bottom: 20px; color: #666; text-align: center;">Se non hai richiesto questo codice, per favore ignora questa email.</p>
+                </div>
+            </body>'
         );
         $sendgrid= new \SendGrid(getenv("MailApiKey"));
         $sendgrid->send($sender);
