@@ -8,5 +8,4 @@
         echo "There was an error inserting the new account. Please try again.";
 
     }
-
 ?>

@@ -9,36 +9,39 @@
         <link href="../../CSS/Access/AccessStyleBase.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <div class="container-fluid d-flex flex-column vh-100 w-100 justify-content-center align-items-center" style="max-height: 100vh;">
+        <div class="container-fluid d-flex flex-column vh-100 justify-content-center align-items-center">
             <div>
                 <div class="d-flex justify-content-center align-items-center">
                     <h1>CineVerse</h1>
                 </div>
                 
-                <div id="MainBlock" class="d-flex flex-column align-items-center" style="width: 340px; height: 370px; margin:auto;">
+                <div id="MainBlock" class="col-12 flex-column justify-content-center align-items-center mb-3 pb-4">
                     <div id="BlockBanner" class="d-flex justify-content-center align-items-center w-100">
                         Login
                     </div>
                     <form id="loginForm" action="../../PHP/Access/ProcessLogin.php" method="POST" novalidate>
-                        <div class="mb-2 mt-4">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" name="email" id="email" value="" maxlength="50" placeholder="email" required>
-                            <div class="invalid-feedback">
-                                Please provide a valid email
+                        <div class="d-flex justify-content-center">
+                            <div class="col-9 mb-2 mt-4 d-flex flex-column justify-content-center">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" name="email" id="email" value="" maxlength="50" placeholder="email" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid email
+                                </div>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" name="password" id="password" value="" maxlength="30" placeholder="password" required>
+                        <div class="d-flex justify-content-center">
+                            <div class="col-9 mb-3 d-flex flex-column justify-content-center">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" name="password" id="password" value="" maxlength="30" placeholder="password" required>
+                            </div>
                         </div>
-                        <div id="error-message" class="error-message d-none"></div>
-                        <div class="d-flex justify-content-center mt-4">
+                        <div class="d-flex justify-content-center">
+                            <div id="error-message" class="error-message d-none"></div>
+                        </div>
+                        <div class="d-flex justify-content-center mt-2 ">
                             <button class="btn btn-primary" type="submit">Login</button>
                         </div>
                     </form>
-                    <div class="d-flex justify-content-center mt-2">
-                        <a id="PasswordLink" href="recupero_password.html">Hai dimenticato la password?</a>
-                    </div>
                 </div>
             </div>
         </div>

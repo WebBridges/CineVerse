@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded",function() {
     document.getElementById("Process").addEventListener("click",async function() {
         document.getElementById("ContentBlock").innerHTML = `
-        <div id="MainBlock" class="d-flex flex-column align-items-center" style="width: 330px; height: 290px; margin:auto;">
+        <div id="MainBlock" class="col-12 d-flex flex-column align-items-center pb-4">
             <div id="BlockBanner" class="d-flex justify-content-center align-items-center w-100">
                 2FA Verification
             </div>
