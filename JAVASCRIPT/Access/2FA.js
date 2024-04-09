@@ -67,7 +67,6 @@ async function createCodeFor2FA() {
         },
     });
     const data = await response.text();
-    console.log(data);
     return data === "true";
 }
 

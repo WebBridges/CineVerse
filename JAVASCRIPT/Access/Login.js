@@ -63,7 +63,6 @@ async function checkPassword(password,email) {
     });
 
     const data = await response.text();
-    console.log(data);
 
     return data === "Password_correct";
 }

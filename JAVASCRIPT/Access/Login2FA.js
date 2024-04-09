@@ -43,6 +43,5 @@ async function createCodeFor2FA(){
         },
     });
     let data = await response.text();
-    console.log(data);
     return data;
 }
