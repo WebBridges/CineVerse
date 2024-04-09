@@ -1,4 +1,4 @@
 <?php
     require_once("../Database/AccessDB.php");
-    echo check2FA($POST['code']);
+    echo check2fa($_POST['code']);
 ?>

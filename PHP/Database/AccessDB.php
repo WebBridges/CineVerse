@@ -1,6 +1,9 @@
 <?php
 
 use SendGrid\Mail\Mail;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
 
 #Sistemare sistema di salvataggio e verifica dell'account
 #Sistemare invio email e creazione token temporaneo
@@ -10,6 +13,7 @@ require_once ("../Utils/bootstrap.php");
 sec_session_start();
 include_once "../Utils/CheckInputForms.php";
 include_once "../Utils/emailUtils.php";
+include_once "../Utils/authUtilities.php";
 
 
      function insertNewAccount(){
@@ -31,8 +35,6 @@ include_once "../Utils/emailUtils.php";
             $_SESSION['email'] = $_POST['email'];
             $_SESSION['username'] = $_POST['username'];
 
-            setCookies();
-
             /*Insert topic of interest related with the new account*/
             foreach ($_POST['topic'] as $topic) {
                 $query = "INSERT INTO topic_utente (Nome_tag_Topic, Username_Utente) VALUES (?, ?)";
@@ -40,27 +42,14 @@ include_once "../Utils/emailUtils.php";
                 $stmt->bind_param("ss", $topic, $_POST['username']);
                 $stmt->execute();
             }
-            
-            setCookies();
-
             return true;
         } else {
             return false;
         }
     }
-    
-     function insertTopic($topic){
-        $db = getDb();
-
-        $query = "INSERT INTO topic (Nome_tag) VALUES (?)";
-        $stmt = $db->prepare($query);
-        $stmt->bind_param("s", $topic);
-        $stmt->execute();
-    }
 
      function checkUsernameExistence($username){
         $db = getDb();
-        
         if(!\checkInputUsername()){
             return "Username_invalid";
         }
@@ -77,7 +66,6 @@ include_once "../Utils/emailUtils.php";
 
      function checkEmailExistence($email){
         $db = getDb();
-
         if(\checkInputEmail()){
             $query = "SELECT Email FROM utente WHERE Email = ?";
             $stmt = $db->prepare($query);
@@ -96,7 +84,6 @@ include_once "../Utils/emailUtils.php";
      function checkPassword($password,$email){
         $db = getDb();
         $hashedPassword="";
-        $username="";
         if( !\checkInputEmail() || !\checkInputPassword()){
             return "Password_invalid";
         }
@@ -108,29 +95,34 @@ include_once "../Utils/emailUtils.php";
         $stmt->bind_result($hashedPassword);
         $stmt->fetch();
         if(password_verify($password,$hashedPassword)){
-            $_SESSION['email'] = $email;
-            $query="SELECT Username FROM utente WHERE Email = ?";
-            $stmt = $db->prepare($query);
-            $stmt->bind_param("s", $email);
-            $stmt->execute();
-            $stmt->store_result();
-            $stmt->bind_result($username);
-            $stmt->fetch();
-            $_SESSION['username'] = $username;
-            setCookies();
             return "Password_correct";
         } else {
             return "Password_wrong";
         }
     }
+    
+     function processLogin($email){
+        $db = getDb();
+        $username="";
+        $_SESSION['email'] = $email;
+        $query="SELECT Username FROM utente WHERE Email = ?";
+        $stmt = $db->prepare($query);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($username);
+        $stmt->fetch();
+        $_SESSION['username'] = $username;
+        $_SESSION['remember'] = isset($_POST['remember']) ? "on" : "off";
+     }
 
      function active2FA(){
         $db = getDb();
-
         $query = "UPDATE utente SET 2FA = 1 WHERE Email = ?";
         $stmt = $db->prepare($query);
         $stmt->bind_param("s", $_SESSION['email']);
         $stmt->execute();
+        unset($_SESSION['email']);
     }
 
      function setCode2FA(){
@@ -145,24 +137,32 @@ include_once "../Utils/emailUtils.php";
         }
         $_SESSION['lastTime'] = $now;
         $code = bin2hex(random_bytes(5));
-        $_SESSION['code2FA'] = $code;
-        echo $_SESSION['code2FA'];
-        if($_SESSION['code2FA'] != NULL){
-            sendCodeWithEmail();
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $token = '';
+        $tokenLength = 128;
+        for ($i = 0; $i < $tokenLength; $i++) {
+            $token .= $characters[random_int(0, $charactersLength - 1)];
+        }
+
+        if($code != NULL && $token != NULL){
+            addTfa($_SESSION['username'],$code,$token);
+            sendCodeWithEmail($code);
+            $_SESSION['token'] = $token;
             return "true";
         } else {
             return "false";
         }
     }
 
-     function sendCodeWithEmail(){
+     function sendCodeWithEmail($code){
         $subject="2FA CODE";
         $message='<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;">
         <div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #fff; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
             <h1 style="text-align: center; color: #333;">Autenticazione a due fattori</h1>
             <p style="margin-bottom: 20px; color: #666; text-align: center;">Salve,</p>
             <p style="margin-bottom: 20px; color: #666; text-align: center;">Per favore, inserisci il seguente codice per completare la procedura di autenticazione a due fattori:</p>
-            <div style="text-align: center; font-size: 24px; color: #007bff; margin-bottom: 30px;">' . $_SESSION['code2FA'] . '</div>
+            <div style="text-align: center; font-size: 24px; color: #007bff; margin-bottom: 30px;">' . $code . '</div>
             <p style="margin-bottom: 20px; color: #666; text-align: center;">Se non hai richiesto questo codice, per favore ignora questa email.</p>
         </div>
         </body>';
@@ -183,37 +183,90 @@ include_once "../Utils/emailUtils.php";
         if($active !=NULL && $active == 1){
             return true;
         } else {
+            set_token_cookie($_SESSION['username'],$_SESSION['remember']);
             return false;
         }
     }
 
-    function setCookies(){
-        if(isset($_COOKIE['email'])){
-            setcookie('email', '', time() - 3600, '/');
-        }
-        /*creation of a new usercookie*/
-        if (!isset($_COOKIE['email'])) {
-            setcookie('email', $_SESSION['email'], [
-                'expires' => time() + 3600,
-                'path' => '/',
-                'secure' => false,  
-                'httponly' => true, 
-                'samesite' => 'Strict', 
-            ]);
+    function addTfa($username,$code,$token){
+        $db = getDb();
+        $query = "INSERT INTO tfa_auth (username, code, token) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE code = ?, token = ?";
+        $stmt = $db->prepare($query);
+        $stmt->bind_param("sssss", $username, $code, $token, $code, $token);
+        $stmt->execute();
+    }
+
+    function check2fa($insertedCode){
+        $rightCode = retrieveCode();
+        if($insertedCode == $rightCode){
+            return "true";   
+        } else {
+                return "false";
+            }
         }
 
-        if(isset($_COOKIE['username'])){
-            setcookie('username', '', time() - 3600, '/');
+    function checkAuthTfa($insertedCode){
+        if(check2fa($insertedCode) == "true"){
+            $username=retrieveUsername();
+            if($username != NULL){
+                set_token_cookie($username,$_SESSION['remember']);
+                deleteCode();
+                unset($_SESSION['username']);
+                unset($_SESSION['token']);
+                return "true";
+            }
+        } else {
+            return "false";
         }
+    }
 
-        if (!isset($_COOKIE['username'])) {
-            setcookie('username', $_SESSION['username'], [
-                'expires' => time() + 3600,
-                'path' => '/',
-                'secure' => false,  
-                'httponly' => true,  
-                'samesite' => 'Strict',
-            ]);
+    function retrieveCode(){
+        $db = getDb();
+        $sql = "SELECT code FROM tfa_auth WHERE token = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->bind_param("s", $_SESSION['token']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row["code"];
+        } else {
+            return null;
+        }
+    }
+
+    function deleteCode(){
+        $db = getDb();
+        $sql = "DELETE FROM tfa_auth WHERE token = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->bind_param("s", $_SESSION['token']);
+        $stmt->execute();
+    }
+
+    function retrieveUsername(){
+        $db = getDb();
+        $sql = "SELECT username FROM tfa_auth WHERE token = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->bind_param("s", $_SESSION['token']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row["username"];
+        } else {
+            return null;
+        }
+    }
+
+    function retrieveUsername_from_token($token){
+        if (preg_match("/Bearer\s(\S+)/", $token, $matches) !== 1) {
+            throw new \Exception("Invalid token");
+        } else {
+            $token = $matches[1];
+            $decoded = JWT::decode($token, new Key(getenv("JWTKEY"), 'HS256'));
+            return ((array) $decoded)["username"];
         }
     }
 

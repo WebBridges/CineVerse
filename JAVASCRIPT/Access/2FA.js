@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded",function() {
                     event.preventDefault();
                     let code = document.getElementById("2fa").value;
                     let result = await checkCodeFor2FA(code);
-                    if( result == "true") {
+                    if( result ) {
                         event.target.form.submit();
                     } else {
                         return false;
