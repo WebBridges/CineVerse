@@ -265,8 +265,16 @@ include_once "../Utils/authUtilities.php";
             throw new \Exception("Invalid token");
         } else {
             $token = $matches[1];
-            $decoded = JWT::decode($token, new Key(getenv("JWTKEY"), 'HS256'));
-            return ((array) $decoded)["username"];
+            try {
+                $decoded = JWT::decode($token, new Key(getenv("JWTKEY"), 'HS256'));
+                if(checkUsernameExistence(((array) $decoded)["username"])=="Username_exist"){
+                    return ((array) $decoded)["username"];
+                } else {
+                    throw new \Exception("Invalid token");
+                }
+            } catch (\Exception $e) {
+                throw new \Exception("Invalid token");
+            }
         }
     }
 

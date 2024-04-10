@@ -7,7 +7,6 @@ require_once("CheckInputForms.php");
 require_once("../Database/DataBase.php");
 require_once("../../vendor/autoload.php");
 
-
 $database = DataBase::getInstance("localhost", "root", "", "cineverse");
 $db = $database->getDatabase();
 
