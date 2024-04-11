@@ -15,12 +15,12 @@ document.addEventListener("DOMContentLoaded",function() {
                         Please provide a valid code
                     </div>
                 </div>
-                <div id="error-message" class="error-message d-none"></div>
-                    <div class="d-flex justify-content-center mt-4">
-                        <button id="resend" class=" btn btn-secondary me-4">Rinvia codice</button>
-                        <button id="conferma" class="btn btn-primary" type="submit">Verifica</button>
-                    </div>
             </form>
+            <div id="error-message" class="error-message d-none"></div>
+            <div class="d-flex justify-content-center mt-4">
+                <button id="resend" class=" btn btn-secondary me-4">Rinvia codice</button>
+                <button id="conferma" class="btn btn-primary" type="submit" form="2FA_Form">Verifica</button>
+            </div>
         </div>
         `;
 
