@@ -1,3 +1,7 @@
+<?php
+    include '../../PHP/Utils/auth_request.php';
+?>
+
 <!DOCTYPE html>
 <html lang="it">
 
@@ -35,7 +39,7 @@
                         <img src="../../img/default-user.webp" alt="user image" class="img-fluid overflow-hidden" id="user_images">
                     </div>
                     <div class="col-auto username">
-                        <p id="username">username</p>
+                        <p id="username">Username</p>
                         <div class="row justify-content-center" id="user_number">
                             <div class="col-auto text-center">
                                 <p>Post</p>

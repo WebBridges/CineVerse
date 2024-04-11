@@ -7,6 +7,9 @@ if(checkAuthTfa($_POST['2fa'])=="false"){
     echo "There was an error during validation of account. Please try again.";
 } else{
         active2FA();
+        unset($_SESSION['email']);
+        unset($_SESSION['token']);
+        unset($_SESSION['email']);
         header("location: ../../HTML/Access/LoginPage.html");
     }
 ?>
