@@ -89,7 +89,7 @@ async function showpost(type) {
                 loadedPost = loadedPosts[photo_index];
                 loadedPhoto = loadedPosts[photo_index + loadedPosts.length/2];
                 let clone = document.importNode(template.content, true);
-                clone.querySelector("#photo-id").src = "data:image/jpeg;base64," + loadedPhoto.foto_video;
+                clone.querySelector("#photo-id").src = "../../img/" + loadedPhoto.foto_video;
                 clone.querySelector("#photo-id").alt = loadedPost.titolo;
                 //clone.querySelector("#photo-id").addEventListener("click", function () { openModal(photo); });
                 photosDiv.appendChild(clone);

@@ -410,7 +410,7 @@ namespace Post {
         {
             $this->IDpost_foto_video = $IDpost_foto_video;
             $this->IDpost = $IDpost;
-            $this->foto_video = base64_encode($foto_video);
+            $this->foto_video = $foto_video;
             $this->descrizione = $descrizione;
         }
 
