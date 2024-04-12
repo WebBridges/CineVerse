@@ -1,6 +1,6 @@
 <?php
-    require_once("../Database/AccessDB.php");
-    require_once("bootstrap.php");
+    include_once(__DIR__ . "/bootstrap.php");
+    include_once(__DIR__ . "/../Database/AccessDB.php");
     sec_session_start();
 
     if(!isset($_COOKIE['token'])) {

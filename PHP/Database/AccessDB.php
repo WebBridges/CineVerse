@@ -1,6 +1,5 @@
 <?php
 
-use SendGrid\Mail\Mail;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
@@ -9,11 +8,11 @@ use Firebase\JWT\Key;
 #Sistemare invio email e creazione token temporaneo
 #Implementare il token dell'utente con jwt (chiave pubblica,crittografia,dati) per implementare meglio il fatto di salvare la sessione (anche li bisogna lavorarci)
 
-require_once ("../Utils/bootstrap.php");
+require_once (__DIR__ . "/../Utils/bootstrap.php");
 sec_session_start();
-include_once "../Utils/CheckInputForms.php";
-include_once "../Utils/emailUtils.php";
-include_once "../Utils/authUtilities.php";
+include_once (__DIR__ . "/../Utils/CheckInputForms.php");
+include_once (__DIR__ . "/../Utils/emailUtils.php");
+include_once (__DIR__ . "/../Utils/authUtilities.php");
 
 
      function insertNewAccount(){
@@ -50,6 +49,7 @@ include_once "../Utils/authUtilities.php";
 
      function checkUsernameExistence($username){
         $db = getDb();
+        
         if(!\checkInputUsername()){
             return "Username_invalid";
         }
@@ -62,6 +62,19 @@ include_once "../Utils/authUtilities.php";
             return "Username_exist";
         else
             return "Username_available";
+    }
+
+     function checkUsername_for_cookie($username){
+        $db = getDb();
+        $query = "SELECT Username FROM utente WHERE Username = ?";
+        $stmt = $db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $stmt->store_result();
+        if($stmt->num_rows > 0)
+            return "Username_exist";
+        else
+            return "Username_not_exist";
     }
 
      function checkEmailExistence($email){
@@ -211,8 +224,6 @@ include_once "../Utils/authUtilities.php";
             if($username != NULL){
                 set_token_cookie($username,$_SESSION['remember']);
                 deleteCode();
-                unset($_SESSION['username']);
-                unset($_SESSION['token']);
                 return "true";
             }
         } else {
@@ -262,18 +273,18 @@ include_once "../Utils/authUtilities.php";
 
     function retrieveUsername_from_token($token){
         if (preg_match("/Bearer\s(\S+)/", $token, $matches) !== 1) {
-            throw new \Exception("Invalid token");
+            throw new \Exception("Invalid token 1");
         } else {
             $token = $matches[1];
             try {
                 $decoded = JWT::decode($token, new Key(getenv("JWTKEY"), 'HS256'));
-                if(checkUsernameExistence(((array) $decoded)["username"])=="Username_exist"){
+                if(checkUsername_for_cookie(((array) $decoded)["username"])=="Username_exist"){
                     return ((array) $decoded)["username"];
                 } else {
-                    throw new \Exception("Invalid token");
+                    throw new \Exception("Invalid token 2");
                 }
             } catch (\Exception $e) {
-                throw new \Exception("Invalid token");
+                throw new \Exception("Invalid token 3" . $token . "   ");
             }
         }
     }

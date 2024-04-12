@@ -26,12 +26,12 @@ document.getElementById('FormRegistration').addEventListener('submit', async fun
 
     let isValid = true;
 
-    if (isValid && (!name || name.length > 50 ||regex.test(name))) {
+    if (isValid && (!name || name.length > 30 ||regex.test(name))) {
         document.getElementById('errorName').style.display = 'block';
         isValid = false;
     }
 
-    if(isValid && (!surname || surname.length > 50 || regex.test(surname))) {
+    if(isValid && (!surname || surname.length > 30 || regex.test(surname))) {
         document.getElementById('errorSurname').style.display = 'block';
         isValid = false;
     }

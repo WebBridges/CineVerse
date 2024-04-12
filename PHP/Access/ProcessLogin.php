@@ -12,6 +12,6 @@
         if(check2FA_Active()==true){
             header("location: ../../HTML/Access/2FA_Login.html");
         }
-        else{header("Location: ../../HTML/Profile/userpage.html");}
+        else{header("Location: ../../HTML/Profile/userpage.php");}
     }
 ?>

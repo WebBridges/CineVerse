@@ -10,17 +10,17 @@ document.addEventListener("DOMContentLoaded",function() {
             </div>
             <form id="2FA_Form" class=" mt-1" action="../../PHP/Access/Process2FA.php" method="POST" >
                 <div class="mb-1 mt-1">
-                    <input type="text" class="form-control" name="2fa" id="2fa" value="" maxlength="15" placeholder="codice" required>
+                    <input type="text" class="form-control" name="2fa" id="2fa" value="" maxlength="10" placeholder="codice" required>
                     <div class="invalid-feedback">
                         Please provide a valid code
                     </div>
                 </div>
-                <div id="error-message" class="error-message d-none"></div>
-                    <div class="d-flex justify-content-center mt-4">
-                        <button id="resend" class=" btn btn-secondary me-4">Rinvia codice</button>
-                        <button id="conferma" class="btn btn-primary" type="submit">Verifica</button>
-                    </div>
             </form>
+            <div id="error-message" class="error-message d-none"></div>
+            <div class="d-flex justify-content-center mt-4">
+                <button id="resend" class=" btn btn-secondary me-4">Rinvia codice</button>
+                <button id="conferma" class="btn btn-primary" type="submit" form="2FA_Form">Verifica</button>
+            </div>
         </div>
         `;
 
