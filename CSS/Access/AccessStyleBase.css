@@ -39,12 +39,12 @@ div[id="MainBlock"]{
     height: 60%;
 }
 
-a[id=PasswordLink]{
+a[id=RegisterLink]{
     color: #050301;
     text-decoration: none;
 }
 
-a[id=PasswordLink]:hover {
+a[id=RegisterLink]:hover {
     text-decoration: underline;
 }
 
