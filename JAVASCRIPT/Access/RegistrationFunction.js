@@ -14,7 +14,6 @@ function loadTopicCheckboxes(){
         let checkboxHTML = '';
         // Utilizza i dati del file JSON per generare l'HTML dei bottoni
         for(let i = 0; i < data.topic.length; i++) {
-            //checkboxHTML += `<li><input type="checkbox" id="${data.topic[i].id}" name="${data.topic[i].name}" value="${data.topic[i].id}"><label for="${data.topic[i].id}">${data.topic[i].label}</label></li>`;
               checkboxHTML+=`<div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="${data.topic[i].id}" name="${data.topic[i].name}" value="${data.topic[i].id}">
                                 <label class="form-check-label" for="${data.topic[i].id}">

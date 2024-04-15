@@ -50,7 +50,6 @@ async function checkEmail(email) {
     });
 
     const data = await response.text();
-
     return data === "Email_exist";
 }
 
@@ -64,6 +63,5 @@ async function checkPassword(password,email) {
     });
 
     const data = await response.text();
-
     return data === "Password_correct";
 }
