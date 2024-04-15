@@ -19,9 +19,10 @@
         <header id="profile_header">
             <div id="mySidebar" class="sidebar justify-content-end">
                 <a href="#" class="closebtn" id="closebtn">&times;</a>
-                <a href="#" class="sidebarField">Modifica Account</a>
+                <a href="SettingsPage.php" class="sidebarField">Modifica Account</a>
                 <a href="#" class="sidebarField">Modifica Profilo</a>
                 <a href="#" class="sidebarField">Post Archiviati</a>
+                <a href="../../PHP/Utils/Logout.php" class="sidebarField">Logout</a>
             </div>
             <button class="openbtn" id="openbtn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="48.6" height="32" viewBox="0 0 76 50" fill="none">

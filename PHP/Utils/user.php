@@ -12,7 +12,6 @@ namespace Utente {
         private $username;
         private $data_nascita;
         private $email;
-        private $email_recupero;
         private $password;
         private $foto_profilo;
         private $sesso;
@@ -21,6 +20,7 @@ namespace Utente {
         private $tFA;
         private $follower;
         private $seguiti;
+        private $topics;
 
 
         // TODO: add relationship to other user
@@ -30,7 +30,6 @@ namespace Utente {
             $username = null,
             $data_nascita = null,
             $email = null,
-            $email_recupero = null,
             $password = null,
             $foto_profilo = null,
             $sesso = null,
@@ -38,14 +37,14 @@ namespace Utente {
             $foto_background = null,
             $tFA = null,
             $follower = null,
-            $seguiti = null
+            $seguiti = null,
+            $topics = null
         ) {
             $this->nome = $nome;
             $this->cognome = $cognome;
             $this->username = $username;
             $this->data_nascita = $data_nascita;
             $this->email = $email;
-            $this->email_recupero = $email_recupero;
             $this->password = $password;
             $this->foto_profilo = $foto_profilo;
             $this->sesso = $sesso;
@@ -54,25 +53,26 @@ namespace Utente {
             $this->tFA = $tFA;
             $this->follower = $follower;
             $this->seguiti = $seguiti;
+            $this->topics = $topics;
         }
 
         public function jsonSerialize()
         {
             return [
-                "nome" => $this->nome,
-                "cognome" => $this->cognome,
-                "username" => $this->username,
-                "data_nascita" => $this->data_nascita,
-                "email" => $this->email,
-                "email_recupero" => $this->email_recupero,
-                "password" => $this->password,
-                "foto_profilo" => $this->foto_profilo,
-                "sesso" => $this->sesso,
-                "descrizione" => $this->descrizione,
-                "foto_background" => $this->foto_background,
+                "Nome" => $this->nome,
+                "Cognome" => $this->cognome,
+                "Username" => $this->username,
+                "Data_nascita" => $this->data_nascita,
+                "Email" => $this->email,
+                "Password" => $this->password,
+                "Foto_profilo" => $this->foto_profilo,
+                "Sesso" => $this->sesso,
+                "Descrizione" => $this->descrizione,
+                "Foto_background" => $this->foto_background,
                 "tFA" => $this->tFA,
                 "follower" => $this->follower,
-                "seguiti" => $this->seguiti
+                "seguiti" => $this->seguiti,
+                "topics" => $this->topics
             ];
         }
 
@@ -99,11 +99,6 @@ namespace Utente {
         public function get_email()
         {
             return $this->email;
-        }
-
-        public function get_email_recupero()
-        {
-            return $this->email_recupero;
         }
 
         public function get_password()
@@ -146,6 +141,16 @@ namespace Utente {
             return $this->seguiti;
         }
 
+        public function get_topics()
+        {
+            return $this->topics;
+        }
+
+        public function set_topics($topics)
+        {
+            $this->topics = $topics;
+        }
+
         public function check_password(string $password)
         {
             return password_verify($password, $this->password);
@@ -158,8 +163,8 @@ namespace Utente {
                 throw new \Exception("Password not set");
             }
 
-            $query = "INSERT INTO utente (nome, cognome, username, data_nascita, email, email_recupero, password, foto_profilo, sesso, descrizione, foto_background, tFA) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $query = "INSERT INTO utente (nome, cognome, username, data_nascita, email, password, foto_profilo, sesso, descrizione, foto_background, tFA) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $db->prepare($query);
             $stmt->bind_param(
                 "sssssssbssbi",
@@ -168,7 +173,6 @@ namespace Utente {
                 $this->username,
                 $this->data_nascita,
                 $this->email,
-                $this->email_recupero,
                 $this->password,
                 $this->foto_profilo,
                 $this->sesso,
@@ -188,7 +192,6 @@ namespace Utente {
             string $username,
             string $data_nascita,
             string $email,
-            string $email_recupero,
             string $foto_profilo,
             string $sesso,
             string $descrizione,
@@ -196,10 +199,10 @@ namespace Utente {
             int $tFA
         ) {
             $db = getDB();
-            $query = "UPDATE utente SET nome = ?, cognome = ?, username = ?, data_nascita = ?, email = ?, email_recupero = ?, foto_profilo = ?, 
+            $query = "UPDATE utente SET nome = ?, cognome = ?, username = ?, data_nascita = ?, email = ?,foto_profilo = ?, 
                 sesso = ?, descrizione = ?, foto_background = ?, 2FA = ? WHERE username = ?";
             $stmt = $db->prepare($query);
-            $stmt->bind_param("ssssssbssbis", $nome, $cognome, $username, $data_nascita, $email, $email_recupero, $foto_profilo, $sesso, $descrizione, $foto_background, $tFA, $username);
+            $stmt->bind_param("sssssbssbis", $nome, $cognome, $username, $data_nascita, $email, $foto_profilo, $sesso, $descrizione, $foto_background, $tFA, $username);
             $success = $stmt->execute();
             if (!$success) {
                 throw new \Exception("Error while querying the database: " . mysqli_error($db));
@@ -228,25 +231,26 @@ namespace Utente {
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
                 $user = new DBUtente(
-                    $row["nome"],
-                    $row["cognome"],
-                    $row["username"],
-                    $row["data_nascita"],
-                    $row["email"],
-                    $row["email_recupero"],
-                    $row["password"],
-                    $row["foto_profilo"],
-                    $row["sesso"],
-                    $row["descrizione"],
-                    $row["foto_background"],
+                    $row["Nome"],
+                    $row["Cognome"],
+                    $row["Username"],
+                    $row["Data_nascita"],
+                    $row["Email"],
+                    $row["Password"],
+                    $row["Foto_profilo"],
+                    $row["Sesso"],
+                    $row["Descrizione"],
+                    $row["Foto_background"],
                     $row["follower"],
-                    $row["seguiti"]
+                    $row["seguiti"],
+                    $row["2FA"]
                 );
             } else {
                 return null;
             }
             return $user;
         }
+        
 
         public static function get_utente_by_email(string $email)
         {
@@ -268,7 +272,6 @@ namespace Utente {
                     $row["username"],
                     $row["data_nascita"],
                     $row["email"],
-                    $row["email_recupero"],
                     $row["password"],
                     $row["foto_profilo"],
                     $row["sesso"],
@@ -335,7 +338,6 @@ namespace Utente {
                         $row["username"],
                         $row["data_nascita"],
                         $row["email"],
-                        $row["email_recupero"],
                         $row["password"],
                         $row["foto_profilo"],
                         $row["sesso"],
@@ -346,6 +348,23 @@ namespace Utente {
                 }
             }
             return $users;
+        }
+
+        public static function get_topics_by_username(string $username){
+            $db = getDB();
+            $query="SELECT Nome_tag_Topic FROM topic_utente WHERE Username_Utente = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("s", $username);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
+            }
+            $result = $stmt->get_result();
+            $topics = [];
+            while ($row = $result->fetch_assoc()) {
+                array_push($topics, $row['Nome_tag_Topic']);
+            }
+            return $topics;
         }
 
         public static function retrieve_profile_photo($username)
@@ -426,7 +445,6 @@ namespace Utente {
                         $row["username"],
                         $row["data_nascita"],
                         $row["email"],
-                        $row["email_recupero"],
                         $row["password"],
                         $row["foto_profilo"],
                         $row["sesso"],
