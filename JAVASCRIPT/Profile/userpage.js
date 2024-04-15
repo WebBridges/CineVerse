@@ -73,13 +73,11 @@ async function getType(type) {
 }
 
 async function showpost(type) {
-    const posts = document.getElementById("posts");
     let loadedPosts = await getType(type);
     let loadedPost = loadedPosts[0];
     let photosDiv = document.getElementById("photos");
     let template = document.getElementById("template-photos");
     if (loadedPosts.length == 0) {
-        posts.innerHTML = "No posts to show";
         console.log("No posts to show");
     } else {
         if(type === 0){
