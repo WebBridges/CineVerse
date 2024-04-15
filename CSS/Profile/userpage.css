@@ -186,3 +186,12 @@ li{
 .openbtn:hover {
   background-color: #7B2CBF;
 }
+
+#photo-id {
+    width: 100%;
+    height: auto;
+    height: auto;
+    display: block;
+    overflow: hidden;
+    object-fit: cover;
+}
