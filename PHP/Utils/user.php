@@ -241,9 +241,9 @@ namespace Utente {
                     $row["Sesso"],
                     $row["Descrizione"],
                     $row["Foto_background"],
+                    $row["2FA"],
                     $row["follower"],
-                    $row["seguiti"],
-                    $row["2FA"]
+                    $row["seguiti"]
                 );
             } else {
                 return null;
