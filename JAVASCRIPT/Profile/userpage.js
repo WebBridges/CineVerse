@@ -75,8 +75,7 @@ async function getType(type) {
 async function showpost(type) {
     let loadedPosts = await getType(type);
     let loadedPost = loadedPosts[0];
-    let photosDiv = document.getElementById("photos");
-    let template = document.getElementById("template-photos");
+    let postsContainerDiv = document.getElementById("post-container");
     if (loadedPosts.length == 0) {
         console.log("No posts to show");
     } else {
@@ -86,13 +85,46 @@ async function showpost(type) {
             for (let photo_index = 0; photo_index < loadedPosts.length/2; photo_index++) {
                 loadedPost = loadedPosts[photo_index];
                 loadedPhoto = loadedPosts[photo_index + loadedPosts.length/2];
-                let clone = document.importNode(template.content, true);
-                clone.querySelector("#photo-id").src = "../../img/" + loadedPhoto.foto_video;
-                clone.querySelector("#photo-id").alt = loadedPost.titolo;
-                //clone.querySelector("#photo-id").addEventListener("click", function () { openModal(photo); });
-                photosDiv.appendChild(clone);
+                path = loadedPhoto.foto_video;
+                split = path.split(".");
+                if (split[1] == "mp4") {
+                    var container = document.createElement('div');
+                    var video = document.createElement('video');
+                    var img = document.createElement('img');
+                    container.classList.add('video-container');
+
+                    // Immagine che indica un video
+                    img.alt = 'play-icon-identifier';
+                    img.src = "../../img/play_button.WEBP";
+                    img.className = 'play-icon';
+                    
+                    //Impostazione degli attributi del video
+                    video.src = "../../img/" + path; //percorso del video
+                    video.controls = true; //Abilita i controlli del video
+                    video.autoplay = false;
+                    video.loop = false; 
+                    video.muted = false;
+                    video.className = 'img-fluid mx-auto d-block border border-black'; // Classe CSS
+                    video.id = 'video-id'; // ID del video
+                
+                    //Inserimento degli elementi nell'html
+                    container.appendChild(video);
+                    container.appendChild(img);
+                    postsContainerDiv.appendChild(container);
+                } else {
+                    //Creazione dell'elemento immagine
+                    var img = document.createElement('img');
+                    img.alt = '';
+                    img.className = 'img-fluid mx-auto d-block border border-black';
+                    img.id = 'photo-id';
+                    img.src = "../../img/" + path;
+
+                    //Inserimento dell'elemento immagine nell'html
+                    postsContainerDiv.appendChild(img);
+                }
                 dim++;
             }
+            /**Prima servira a riempire i buchi nel caso nella linea non si arrivi a 3 post
             let i = 0;
             if (dim % 3 == 1) {
                 i = 2;
@@ -101,10 +133,12 @@ async function showpost(type) {
             }
             for (let j = 0; j < i; j++) {
                 let clone = document.importNode(template.content, true);
+                clone.querySelector("#video-id").remove();
                 clone.querySelector("#photo-id").src = "../../img/default-user.webp";
                 clone.querySelector("#photo-id").style.visibility = "hidden";
-                photosDiv.appendChild(clone);
+                postsContainerDiv.appendChild(clone);
             }
+            */
         }
     }
 }

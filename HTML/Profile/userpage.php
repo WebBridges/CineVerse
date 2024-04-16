@@ -79,7 +79,7 @@
                 </div>
             </div>
             <!--Post section-->
-            <div id="posts">
+            <div id="posts-section">
                 <div class="row g-0" id="buttons">
                     <div class="col-4 photo_button">
                         <button type="button" class="btn btn-default current_button border border-black border-2 rounded-0" id="photo_button">Photo</button>
@@ -91,12 +91,13 @@
                         <button type="button" class="btn btn-default border border-black border-2 rounded-0" id="survey_button">Survey</button>
                     </div>
                 </div>
-                <div class="row g-0" id="photos" data-bs-toggle="modal" data-bs-target="#post-modal">
-                    <template id="template-photos">
-                        <div class="col-4">
-                            <img src="../../img/default-image.png" alt="" class="img-fluid mx-auto d-block border border-black" id="photo-id">
-                        </div>
-                    </template>
+                <div id="ciao">
+                </div>
+                <div class="row g-0" id="posts" data-bs-toggle="modal" data-bs-target="#post-modal">
+                    <div class="col-4 post-container" id="post-container">
+                        <!--<img src="../../img/default-image.png" alt="" class="img-fluid mx-auto d-block border border-black" id="photo-id">
+                        <video src="../../img/default-video.mp4" controls class="img-fluid mx-auto d-block border border-black" id="video-id"></video>-->
+                    </div>
                 </div>
             </div>
         </main>
