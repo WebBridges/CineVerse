@@ -91,9 +91,7 @@
                         <button type="button" class="btn btn-default border border-black border-2 rounded-0" id="survey_button">Survey</button>
                     </div>
                 </div>
-                <div id="ciao">
-                </div>
-                <div class="row g-0" id="posts" data-bs-toggle="modal" data-bs-target="#post-modal">
+                <div class="row g-0" id="posts" >
                     <div class="col-4 post-container" id="post-container">
                         <!--<img src="../../img/default-image.png" alt="" class="img-fluid mx-auto d-block border border-black" id="photo-id">
                         <video src="../../img/default-video.mp4" controls class="img-fluid mx-auto d-block border border-black" id="video-id"></video>-->
