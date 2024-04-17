@@ -186,7 +186,6 @@ async function openModalPostPhoto(post, photo) {
     // show modal
     document.getElementById("post-user-photo").src = "../../img/" + await loadUserImage(post.username_utente);
     document.getElementById("post-username").innerHTML = post.username_utente;
-    console.log(photo.foto_video);
     document.getElementById("post-photo").src = "../../img/" + photo.foto_video;
     document.getElementById("post-count-likes").innerHTML = "Likes: " + await loadLikes(post.IDpost);
     document.getElementById("post-description").innerHTML = photo.descrizione;
