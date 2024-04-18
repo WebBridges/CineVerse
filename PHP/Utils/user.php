@@ -1,6 +1,7 @@
 <?php
 
-namespace Utente {
+namespace User {
+
     require_once("bootstrap.php");
     sec_session_start();
     require_once("dbObject.php");
@@ -429,7 +430,7 @@ namespace Utente {
         public static function retrieve_profile_photo($username)
         {
             $db = getDB();
-            $query = "SELECT foto_profilo FROM utente WHERE username = ?";
+            $query = "SELECT Foto_profilo FROM utente WHERE Username = ?";
             $stmt = $db->prepare($query);
             $stmt->bind_param("s", $username);
             $success = $stmt->execute();
@@ -439,7 +440,7 @@ namespace Utente {
             $result = $stmt->get_result();
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
-                return $row["foto_profilo"];
+                return $row["Foto_profilo"];
             } else {
                 return null;
             }

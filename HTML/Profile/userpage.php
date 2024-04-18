@@ -13,6 +13,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
         rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
         crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/d9b18796bb.js" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <div class="container-fluid p-0 overflow-x-hidden overflow-y-auto" id="body_container"> 
@@ -79,7 +81,7 @@
                 </div>
             </div>
             <!--Post section-->
-            <div id="posts">
+            <div id="posts-section">
                 <div class="row g-0" id="buttons">
                     <div class="col-4 photo_button">
                         <button type="button" class="btn btn-default current_button border border-black border-2 rounded-0" id="photo_button">Photo</button>
@@ -91,15 +93,15 @@
                         <button type="button" class="btn btn-default border border-black border-2 rounded-0" id="survey_button">Survey</button>
                     </div>
                 </div>
-                <div class="row g-0" id="photos" data-bs-toggle="modal" data-bs-target="#post-modal">
-                    <template id="template-photos">
-                        <div class="col-4">
-                            <img src="../../img/default-image.png" alt="" class="img-fluid mx-auto d-block border border-black" id="photo-id">
-                        </div>
-                    </template>
+                <div class="row g-0" id="posts" data-bs-toggle="modal" data-bs-target="#post-modal">
+                    <div class="col-4 post-container" id="post-container">
+                        <!--<img src="../../img/default-image.png" alt="" class="img-fluid mx-auto d-block border border-black" id="photo-id">
+                        <video src="../../img/default-video.mp4" controls class="img-fluid mx-auto d-block border border-black" id="video-id"></video>-->
+                    </div>
                 </div>
             </div>
         </main>
+        <!--Navbar-->
         <nav class="navbar navbar-custom fixed-bottom navbar-expand mx-auto bottom-navbar">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -142,6 +144,86 @@
               </ul>
             </div>
           </nav>
+    </div>
+    <!-- Post Modal -->
+    <div class="modal fade" id="post-modal" tabindex="-1" aria-labelledby="post-name" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="row">
+                        <div class="col-6 d-flex align-items-center">
+                            <h3 id="post-title">Post title</h3>
+                        </div>
+                        <div class="col-2">
+                            <img id="post-user-photo" src="../../img/default-user.WEBP" alt=""
+                                class="rounded-circle img-fluid img-thumbnail">
+                        </div>
+                        <div class="col-3 d-flex align-items-center">
+                            <h3 id="post-username">Username</h3>
+                        </div>
+                        <div class="col-1">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <!--<div class="container-fluid">-->
+                        <!--<div id="post-id">-->
+                            <div class="row">
+                                <div class="col text-center">
+                                    <img id="post-photo" src="../../img/default-image.png" alt="" class="img-fluid">
+                                </div>
+                            </div>
+                            <div id="post-actions" class="row mt-3">
+                                <div class="col-2">
+                                    <button class="btn" id="likes-button">
+                                        <em class="fa-regular fa-heart"></em>
+                                    </button>
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn" id="comments-button" data-bs-toggle="modal" data-bs-target="#comments-modal" data-bs-dismiss="modal">
+                                        <em class="fa-regular fa-comment"></em>
+                                    </button>
+                                </div>
+                                <div class="col-8">
+                                    <p id="post-description">Post description can be very long and take the whole page</p>
+                                </div>
+                            </div>
+                            <!-- <ol id="post-actions" class="list-group list-group-flush list-group-horizontal">
+                                <li class="list-group-item pt-3 pe-0" id="post-likes">
+                                    <p>0</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <button class="btn" id="likes-button">
+                                        <em class="fa-regular fa-heart"></em>
+                                    </button>
+                                </li>
+                                <li class="list-group-item">
+                                    <button class="btn" id="comments-button" data-bs-toggle="modal"
+                                        data-bs-target="#comments-modal">
+                                        <em class="fa-regular fa-comment"></em>
+                                    </button>
+                                </li>
+                                <li class="list-group-item pt-3 ps-4" id="info-button">
+                                    <a href="#" class="text-black" title="info">
+                                        <em class="fa-solid fa-circle-info"></em>
+                                    </a>
+                                </li>
+                            </ol> -->
+                        <!--</div>-->
+                    <!--</div>-->
+                </div>
+                <div class="modal-footer">
+                    <!-- <div class="container-fluid"> -->
+                        <div class="row">
+                            <div class="col" id="post-count-likes">
+                                <p>Like: 0</p>
+                            </div>
+                        </div>
+                    <!-- </div> -->
+                </div>
+            </div>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
