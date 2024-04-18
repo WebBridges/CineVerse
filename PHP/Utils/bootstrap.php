@@ -7,7 +7,7 @@ require_once(__DIR__ . "/CheckInputForms.php");
 require_once(__DIR__ . "/../Database/DataBase.php");
 require_once(__DIR__ . "/../../vendor/autoload.php");
 
-$database = DataBase::getInstance("sql11.freesqldatabase.com", "sql11698630", "D8iesRmkrX", "sql11698630");
+$database = DataBase::getInstance("sql.freedb.tech", "freedb_amministratore", "?rTU*96%DDJMPNj", "freedb_cineverse");
 $db = $database->getDatabase();
 
 function getDb() {
