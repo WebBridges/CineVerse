@@ -1,5 +1,5 @@
 <?php
-    use Utente\UserUtility;
+    use User\UserUtility;
     require_once '../Utils/bootstrap.php';
     require_once("../Utils/user.php");
 

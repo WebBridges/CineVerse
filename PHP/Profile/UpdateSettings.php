@@ -1,6 +1,6 @@
 <?php
 
-use Utente\DBUtente;
+use User\DBUtente;
 
     require_once("../Database/AccessDB.php");
     require_once("../Utils/user.php");
