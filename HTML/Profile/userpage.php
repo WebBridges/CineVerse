@@ -41,12 +41,12 @@
                     <div class="col-auto user_images">
                         <img src="../../img/default-user.webp" alt="user image" class="img-fluid overflow-hidden" id="user_images">
                     </div>
-                    <div class="col-auto username">
+                    <div class="col-auto username text-center">
                         <p id="username">Username</p>
                         <div class="row justify-content-center" id="user_number">
                             <div class="col-auto text-center">
                                 <p>Post</p>
-                                <p id="nPost">0</p>
+                                <p id="nPosts">0</p>
                             </div>
                             <div class="col-auto text-center">
                                 <p>Follower</p>
@@ -62,8 +62,8 @@
                         <p id="user_description">descrizione utente descrizione utente descrizione </p>
                     </div>
                 </div>
-                <div class="row justify-content-center topic_row mt-2">
-                    <div class="col-auto">
+                <div class="row justify-content-center topic_row mt-2" id="topic-container">
+                    <!--<div class="col-auto">
                         <p id="topic1">Marvel</p>
                     </div>
                     <div class="col-auto">
@@ -77,7 +77,7 @@
                     </div>
                     <div class="col-auto">
                         <p id="topic5">Horror</p>
-                    </div>
+                    </div>-->
                 </div>
             </div>
             <!--Post section-->
@@ -232,5 +232,5 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
             crossorigin="anonymous">
     </script>
-    <script src="../../JAVASCRIPT/Profile/userpage.js" type="text/javascript"></script>
+    <script src="../../JAVASCRIPT/Profile/userpage.js" type="module"></script>
 </body>
