@@ -21,7 +21,7 @@
                     <div id="BlockBanner" class="col-12 d-flex flex-column justify-content-center align-items-center text-center ">
                         Impostazioni Account
                     </div>
-                    <form id="FormRegistration" action="" method="POST" novalidate>
+                    <form id="FormRegistration" action="../../PHP/Profile/UpdateSettings.php" method="POST" novalidate>
                         <div class="row container-fluid">
                             <div class="col-md-6  mb-2 d-flex flex-column justify-content-center align-items-center">
                                 <div class="col-8 mt-2">
@@ -59,8 +59,8 @@
                                 <div class="col-8 mt-2 justify-content-center pt-4">
                                     <div class="form-group d-flex align-items-center">
                                         <label for="twoFactorAuth" class="form-label">Autenticazione a 2 Fattori</label>
-                                        <label class="switch" for="checkbox">
-                                            <input type="checkbox" id="checkboxTFA" />
+                                        <label class="switch">
+                                            <input type="checkbox" id="checkboxTFA" name="checkboxTFA" />
                                             <div class="slider round"></div>
                                         </label>
                                     </div>
@@ -133,10 +133,10 @@
                                         La password deve contenere almeno 8 caratteri.
                                     </div>
                                     <div id="passwordSpecialChar" class="mt-1 mb-1 error-message" style="display: none;">
-                                        La password può contenere solo lettere, numeri, spazi, e i caratteri _!@#$%^*.
+                                        La password può contenere solo lettere, numeri, spazi, e i caratteri _!@#$%^*
                                     </div>
                                     <div id="errorAge" class="mt-1 mb-1 error-message" style="display: none;">
-                                        L'età minima per registrarsi è di 14 anni
+                                        L'età minima consentita è di 14 anni
                                     </div>
                                     <div id="errorTopic" class="mt-1 mb-1 error-message" style="display: none;">
                                         Seleziona minimo due topic
@@ -154,8 +154,8 @@
         </div>
 
         <script src="../../JAVASCRIPT/Access/RegistrationFunction.js"></script>
-        <script src="../../JAVASCRIPT/Access/ValidateForm.js"></script>
         <script src="../../JAVASCRIPT/Profile/SettingsPage.js"></script>
+        <script src="../../JAVASCRIPT/Profile/ValidateUpdateForm.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>
 </html>

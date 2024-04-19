@@ -3,7 +3,9 @@
 namespace User {
 
     require_once("bootstrap.php");
+    sec_session_start();
     require_once("dbObject.php");
+    require_once("authUtilities.php");
 
     class DBUtente implements \DBObject
     {
@@ -186,7 +188,64 @@ namespace User {
             }
         }
 
-        public function update_infos(
+        public function update_infos_account(
+            string $nome,
+            string $cognome,
+            string $username,
+            string $data_nascita,
+            string $email,
+            string $sesso,
+            int $tFA,
+            array $topic
+        ) {
+            $db = getDB();
+            $query = "UPDATE utente SET Nome = ?, Cognome = ?, Username = ?, Data_nascita = ?, Email = ?, 
+                Sesso = ?, 2FA = ? WHERE Username = ?";
+            $gender=$sesso!=""?$sesso:null;
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("ssssssis", $nome, $cognome, $username, $data_nascita, $email, $gender, $tFA, $_SESSION['username']);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
+            }
+            $_SESSION['username'] = $username;
+            setcookie("token","",time()-3600,"/");
+            set_token_cookie($_SESSION['username'], $_SESSION['remember']);
+            $query = "DELETE FROM topic_utente WHERE Username_Utente = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("s", $username);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
+            }
+            $query = "INSERT INTO topic_utente (Nome_tag_Topic, Username_Utente) VALUES (?, ?)";
+            $stmt = $db->prepare($query);
+            foreach ($topic as $topic_name) {
+                $stmt->bind_param("ss", $topic_name, $username);
+                $success = $stmt->execute();
+                if (!$success) {
+                    throw new \Exception("Error while querying the database: " . mysqli_error($db));
+                }
+            }
+
+
+        }
+
+        public function update_password(string $password)
+        {
+            $hashedPassword =password_hash($password,PASSWORD_DEFAULT);
+            $db = getDB();
+            $query = "UPDATE utente SET Password = ? WHERE Username = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("ss", $hashedPassword, $_SESSION['username']);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
+            }
+
+        }
+
+        public function update_infos_profile(
             string $nome,
             string $cognome,
             string $username,
@@ -199,7 +258,7 @@ namespace User {
             int $tFA
         ) {
             $db = getDB();
-            $query = "UPDATE utente SET nome = ?, cognome = ?, username = ?, data_nascita = ?, email = ?,foto_profilo = ?, 
+            $query = "UPDATE utente SET Nome = ?, Cognome = ?, Username = ?, Data_nascita = ?, Email = ?,foto_profilo = ?, 
                 sesso = ?, descrizione = ?, foto_background = ?, 2FA = ? WHERE username = ?";
             $stmt = $db->prepare($query);
             $stmt->bind_param("sssssbssbis", $nome, $cognome, $username, $data_nascita, $email, $foto_profilo, $sesso, $descrizione, $foto_background, $tFA, $username);
@@ -208,6 +267,7 @@ namespace User {
                 throw new \Exception("Error while querying the database: " . mysqli_error($db));
             }
         }
+
     }
 
     class UserUtility
@@ -460,7 +520,7 @@ namespace User {
         public static function retrieve_email($username)
         {
             $db = getDB();
-            $query = "SELECT email FROM utente WHERE username = ?";
+            $query = "SELECT Email FROM utente WHERE Username = ?";
             $stmt = $db->prepare($query);
             $stmt->bind_param("s", $username);
             $success = $stmt->execute();
@@ -471,7 +531,7 @@ namespace User {
             $result = $stmt->get_result();
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
-                return $row["email"];
+                return $row["Email"];
             } else {
                 return null;
             }

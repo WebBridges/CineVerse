@@ -55,4 +55,34 @@ function checkInputPassword(){
     }
 }
 
+function checkUpdateInfosAccount(){
+    $regex = "/[^a-zA-Z ]/";
+    $regexExtended = "/[^a-zA-Z0-9 _]/";
+    $date = DateTime::createFromFormat('d-m-Y', $_POST['birthDate']);
+    $fourteenYearsAgo = (new DateTime())->modify('-14 years');
+
+    //verify if all the fields are set
+    if(!isset($_POST['name']) || !isset($_POST['surname']) || !isset($_POST['username']) || !isset($_POST['email']) ||
+     !isset($_POST['birthDate'])){
+        return false;
+    }
+
+    //verify if the fields exceed the maximum or minimum length
+    if(strlen($_POST['name'])>30 || strlen($_POST['surname'])>30 || strlen($_POST['username'])>30 ||
+        strlen($_POST['email'])>50){
+            return false;
+        }
+
+    if(preg_match($regex, $_POST['name']) || preg_match($regex, $_POST['surname']) || preg_match($regexExtended, $_POST['username']) || 
+         !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) || $date > $fourteenYearsAgo){
+        return false;
+    }
+
+    if(!isset($_POST['topic']) || count($_POST['topic'])>5 || count($_POST['topic'])<2){
+        return false;
+    }
+
+    return true;
+}
+
 ?>

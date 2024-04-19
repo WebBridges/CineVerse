@@ -19,8 +19,10 @@ async function LoadUserSettingsAccount(){
     }
     if(userInfo.tFA==1){
         document.getElementById('checkboxTFA').checked = true;
+    } else {
+        document.getElementById('checkboxTFA').checked = false;    
     }
-    
+
     for(let i = 0; i < userTopics.length; i++) {
         let topicId = userTopics[i];
         document.getElementById(topicId).checked = true;

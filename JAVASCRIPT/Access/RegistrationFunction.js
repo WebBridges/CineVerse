@@ -23,10 +23,10 @@ function loadTopicCheckboxes(){
                             `
         }
         document.getElementById('TopicList').innerHTML = checkboxHTML;
-        document.querySelectorAll("input[type='checkbox']").forEach(function(checkbox) {
+        document.querySelectorAll("input[type='checkbox'].form-check-input").forEach(function(checkbox) {
             checkbox.addEventListener("change", function() {
                 // Controlla il numero di checkbox selezionate
-                let checkedCount = document.querySelectorAll("input[type='checkbox']:checked").length;
+                let checkedCount = document.querySelectorAll("input[type='checkbox'].form-check-input:checked").length;
                 if(checkedCount > 5) {
                     // Se ci sono più di 5 checkbox selezionate, deseleziona l'ultima checkbox selezionata
                     this.checked = false;
@@ -37,22 +37,4 @@ function loadTopicCheckboxes(){
     .catch(function() {
         console.log("An error occurred while fetching the JSON data.");
     });
-}
-
-function unselectRadioButton() {
-    var radioButtons = document.getElementsByName('gender');
-    for (var i = 0; i < radioButtons.length; i++) {
-        // Aggiungi l'event listener solo se non è già stato aggiunto
-        if (!radioButtons[i].hasClickListener) {
-            radioButtons[i].addEventListener('mousedown', function() {
-                if (this.checked && this.wasChecked) {
-                    e.preventDefault();
-                    this.checked = false;
-                }
-                this.wasChecked = this.checked;
-            });
-            // Segna il radiobutton come avente un event listener
-            radioButtons[i].hasClickListener = true;
-        }
-    }
 }
