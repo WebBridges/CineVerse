@@ -216,8 +216,11 @@
                 <div class="modal-footer">
                     <!-- <div class="container-fluid"> -->
                         <div class="row">
+                            <div class="col">
+                                <p>Like:</p>
+                            </div>
                             <div class="col" id="post-count-likes">
-                                <p>Like: 0</p>
+                                <p>0</p>
                             </div>
                         </div>
                     <!-- </div> -->

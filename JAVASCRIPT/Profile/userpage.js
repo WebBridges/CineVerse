@@ -166,14 +166,33 @@ async function loadLikes(IDpost) {
 }
 
 async function checkLike(IDpost, username) {
-    if (username == null) {
-        const response = await fetch(phpPath + "/user/check_post_like.php?IDpost=" + IDpost);
-        const liked = await response.json();
-        return liked;
+    const request = username == null ? phpPath + "/user/check_post_like.php?IDpost=" + IDpost : phpPath + "/user/check_post_like.php?IDpost=" + IDpost + "&username=" + username;
+    const response = await fetch(request);
+    const liked = await response.json();
+    return liked;
+}
+
+async function like(IDpost) {
+    const liked = await checkLike(IDpost, null);
+    const request = liked ? phpPath + "/user/remove_like_post.php" : phpPath + "/user/add_like_post.php";
+    await fetch(request, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "IDpost": IDpost
+        })
+    });
+    const likeButton = document.getElementById("likes-button");
+    const nLikes = document.getElementById("post-count-likes");
+    if (liked) {
+        nLikes.innerHTML = parseInt(nLikes.innerHTML) - 1;
+        likeButton.innerHTML = "<em class='fa-regular fa-heart'></em>";
     } else {
-        const response = await fetch(phpPath + "/user/check_post_like.php?IDpost=" + IDpost + "&username=" + username);
-        const liked = await response.json();
-        return liked;
+        nLikes.innerHTML = parseInt(nLikes.innerHTML) + 1;
+        likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500;'></em>";
     }
 }
 
@@ -187,10 +206,10 @@ async function openModalPostPhoto(post, photo) {
     document.getElementById("post-user-photo").src = "../../img/" + await loadUserImage(post.username_utente);
     document.getElementById("post-username").innerHTML = post.username_utente;
     document.getElementById("post-photo").src = "../../img/" + photo.foto_video;
-    document.getElementById("post-count-likes").innerHTML = "Likes: " + await loadLikes(post.IDpost);
+    document.getElementById("post-count-likes").innerHTML = await loadLikes(post.IDpost);
     document.getElementById("post-description").innerHTML = photo.descrizione;
     const likeButton = postActions.querySelector("#likes-button");
-    //likeButton.addEventListener("click", function () { like(post.post_id, "post", !post.liked, document, "#likes-button", "#post-likes") });
+    likeButton.addEventListener("click", function () { like(post.IDpost) });
     if (liked) {
         likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500;'></em>";
     } else {
