@@ -1,0 +1,7 @@
+#ignore image folder
+img/
+
+#ignore vendor folder
+vendor/
+
+
