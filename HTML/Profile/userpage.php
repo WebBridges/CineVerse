@@ -151,17 +151,17 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="row">
-                        <div class="col-6 d-flex align-items-center">
+                        <div class="col-5 d-flex align-items-center">
                             <h3 id="post-title">Post title</h3>
                         </div>
                         <div class="col-2">
                             <img id="post-user-photo" src="../../img/default-user.WEBP" alt=""
                                 class="rounded-circle img-fluid img-thumbnail">
                         </div>
-                        <div class="col-3 d-flex align-items-center">
+                        <div class="col-3 d-flex align-items-center me-2">
                             <h3 id="post-username">Username</h3>
                         </div>
-                        <div class="col-1">
+                        <div class="col-1 ms-1 me-1">
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                     </div>
