@@ -29,7 +29,6 @@ function closeSideBar() {
 async function loadUserInformation() {
     const usernameInfo = await GetUsernameInfo();
     
-    console.log(usernameInfo);
     document.getElementById("username").innerHTML = usernameInfo.Username;
     if(usernameInfo.Foto_background != null){
         document.getElementById("background_image").src = "../../img/" + usernameInfo.Foto_background;
