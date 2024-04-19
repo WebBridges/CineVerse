@@ -72,8 +72,8 @@ namespace User {
                 "Descrizione" => $this->descrizione,
                 "Foto_background" => $this->foto_background,
                 "tFA" => $this->tFA,
-                "follower" => $this->follower,
-                "seguiti" => $this->seguiti,
+                "Follower" => $this->follower,
+                "Seguiti" => $this->seguiti,
                 "topics" => $this->topics
             ];
         }
