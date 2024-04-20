@@ -296,7 +296,6 @@ namespace User {
                     $row["Username"],
                     $row["Data_nascita"],
                     $row["Email"],
-                    $row["Password"],
                     $row["Foto_profilo"],
                     $row["Sesso"],
                     $row["Descrizione"],
@@ -332,7 +331,6 @@ namespace User {
                     $row["username"],
                     $row["data_nascita"],
                     $row["email"],
-                    $row["password"],
                     $row["foto_profilo"],
                     $row["sesso"],
                     $row["descrizione"],
@@ -344,6 +342,34 @@ namespace User {
             return $user;
 
         }
+
+        public static function search_users(string $search)
+        {
+            $db = getDB();
+            $query = "SELECT * FROM utente WHERE Username LIKE ? ";
+            $stmt = $db->prepare($query);
+            $search = $search . "%";
+            $stmt->bind_param("s", $search);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
+            }
+
+            $result = $stmt->get_result();
+            $users = array();
+            if ($result->num_rows > 0) {
+                for ($i = 0; $i < $result->num_rows; $i++) {
+                    $row = $result->fetch_array();
+                    $user = new DBUtente(null, null, $row["Username"], null, null, null, $row["Foto_profilo"]);
+                    array_push($users, $user);
+                }
+                return $users;
+            } else {
+                return null;
+            }
+        }
+
+
 
         public static function check_if_available($username = "", $email = ""): void
         {

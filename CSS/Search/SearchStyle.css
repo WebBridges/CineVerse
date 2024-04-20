@@ -37,6 +37,15 @@
 
 #usernameLabel {
   color: white;
-  font-size: 16px; /* Modifica questo valore per cambiare la dimensione del testo */
-  font-weight: bold; /* Rende il testo in grassetto */
+  font-size: 16px; 
+  font-weight: bold; 
+}
+
+#searchList{
+  background-color: #7b2cbf;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  overflow-y: auto;
+  max-height: 100vh;
 }

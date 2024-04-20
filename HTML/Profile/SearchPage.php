@@ -14,18 +14,18 @@
         <link href="../../CSS/Search/SearchStyle.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-    <div class="border container-fluid d-flex vh-100 justify-content-center">
-            <div class="col-3">
-                <div class=" border col-12 d-flex align-items-start justify-content-center mt-4">
+    <div class=" container-fluid d-flex vh-100 justify-content-center">
+            <div class="  col-md-6 col-sm-7 col-9 col-lg-4">
+                <div class="  col-12 d-flex align-items-start justify-content-center mt-4">
                     <h1>CineVerse</h1>
                 </div>
 
-                <div class="border col-12 d-flex align-items-center justify-content-center mt-4 px-3">
-                    <input class="col-12 input-grey-rounded" type="text" id="searchInput" placeholder="Cerca utente...">
+                <div class=" col-12 d-flex align-items-center justify-content-center mt-4 px-3">
+                    <input class="input-grey-rounded" type="text" id="searchInput" placeholder="Cerca utente..." style="width: 84%;">
                 </div>
 
-                <div class="border col-12 d-flex flex-column align-items-center justify-content-center mt-4" id="searchList">
-                    <div class="border col-8  d-flex align-items-center px-3">
+                <div class=" col-12 d-flex flex-column align-items-center justify-content-center mt-4" id="searchList">
+                    <!-- <div class=" col-12  d-flex align-items-center px-3">
                         <div class="col-2 user_images">
                             <img src="../../img/default-user.webp" alt="user image" class="img-fluid overflow-hidden" id="user_images">
                         </div>
@@ -33,9 +33,14 @@
                             <p class="pt-3 px-4" id="usernameLabel">Nome Cognome</p>
                         </div>
                     </div>
+                    -->
+                    <div class=" col-12  d-flex align-items-center px-3">
+                        <div>
+                            <p class="pt-3 px-4 text-center" id="usernameLabel">Username non trovato</p>
+                        </div>
+                    </div>
                 </div>
-
-
+                
                 <nav class="navbar navbar-custom fixed-bottom navbar-expand mx-auto bottom-navbar">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -122,5 +127,6 @@
                 </nav>
             </div>
         </div>
+        <script src="../../JAVASCRIPT/Search/SearchPage.js"></script>
     </body>
 </html>
