@@ -486,6 +486,25 @@ namespace Post {
             );
         }
 
+        public static function get_posts_number_by_username_utente($username_utente)
+        {
+            $db = getDB();
+            $query = "SELECT COUNT(*) AS count FROM post WHERE Username_Utente = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("s", $username_utente);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . $stmt->error);
+            }
+
+            $result = $stmt->get_result();
+            if ($result->num_rows == 0) {
+                return null;
+            }
+            $row = $result->fetch_assoc();
+            return $row["count"];
+        }
+
         public static function get_all_posts_by_username_utente($username_utente)
         {
             $db = getDB();

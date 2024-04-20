@@ -41,12 +41,12 @@
                     <div class="col-auto user_images">
                         <img src="../../img/default-user.webp" alt="user image" class="img-fluid overflow-hidden" id="user_images">
                     </div>
-                    <div class="col-auto username">
+                    <div class="col-auto username text-center">
                         <p id="username">Username</p>
                         <div class="row justify-content-center" id="user_number">
                             <div class="col-auto text-center">
                                 <p>Post</p>
-                                <p id="nPost">0</p>
+                                <p id="nPosts">0</p>
                             </div>
                             <div class="col-auto text-center">
                                 <p>Follower</p>
@@ -62,8 +62,8 @@
                         <p id="user_description">descrizione utente descrizione utente descrizione </p>
                     </div>
                 </div>
-                <div class="row justify-content-center topic_row mt-2">
-                    <div class="col-auto">
+                <div class="row justify-content-center topic_row mt-2" id="topic-container">
+                    <!--<div class="col-auto">
                         <p id="topic1">Marvel</p>
                     </div>
                     <div class="col-auto">
@@ -77,7 +77,7 @@
                     </div>
                     <div class="col-auto">
                         <p id="topic5">Horror</p>
-                    </div>
+                    </div>-->
                 </div>
             </div>
             <!--Post section-->
@@ -151,17 +151,17 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="row">
-                        <div class="col-6 d-flex align-items-center">
+                        <div class="col-5 d-flex align-items-center">
                             <h3 id="post-title">Post title</h3>
                         </div>
                         <div class="col-2">
                             <img id="post-user-photo" src="../../img/default-user.WEBP" alt=""
                                 class="rounded-circle img-fluid img-thumbnail">
                         </div>
-                        <div class="col-3 d-flex align-items-center">
+                        <div class="col-3 d-flex align-items-center me-2">
                             <h3 id="post-username">Username</h3>
                         </div>
-                        <div class="col-1">
+                        <div class="col-1 ms-1 me-1">
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                     </div>
@@ -216,8 +216,11 @@
                 <div class="modal-footer">
                     <!-- <div class="container-fluid"> -->
                         <div class="row">
+                            <div class="col">
+                                <p>Like:</p>
+                            </div>
                             <div class="col" id="post-count-likes">
-                                <p>Like: 0</p>
+                                <p>0</p>
                             </div>
                         </div>
                     <!-- </div> -->
@@ -229,5 +232,5 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
             crossorigin="anonymous">
     </script>
-    <script src="../../JAVASCRIPT/Profile/userpage.js" type="text/javascript"></script>
+    <script src="../../JAVASCRIPT/Profile/userpage.js" type="module"></script>
 </body>
