@@ -119,7 +119,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="SearchPage.php">
                         <svg xmlns="http://www.w3.org/2000/svg" width="48.75" height="48.75" viewBox="0 0 65 65" fill="none">
                             <path d="M47.4992 47.4998L62.4992 62.4997" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M2.49937 28.2141C2.49937 42.4157 14.012 53.9283 28.2136 53.9283C35.3266 53.9283 41.7654 51.0402 46.4205 46.3727C51.0598 41.7214 53.9278 35.3027 53.9278 28.2141C53.9278 14.0126 42.4151 2.49994 28.2136 2.49994C14.012 2.49994 2.49937 14.0126 2.49937 28.2141Z" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -134,7 +134,7 @@
                      </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="userpage.php">
                         <svg xmlns="http://www.w3.org/2000/svg" width="49.5" height="48.75" viewBox="0 0 66 65" fill="none">
                             <path d="M62.9982 62.4998V55.8331C62.9982 52.2969 61.4179 48.9055 58.6048 46.4051C55.7918 43.9046 51.9765 42.4998 47.9983 42.4998H17.9984C14.0201 42.4998 10.2048 43.9046 7.3918 46.4051C4.57876 48.9055 2.99841 52.2969 2.99841 55.8331V62.4998" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M32.9983 29.1665C41.2826 29.1665 47.9983 23.197 47.9983 15.8332C47.9983 8.46946 41.2826 2.49994 32.9983 2.49994C24.7141 2.49994 17.9984 8.46946 17.9984 15.8332C17.9984 23.197 24.7141 29.1665 32.9983 29.1665Z" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
