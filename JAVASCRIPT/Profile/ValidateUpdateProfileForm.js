@@ -4,11 +4,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     await LoadUserSettingsAccount();
     document.getElementById('FormRegistration').addEventListener('submit', async function(e) {
         e.preventDefault();
-        let fileInput = document.getElementById('profilePic');
-        let file = fileInput.files[0];
-        console.log(file.name);
         let checkedCount = document.querySelectorAll('input[type="checkbox"].form-check-input:checked').length;
-        console.log(checkedCount);
         let errors = document.getElementsByClassName('error-message');
         for(let i = 0; i < errors.length; i++) {
             errors[i].style.display = 'none';

@@ -253,10 +253,10 @@ namespace User {
         ) {
             $db = getDB();
             if($foto_profilo===""){
-                $foto_profilo = null;
+                $foto_profilo=UserUtility::retrieve_profile_photo($_SESSION['username']);
             }
             if($foto_background===""){
-                $foto_background = null;
+                $foto_background=UserUtility::retrieve_background($_SESSION['username']);
             }
             
             $query = "UPDATE utente SET Descrizione = ?, Foto_profilo = ?, Foto_background = ? WHERE Username = ?";
