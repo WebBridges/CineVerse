@@ -10,13 +10,9 @@ document.getElementById('FormRegistration').addEventListener('submit', async fun
     let username = document.getElementById('username').value;
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
-    let checkedCount = document.querySelectorAll('input[type="checkbox"].form-check-input:checked').length;
     let inputDate = new Date(document.getElementById('birthDate').value);
     let currentDate = new Date();
     currentDate.setFullYear(currentDate.getFullYear() - 14);
-
-    console.log(checkedCount);
-    console.log(document.querySelectorAll('input[type="checkbox"].form-check-input:checked'));
 
     let regex= /[^a-zA-Z ]/g;
     let regexExtended = /[^a-zA-Z0-9 _]/g;
@@ -75,10 +71,6 @@ document.getElementById('FormRegistration').addEventListener('submit', async fun
         isValid = false;
     }
 
-    if(isValid && checkedCount<2) {
-        document.getElementById('errorTopic').style.display = 'block';
-        isValid = false;
-    }
     // Se tutti i campi sono validi, invia il form
     if (isValid) {
         e.target.submit();

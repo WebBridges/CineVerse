@@ -36,15 +36,21 @@ function closeSideBar() {
  */
 async function loadUserInformation(usernameURL) {
     const usernameInfo = await GetUsernameInfo(usernameURL);
-    console.log(usernameInfo);
+    let parts;
+    let extension;
+
     if(usernameInfo.Foto_background != null){
-        document.getElementById("background_image").src = "../../img/" + usernameInfo.Foto_background;
+        parts = usernameInfo.Foto_background.split(".");
+        extension = parts[parts.length - 1];
+        document.getElementById("background_image").src ="../../img/" + usernameInfo.Foto_background + "." + extension;
     } else {
-        document.getElementById("background_image").src = "../../img/default-background.jpg";
+        document.getElementById("background_image").src = "../../img/affammoc_background_1713712835.jpg";
     }
 
     if(usernameInfo.Foto_profilo != null){
-        document.getElementById("user_images").src = "../../img/" + usernameInfo.Foto_profilo;
+        parts = usernameInfo.Foto_profilo.split(".");
+        extension = parts[parts.length - 1];
+        document.getElementById("user_images").src = "../../img/" + usernameInfo.Foto_profilo + "." + extension;
     } else {
         document.getElementById("user_images").src = "../../img/default-user.jpg";
     }

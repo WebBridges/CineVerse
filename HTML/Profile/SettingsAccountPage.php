@@ -68,7 +68,7 @@
                             </div>
                         </div> 
                         <div class="row container-fluid ">
-                            <div class="col-md-6  mb-md-4 d-flex flex-column">
+                            <div class="col-md-6 mb-md-4 d-flex flex-column">
                                 <div class="form-group">
                                     <p class="offset-2">genere (opzionale):</p>
                                     <div class="col-md-8 ms-5">
@@ -92,24 +92,16 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-9 mt-2 ms-3 ms-md-4">
-                                    <div class="col-8 offset-1 offset-md-2">
-                                        <div class="form-group">
-                                            <label for="birthdate" class="form-label">Data di nascita</label>
-                                            <input type="date" class="form-control" name="birthDate" id="birthDate" required>
-                                        </div>
+                            </div>
+                            <div class="col-md-5 ms-md-4 px-1 d-flex justify-content-center">
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <label for="birthdate" class="form-label">Data di nascita</label>
+                                        <input type="date" class="form-control" name="birthDate" id="birthDate" required>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-4 d-flex  flex-column justify-content-center align-items-center">
-                                <div class="form-group">
-                                    <div>
-                                        <p class="mt-md-0 mt-3 offset-2">Lista dei topic disponibili (massimo 5):</p>
-                                    </div>
-                                    <div id="TopicList" class="col-9 offset-2" style="max-height: 170px; overflow-y: auto; display: flex; flex-wrap: wrap;">
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                         <div class="row container-fluid text-left">
                             <div class="col-12 mb-2 d-flex flex-column justify-content-center align-items-center text-center">
@@ -138,9 +130,6 @@
                                     <div id="errorAge" class="mt-1 mb-1 error-message" style="display: none;">
                                         L'età minima consentita è di 14 anni
                                     </div>
-                                    <div id="errorTopic" class="mt-1 mb-1 error-message" style="display: none;">
-                                        Seleziona minimo due topic
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -153,9 +142,8 @@
                 </div>
         </div>
 
-        <script src="../../JAVASCRIPT/Access/RegistrationFunction.js"></script>
         <script src="../../JAVASCRIPT/Profile/SettingsPage.js" type="module"></script>
-        <script src="../../JAVASCRIPT/Profile/ValidateUpdateForm.js"></script>
+        <script src="../../JAVASCRIPT/Profile/ValidateUpdateAccountForm.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>
 </html>

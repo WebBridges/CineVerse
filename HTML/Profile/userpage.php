@@ -21,8 +21,8 @@
         <header id="profile_header">
             <div id="mySidebar" class="sidebar justify-content-end">
                 <a href="#" class="closebtn" id="closebtn">&times;</a>
-                <a href="SettingsPage.php" class="sidebarField">Modifica Account</a>
-                <a href="#" class="sidebarField">Modifica Profilo</a>
+                <a href="SettingsAccountPage.php" class="sidebarField">Modifica Account</a>
+                <a href="SettingsProfilePage.php" class="sidebarField">Modifica Profilo</a>
                 <a href="#" class="sidebarField">Post Archiviati</a>
                 <a href="../../PHP/Utils/Logout.php" class="sidebarField">Logout</a>
             </div>

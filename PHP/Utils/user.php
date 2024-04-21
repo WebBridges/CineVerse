@@ -195,8 +195,7 @@ namespace User {
             string $data_nascita,
             string $email,
             string $sesso,
-            int $tFA,
-            array $topic
+            int $tFA
         ) {
             $db = getDB();
             $query = "UPDATE utente SET Nome = ?, Cognome = ?, Username = ?, Data_nascita = ?, Email = ?, 
@@ -211,9 +210,13 @@ namespace User {
             $_SESSION['username'] = $username;
             setcookie("token","",time()-3600,"/");
             set_token_cookie($_SESSION['username'], $_SESSION['remember']);
+        }
+
+        public function update_topics_account(array $topic){
+            $db = getDB();
             $query = "DELETE FROM topic_utente WHERE Username_Utente = ?";
             $stmt = $db->prepare($query);
-            $stmt->bind_param("s", $username);
+            $stmt->bind_param("s", $_SESSION['username']);
             $success = $stmt->execute();
             if (!$success) {
                 throw new \Exception("Error while querying the database: " . mysqli_error($db));
@@ -221,14 +224,12 @@ namespace User {
             $query = "INSERT INTO topic_utente (Nome_tag_Topic, Username_Utente) VALUES (?, ?)";
             $stmt = $db->prepare($query);
             foreach ($topic as $topic_name) {
-                $stmt->bind_param("ss", $topic_name, $username);
+                $stmt->bind_param("ss", $topic_name, $_SESSION['username']);
                 $success = $stmt->execute();
                 if (!$success) {
                     throw new \Exception("Error while querying the database: " . mysqli_error($db));
                 }
             }
-
-
         }
 
         public function update_password(string $password)
@@ -246,22 +247,21 @@ namespace User {
         }
 
         public function update_infos_profile(
-            string $nome,
-            string $cognome,
-            string $username,
-            string $data_nascita,
-            string $email,
-            string $foto_profilo,
-            string $sesso,
             string $descrizione,
-            string $foto_background,
-            int $tFA
+            string $foto_profilo,
+            string $foto_background
         ) {
             $db = getDB();
-            $query = "UPDATE utente SET Nome = ?, Cognome = ?, Username = ?, Data_nascita = ?, Email = ?,foto_profilo = ?, 
-                sesso = ?, descrizione = ?, foto_background = ?, 2FA = ? WHERE username = ?";
+            if($foto_profilo===""){
+                $foto_profilo = null;
+            }
+            if($foto_background===""){
+                $foto_background = null;
+            }
+            
+            $query = "UPDATE utente SET Descrizione = ?, Foto_profilo = ?, Foto_background = ? WHERE Username = ?";
             $stmt = $db->prepare($query);
-            $stmt->bind_param("sssssbssbis", $nome, $cognome, $username, $data_nascita, $email, $foto_profilo, $sesso, $descrizione, $foto_background, $tFA, $username);
+            $stmt->bind_param("ssss", $descrizione, $foto_profilo, $foto_background, $_SESSION['username']);
             $success = $stmt->execute();
             if (!$success) {
                 throw new \Exception("Error while querying the database: " . mysqli_error($db));

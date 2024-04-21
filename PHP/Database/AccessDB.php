@@ -21,14 +21,14 @@ include_once (__DIR__ . "/../Utils/authUtilities.php");
         if(\validateRegistrationInfo() && checkUsernameExistence($_POST['username']) == "Username_available" && checkEmailExistence($_POST['email']) == "Email_available"){
             $db = getDb();
 
-            $query = "INSERT INTO utente (Nome, Cognome, Username, Email, Password, Data_nascita, Sesso, Descrizione, Foto_profilo, 2FA ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
+            $query = "INSERT INTO utente (Nome, Cognome, Username, Email, Password, Data_nascita, Sesso, Descrizione, Foto_profilo, Foto_background, 2FA ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
             $stmt = $db->prepare($query);
 
             $gender = isset($_POST['gender']) ? $_POST['gender'] : NULL;
             $hashedPassword =password_hash($_POST['password'],PASSWORD_DEFAULT);
             $void=NULL;
 
-            $stmt->bind_param("sssssssss", $_POST['name'], $_POST['surname'], $_POST['username'], $_POST['email'], $hashedPassword, $_POST['birthDate'], $gender, $void,$void);
+            $stmt->bind_param("sssssssss", $_POST['name'], $_POST['surname'], $_POST['username'], $_POST['email'], $hashedPassword, $_POST['birthDate'], $gender, $void,"default-user.jpg","default-background.jpg");
             $stmt->execute();
 
             $_SESSION['email'] = $_POST['email'];
