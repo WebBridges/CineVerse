@@ -25,10 +25,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     let profilePic = user.Foto_profilo;
                     let userHTML = `<div class=" col-12  d-flex align-items-center px-3">
                                         <div class="col-2 user_images">
-                                            <img src="../../img/default-user.webp" alt="user image" class="img-fluid overflow-hidden" id="user_images">
+                                            <img src="../../img/default-user.jpg" alt="user image" class="img-fluid overflow-hidden" id="user_images">
                                         </div>
                                         <div>
-                                            <p class="pt-3 px-4" id="usernameLabel">${username}</p>
+                                        <a href="SearchUserPage.php?username=${username}" class="pt-3 px-4" id="usernameLabel">${username}</a>
                                         </div>
                                     </div>`;
                     allUsersHTML += userHTML;

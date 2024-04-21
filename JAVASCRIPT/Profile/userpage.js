@@ -4,8 +4,16 @@ import { GetUsername } from "../Utils/utils.js";
 
 const openOptionsButtons = document.getElementById("openbtn");
 const closeOptions = document.getElementById("closebtn");
-openOptionsButtons.addEventListener("click", function () { openSideBar(); });
-closeOptions.addEventListener("click", function () { closeSideBar(); });
+let params = new URLSearchParams(window.location.search);
+let usernameURL = params.get('username');
+
+if(openOptionsButtons!=null){
+    openOptionsButtons.addEventListener("click", function () { openSideBar(); });
+}
+
+if(closeOptions!=null){
+    closeOptions.addEventListener("click", function () { closeSideBar(); });
+}
 
 const photoButton = document.getElementById("photo_button");
 const textButton = document.getElementById("text_button");
@@ -26,18 +34,23 @@ function closeSideBar() {
 /**
  * Function to load user information
  */
-async function loadUserInformation() {
-    const usernameInfo = await GetUsernameInfo();
-    
-    document.getElementById("username").innerHTML = usernameInfo.Username;
+async function loadUserInformation(usernameURL) {
+    const usernameInfo = await GetUsernameInfo(usernameURL);
+    console.log(usernameInfo);
     if(usernameInfo.Foto_background != null){
         document.getElementById("background_image").src = "../../img/" + usernameInfo.Foto_background;
+    } else {
+        document.getElementById("background_image").src = "../../img/default-background.jpg";
     }
+
     if(usernameInfo.Foto_profilo != null){
         document.getElementById("user_images").src = "../../img/" + usernameInfo.Foto_profilo;
+    } else {
+        document.getElementById("user_images").src = "../../img/default-user.jpg";
     }
     const response = await fetch(phpPath + "/user/load_posts_number.php?username=" + usernameInfo.Username);
     const nPosts = await response.json();
+    document.getElementById("username").innerHTML = usernameInfo.Username;
     document.getElementById("nPosts").innerHTML = nPosts;
     document.getElementById("nFollower").innerHTML = usernameInfo.Follower;
     document.getElementById("nSeguiti").innerHTML = usernameInfo.Seguiti;
@@ -67,7 +80,7 @@ async function loadPhotos() {
         credentials: "include"
     });
     const posts = await response.json();
-    return posts
+    return posts;
 }
 
 async function loadText() {
@@ -252,5 +265,5 @@ async function openModalPostPhoto(post, photo) {
     //postActions.querySelector("#comments-button").addEventListener("click", function() { showComments(post.post_id); });
 }
 
-loadUserInformation();
+loadUserInformation(usernameURL);
 showpost(0);

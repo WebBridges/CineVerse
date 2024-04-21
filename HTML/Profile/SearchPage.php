@@ -12,6 +12,7 @@
         <link href="../../CSS/Access/AccessStyleBase.css" rel="stylesheet" type="text/css"/>
         <link href="../../CSS/Profile/userpage.css" rel="stylesheet" type="text/css"/>
         <link href="../../CSS/Search/SearchStyle.css" rel="stylesheet" type="text/css"/>
+        <link href="../../CSS/Access/AccessStyleBase.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
     <div class=" container-fluid d-flex vh-100 justify-content-center">
@@ -25,15 +26,6 @@
                 </div>
 
                 <div class=" col-12 d-flex flex-column align-items-center justify-content-center mt-4" id="searchList">
-                    <!-- <div class=" col-12  d-flex align-items-center px-3">
-                        <div class="col-2 user_images">
-                            <img src="../../img/default-user.webp" alt="user image" class="img-fluid overflow-hidden" id="user_images">
-                        </div>
-                        <div>
-                            <p class="pt-3 px-4" id="usernameLabel">Nome Cognome</p>
-                        </div>
-                    </div>
-                    -->
                     <div class=" col-12  d-flex align-items-center px-3">
                         <div>
                             <p class="pt-3 px-4 text-center" id="usernameLabel">Username non trovato</p>

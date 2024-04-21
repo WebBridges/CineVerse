@@ -1,7 +1,12 @@
 export { GetUsernameInfo, GetUsername };
 
-async function GetUsernameInfo(){
-    let username = await GetUsername();
+async function GetUsernameInfo(usernameURL=null){
+    let username;
+    if(usernameURL===null){
+        username = await GetUsername();
+    } else {
+        username = usernameURL;
+    }
     const response = await fetch('../../PHP/Profile/getUserInfo.php', {
         method: 'POST',
         headers: {

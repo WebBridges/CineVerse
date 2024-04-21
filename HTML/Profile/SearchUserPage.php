@@ -14,9 +14,9 @@
         rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
         crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/d9b18796bb.js" crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" type="text/css" href="../../CSS/Access/AccessStyleBase.css"/>
 </head>
-<body>
+<body style="background-color: white;">
     <div class="container-fluid p-0 overflow-x-hidden overflow-y-auto" id="body_container"> 
         <header id="profile_header">
             <div id="mySidebar" class="sidebar justify-content-end">
@@ -26,13 +26,6 @@
                 <a href="#" class="sidebarField">Post Archiviati</a>
                 <a href="../../PHP/Utils/Logout.php" class="sidebarField">Logout</a>
             </div>
-            <button class="openbtn" id="openbtn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="48.6" height="32" viewBox="0 0 76 50" fill="none">
-                    <path d="M3 2.71213H73" stroke="#FF9E00" stroke-width="5" stroke-linecap="round"/>
-                    <path d="M3 46.5505H73" stroke="#FF9E00" stroke-width="5" stroke-linecap="round"/>
-                    <path d="M3 24.6313H73" stroke="#FF9E00" stroke-width="5" stroke-linecap="round"/>
-                </svg>
-            </button>
             <img src="../../img/default-background.jpg" alt="background profile image" class="img-fluid overflow-hidden border-top border-2 border-black" id="background_image">
         </header>
         <main class="pt-3 border-top border-black border-2">
@@ -56,6 +49,9 @@
                                 <p>Seguiti</p>
                                 <p id="nSeguiti">0</p>
                             </div>
+                        </div>
+                        <div class="col-11">
+                            <button class="btn btn-primary" id="followButton" style="width: 86%;">segui</button>
                         </div>
                     </div>
                     <div class="col-auto user_description">
