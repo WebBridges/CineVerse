@@ -23,9 +23,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 for (let user of users) {
                     let username = user.Username;
                     let profilePic = user.Foto_profilo;
-                    let userHTML = `<div class=" col-12  d-flex align-items-center px-3">
+                    if(profilePic === null){
+                        profilePic = "../../img/default-user.jpg";
+                    } else{
+                        let parts = user.Foto_profilo.split('.');
+                        let extension = parts[parts.length - 1];
+                        profilePic = "../../img/" + profilePic + "." + extension;
+                    }
+                    let userHTML = `<div class=" col-12  d-flex align-items-center px-3 mt-3">
                                         <div class="col-2 user_images">
-                                            <img src="../../img/default-user.jpg" alt="user image" class="img-fluid overflow-hidden" id="user_images">
+                                            <img src=${profilePic} alt="user image" class="img-fluid overflow-hidden" id="user_images">
                                         </div>
                                         <div>
                                         <a href="SearchUserPage.php?username=${username}" class="pt-3 px-4" id="usernameLabel">${username}</a>
