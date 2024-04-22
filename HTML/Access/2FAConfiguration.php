@@ -1,3 +1,9 @@
+<?php
+    if(isset($_COOKIE['token'])) {
+        header('Location: ../../HTML/Profile/userpage.php');
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="it">
     <head>

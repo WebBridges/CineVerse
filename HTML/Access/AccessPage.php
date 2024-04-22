@@ -1,13 +1,10 @@
+<?php
+    if(isset($_COOKIE['token'])) {
+        header('Location: ../../HTML/Profile/userpage.php');
+    }
+?>
+
 <!DOCTYPE html>
-
-<!-- Sistemare il bootstrap:
-     - impaginazione e colonne (ridimensionamento su dispositivi più piccoli con media query)
-     - responsive
-     -accessibilità
--->
-
-
-
 <html lang="it">
     <head>
         <meta charset="UTF-8">

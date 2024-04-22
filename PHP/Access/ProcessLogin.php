@@ -10,7 +10,7 @@
     } else{
         processLogin($_POST['email']);
         if(check2FA_Active()==true){
-            header("location: ../../HTML/Access/2FA_Login.html");
+            header("location: ../../HTML/Access/2FA_Login.php");
         }
         else{header("Location: ../../HTML/Profile/userpage.php");}
     }

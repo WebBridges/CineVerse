@@ -78,10 +78,6 @@ function checkUpdateInfosAccount(){
         return false;
     }
 
-    if(!isset($_POST['topic']) || count($_POST['topic'])>5 || count($_POST['topic'])<2){
-        return false;
-    }
-
     return true;
 }
 

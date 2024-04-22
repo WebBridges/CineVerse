@@ -1,11 +1,14 @@
 <?php
-    include '../../PHP/Utils/auth_request.php';
+    if(isset($_COOKIE['token'])) {
+        header('Location: ../../HTML/Profile/userpage.php');
+    }
 ?>
+
 <!DOCTYPE html>
 <html lang="it">
     <head>
         <meta charset="UTF-8">
-        <title>CineVerse - Impostazioni</title>
+        <title>CineVerse - Registrazione</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link href="../../CSS/Access/AccessStyleBase.css" rel="stylesheet" type="text/css"/>
@@ -19,9 +22,9 @@
                 
                 <div id="MainBlock" class="col-8">
                     <div id="BlockBanner" class="col-12 d-flex flex-column justify-content-center align-items-center text-center ">
-                        Impostazioni Account
+                        Registrazione
                     </div>
-                    <form id="FormRegistration" action="../../PHP/Profile/UpdateSettings.php" method="POST" novalidate>
+                    <form id="FormRegistration" action="../../PHP/Access/ProcessRegistration.php" method="POST" novalidate>
                         <div class="row container-fluid">
                             <div class="col-md-6  mb-2 d-flex flex-column justify-content-center align-items-center">
                                 <div class="col-8 mt-2">
@@ -56,21 +59,18 @@
                                         <input type="password" class="form-control" name="password" id="password" value="" maxlength="30" placeholder="Password" required>
                                     </div>
                                 </div>
-                                <div class="col-8 mt-2 justify-content-center pt-4">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label for="twoFactorAuth" class="form-label">Autenticazione a 2 Fattori</label>
-                                        <label class="switch">
-                                            <input type="checkbox" id="checkboxTFA" name="checkboxTFA" />
-                                            <div class="slider round"></div>
-                                        </label>
+                                <div class="col-8 mt-2 mb-2">
+                                    <div class="form-group">
+                                        <label for="repeatPassword" class="form-label">Ripeti Password</label>
+                                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" value="" maxlength="30" placeholder="Ripeti Password" required>
                                     </div>
-                                </div>
+                                </div> 
                             </div>
                         </div> 
                         <div class="row container-fluid ">
                             <div class="col-md-6  mb-md-4 d-flex flex-column">
                                 <div class="form-group">
-                                    <p class="offset-2">genere (opzionale):</p>
+                                    <p class="offset-2">Indicare il proprio genere (opzionale):</p>
                                     <div class="col-md-8 ms-5">
                                         <div class="form-check col-8 offset-1 offset-md-2">
                                             <input class="form-check-input" type="radio" name="gender" id="male" value="male">
@@ -104,7 +104,7 @@
                             <div class="col-md-6 mb-4 d-flex  flex-column justify-content-center align-items-center">
                                 <div class="form-group">
                                     <div>
-                                        <p class="mt-md-0 mt-3 offset-2">Lista dei topic disponibili (massimo 5):</p>
+                                        <p class="mt-md-0 mt-3 offset-2">Scegli quali topic ti rappresentano di più (massimo 5)</p>
                                     </div>
                                     <div id="TopicList" class="col-9 offset-2" style="max-height: 170px; overflow-y: auto; display: flex; flex-wrap: wrap;">
                                     </div>
@@ -135,8 +135,11 @@
                                     <div id="passwordSpecialChar" class="mt-1 mb-1 error-message" style="display: none;">
                                         La password può contenere solo lettere, numeri, spazi, e i caratteri _!@#$%^*
                                     </div>
+                                    <div id="errorPasswords" class="mt-1 mb-1 error-message" style="display: none;">
+                                        Le password non coincidono
+                                    </div>
                                     <div id="errorAge" class="mt-1 mb-1 error-message" style="display: none;">
-                                        L'età minima consentita è di 14 anni
+                                        L'età minima per registrarsi è di 14 anni
                                     </div>
                                     <div id="errorTopic" class="mt-1 mb-1 error-message" style="display: none;">
                                         Seleziona minimo due topic
@@ -146,7 +149,7 @@
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-12 col-md-6 mb-4 mt-2 d-flex justify-content-center">
-                                <button class="btn btn-primary" type="submit">Salva modifiche</button>
+                                <button class="btn btn-primary" type="submit">Registrati</button>
                             </div>
                         </div>
                     </form>
@@ -154,8 +157,7 @@
         </div>
 
         <script src="../../JAVASCRIPT/Access/RegistrationFunction.js"></script>
-        <script src="../../JAVASCRIPT/Profile/SettingsPage.js" type="module"></script>
-        <script src="../../JAVASCRIPT/Profile/ValidateUpdateForm.js"></script>
+        <script src="../../JAVASCRIPT/Access/ValidateForm.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>
 </html>

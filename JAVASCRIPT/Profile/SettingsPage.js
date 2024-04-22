@@ -9,7 +9,6 @@ async function LoadUserSettingsAccount(){
 
     let userInfo = await GetUsernameInfo();
     let sesso = userInfo.Sesso;
-    let userTopics = userInfo.topics;
 
     document.getElementById('name').value = userInfo.Nome;
     document.getElementById('surname').value = userInfo.Cognome;
@@ -23,11 +22,5 @@ async function LoadUserSettingsAccount(){
         document.getElementById('checkboxTFA').checked = true;
     } else {
         document.getElementById('checkboxTFA').checked = false;    
-    }
-
-    for(let i = 0; i < userTopics.length; i++) {
-        let topicId = userTopics[i];
-        document.getElementById(topicId).checked = true;
-        }
-        
+    }   
 }

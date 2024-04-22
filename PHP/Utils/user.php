@@ -195,8 +195,7 @@ namespace User {
             string $data_nascita,
             string $email,
             string $sesso,
-            int $tFA,
-            array $topic
+            int $tFA
         ) {
             $db = getDB();
             $query = "UPDATE utente SET Nome = ?, Cognome = ?, Username = ?, Data_nascita = ?, Email = ?, 
@@ -211,9 +210,13 @@ namespace User {
             $_SESSION['username'] = $username;
             setcookie("token","",time()-3600,"/");
             set_token_cookie($_SESSION['username'], $_SESSION['remember']);
+        }
+
+        public function update_topics_account(array $topic){
+            $db = getDB();
             $query = "DELETE FROM topic_utente WHERE Username_Utente = ?";
             $stmt = $db->prepare($query);
-            $stmt->bind_param("s", $username);
+            $stmt->bind_param("s", $_SESSION['username']);
             $success = $stmt->execute();
             if (!$success) {
                 throw new \Exception("Error while querying the database: " . mysqli_error($db));
@@ -221,14 +224,12 @@ namespace User {
             $query = "INSERT INTO topic_utente (Nome_tag_Topic, Username_Utente) VALUES (?, ?)";
             $stmt = $db->prepare($query);
             foreach ($topic as $topic_name) {
-                $stmt->bind_param("ss", $topic_name, $username);
+                $stmt->bind_param("ss", $topic_name, $_SESSION['username']);
                 $success = $stmt->execute();
                 if (!$success) {
                     throw new \Exception("Error while querying the database: " . mysqli_error($db));
                 }
             }
-
-
         }
 
         public function update_password(string $password)
@@ -246,22 +247,21 @@ namespace User {
         }
 
         public function update_infos_profile(
-            string $nome,
-            string $cognome,
-            string $username,
-            string $data_nascita,
-            string $email,
-            string $foto_profilo,
-            string $sesso,
             string $descrizione,
-            string $foto_background,
-            int $tFA
+            string $foto_profilo,
+            string $foto_background
         ) {
             $db = getDB();
-            $query = "UPDATE utente SET Nome = ?, Cognome = ?, Username = ?, Data_nascita = ?, Email = ?,foto_profilo = ?, 
-                sesso = ?, descrizione = ?, foto_background = ?, 2FA = ? WHERE username = ?";
+            if($foto_profilo===""){
+                $foto_profilo=UserUtility::retrieve_profile_photo($_SESSION['username']);
+            }
+            if($foto_background===""){
+                $foto_background=UserUtility::retrieve_background($_SESSION['username']);
+            }
+            
+            $query = "UPDATE utente SET Descrizione = ?, Foto_profilo = ?, Foto_background = ? WHERE Username = ?";
             $stmt = $db->prepare($query);
-            $stmt->bind_param("sssssbssbis", $nome, $cognome, $username, $data_nascita, $email, $foto_profilo, $sesso, $descrizione, $foto_background, $tFA, $username);
+            $stmt->bind_param("ssss", $descrizione, $foto_profilo, $foto_background, $_SESSION['username']);
             $success = $stmt->execute();
             if (!$success) {
                 throw new \Exception("Error while querying the database: " . mysqli_error($db));
@@ -296,7 +296,7 @@ namespace User {
                     $row["Username"],
                     $row["Data_nascita"],
                     $row["Email"],
-                    $row["Password"],
+                    null,
                     $row["Foto_profilo"],
                     $row["Sesso"],
                     $row["Descrizione"],
@@ -332,7 +332,7 @@ namespace User {
                     $row["username"],
                     $row["data_nascita"],
                     $row["email"],
-                    $row["password"],
+                    null,
                     $row["foto_profilo"],
                     $row["sesso"],
                     $row["descrizione"],
@@ -344,6 +344,34 @@ namespace User {
             return $user;
 
         }
+
+        public static function search_users(string $search)
+        {
+            $db = getDB();
+            $query = "SELECT * FROM utente WHERE Username LIKE ? ";
+            $stmt = $db->prepare($query);
+            $search = $search . "%";
+            $stmt->bind_param("s", $search);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
+            }
+
+            $result = $stmt->get_result();
+            $users = array();
+            if ($result->num_rows > 0) {
+                for ($i = 0; $i < $result->num_rows; $i++) {
+                    $row = $result->fetch_array();
+                    $user = new DBUtente(null, null, $row["Username"], null, null, null, $row["Foto_profilo"]);
+                    array_push($users, $user);
+                }
+                return $users;
+            } else {
+                return null;
+            }
+        }
+
+
 
         public static function check_if_available($username = "", $email = ""): void
         {
@@ -393,16 +421,16 @@ namespace User {
                 for ($i = 0; $i < $result->num_rows; $i++) {
                     $row = $result->fetch_array();
                     $user = new DBUtente(
-                        $row["nome"],
-                        $row["cognome"],
-                        $row["username"],
-                        $row["data_nascita"],
-                        $row["email"],
-                        $row["password"],
-                        $row["foto_profilo"],
-                        $row["sesso"],
-                        $row["descrizione"],
-                        $row["foto_background"]
+                        null,
+                        null,
+                        $row["Username"],
+                        null,
+                        null,
+                        null,
+                        $row["Foto_profilo"],
+                        null,
+                        null,
+                        null
                     );
                     array_push($users, $user);
                 }
@@ -500,16 +528,16 @@ namespace User {
                 for ($i = 0; $i < $result->num_rows; $i++) {
                     $row = $result->fetch_array();
                     $user = new DBUtente(
-                        $row["nome"],
-                        $row["cognome"],
-                        $row["username"],
-                        $row["data_nascita"],
-                        $row["email"],
-                        $row["password"],
-                        $row["foto_profilo"],
-                        $row["sesso"],
-                        $row["descrizione"],
-                        $row["foto_background"]
+                        null,
+                        null,
+                        $row["Username"],
+                        null,
+                        null,
+                        null,
+                        $row["Foto_profilo"],
+                        null,
+                        null,
+                        null
                     );
                     array_push($users, $user);
                 }
@@ -581,6 +609,31 @@ namespace User {
                 return null;
             }
         }
+
+        public static function addFollow($usernameFollowed)
+        {
+            $db = getDB();
+            $query = "INSERT INTO relazione (Username_Segue, Username_Seguito) VALUES (?, ?)";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("ss", $_SESSION['username'], $usernameFollowed);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
+            }
+        }
+
+        public static function removeFollow($usernameFollowed)
+        {
+            $db = getDB();
+            $query = "DELETE FROM relazione WHERE Username_Segue = ? AND Username_Seguito = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("ss", $_SESSION['username'], $usernameFollowed);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
+            }
+        }
+
     }
 }
 

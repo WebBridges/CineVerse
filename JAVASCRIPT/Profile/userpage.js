@@ -1,11 +1,21 @@
 const phpPath = "../../PHP";
 import { GetUsernameInfo } from "../Utils/utils.js";
 import { GetUsername } from "../Utils/utils.js";
+import { GetFollowerCount } from "../Utils/utils.js";
+import { GetFollowingCount } from "../Utils/utils.js";
 
 const openOptionsButtons = document.getElementById("openbtn");
 const closeOptions = document.getElementById("closebtn");
-openOptionsButtons.addEventListener("click", function () { openSideBar(); });
-closeOptions.addEventListener("click", function () { closeSideBar(); });
+let params = new URLSearchParams(window.location.search);
+let usernameURL = params.get('username');
+
+if(openOptionsButtons!=null){
+    openOptionsButtons.addEventListener("click", function () { openSideBar(); });
+}
+
+if(closeOptions!=null){
+    closeOptions.addEventListener("click", function () { closeSideBar(); });
+}
 
 const photoButton = document.getElementById("photo_button");
 const textButton = document.getElementById("text_button");
@@ -26,21 +36,32 @@ function closeSideBar() {
 /**
  * Function to load user information
  */
-async function loadUserInformation() {
-    const usernameInfo = await GetUsernameInfo();
-    
-    document.getElementById("username").innerHTML = usernameInfo.Username;
+async function loadUserInformation(usernameURL) {
+    const usernameInfo = await GetUsernameInfo(usernameURL);
+    let parts;
+    let extension;
+
     if(usernameInfo.Foto_background != null){
-        document.getElementById("background_image").src = "../../img/" + usernameInfo.Foto_background;
+        parts = usernameInfo.Foto_background.split(".");
+        extension = parts[parts.length - 1];
+        document.getElementById("background_image").src ="../../img/" + usernameInfo.Foto_background + "." + extension;
+    } else {
+        document.getElementById("background_image").src = "../../img/default-background.jpg.jpg";
     }
+
     if(usernameInfo.Foto_profilo != null){
-        document.getElementById("user_images").src = "../../img/" + usernameInfo.Foto_profilo;
+        parts = usernameInfo.Foto_profilo.split(".");
+        extension = parts[parts.length - 1];
+        document.getElementById("user_images").src = "../../img/" + usernameInfo.Foto_profilo + "." + extension;
+    } else {
+        document.getElementById("user_images").src = "../../img/default-user.jpg.jpg";
     }
     const response = await fetch(phpPath + "/user/load_posts_number.php?username=" + usernameInfo.Username);
     const nPosts = await response.json();
+    document.getElementById("username").innerHTML = usernameInfo.Username;
     document.getElementById("nPosts").innerHTML = nPosts;
-    document.getElementById("nFollower").innerHTML = usernameInfo.Follower;
-    document.getElementById("nSeguiti").innerHTML = usernameInfo.Seguiti;
+    document.getElementById("nFollower").innerHTML = await GetFollowerCount(usernameInfo.Username);
+    document.getElementById("nSeguiti").innerHTML = await GetFollowingCount(usernameInfo.Username);
     document.getElementById("user_description").innerHTML = usernameInfo.Descrizione;
     const topicContainer = document.getElementById("topic-container");
     usernameInfo.topics.forEach(element => {
@@ -67,7 +88,7 @@ async function loadPhotos() {
         credentials: "include"
     });
     const posts = await response.json();
-    return posts
+    return posts;
 }
 
 async function loadText() {
@@ -374,5 +395,5 @@ export async function showComments(IDpost) {
 }
 
 
-loadUserInformation();
+loadUserInformation(usernameURL);
 showpost(0);

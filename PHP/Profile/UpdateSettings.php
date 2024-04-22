@@ -24,7 +24,7 @@ use User\DBUtente;
 
     try{
         $user = new DBUtente();
-        $user->update_infos_account($_POST['name'], $_POST['surname'],$_POST['username'],$_POST['birthDate'],$_POST['email'],$gender,$tFA,$_POST['topic']);
+        $user->update_infos_account($_POST['name'], $_POST['surname'],$_POST['username'],$_POST['birthDate'],$_POST['email'],$gender,$tFA);
         if($password != ""){
             $user->update_password($password);
         }
@@ -33,6 +33,5 @@ use User\DBUtente;
     }catch(Exception $e){
         http_response_code(400); // Bad Request
         echo $e->getMessage();
-        
     }
 ?>

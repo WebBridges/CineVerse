@@ -1,0 +1,53 @@
+.input-grey-rounded{
+    font-size: 16px;
+    line-height: 1.5;
+    background: #E9EEF0;
+    border: 1px solid #D5D9DB;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='%238C92A0' d='M11.44 10.73l4.41 4.42a.5.5 0 1 1-.7.7l-4.42-4.41a6.5 6.5 0 1 1 .7-.7v-.01zM6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11z'></path></svg>");
+    background-repeat: no-repeat;
+    background-position: 15px 10px;
+    background-size: 20px 20px;
+    border-radius: 100px;
+    width: 300px;
+    padding: .5em 1em .5em 2.5em;
+    } 
+    
+.input-grey-rounded::placeholder{
+      color: #838D99;
+}
+    
+.input-grey-rounded:focus {
+      outline: none;
+      background-color: #FFF;
+      border: 1px solid #84A2FA;
+}
+
+.user_images{
+  height: 46px;
+  width: 46px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+#user_images{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+#usernameLabel {
+  color: white;
+  font-size: 16px; 
+  font-weight: bold; 
+  text-decoration: none;
+}
+
+#searchList{
+  background-color: #7b2cbf;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
