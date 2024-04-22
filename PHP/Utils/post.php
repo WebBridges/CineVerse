@@ -76,15 +76,15 @@ namespace Post {
         private $IDcommento;
         private $IDpost;
         private $username_utente;
-        private $IDcommento_padre;
+        private $IDcommento_Padre;
 
-        public function __construct($corpo = null, $IDcommento = null, $IDpost = null, $username_utente = null, $IDcommento_padre = null)
+        public function __construct($corpo = null, $IDcommento = null, $IDpost = null, $username_utente = null, $IDcommento_Padre = null)
         {
             $this->corpo = $corpo;
             $this->IDcommento = $IDcommento;
             $this->IDpost = $IDpost;
             $this->username_utente = $username_utente;
-            $this->IDcommento_padre = $IDcommento_padre;
+            $this->IDcommento_Padre = $IDcommento_Padre;
         }
 
         public function jsonSerialize()
@@ -94,7 +94,7 @@ namespace Post {
                 "IDcommento" => $this->IDcommento,
                 "IDpost" => $this->IDpost,
                 "username_utente" => $this->username_utente,
-                "IDcommento_padre" => $this->IDcommento_padre
+                "IDcommento_Padre" => $this->IDcommento_Padre
             ];
         }
 
@@ -118,17 +118,17 @@ namespace Post {
             return $this->username_utente;
         }
 
-        public function get_IDcommento_padre()
+        public function get_IDcommento_Padre()
         {
-            return $this->IDcommento_padre;
+            return $this->IDcommento_Padre;
         }
 
         public function db_serialize()
         {
             $db = getDB();
-            $query = "INSERT INTO commento (Corpo, IDpost, Username_utente, IDcommento_padre) VALUES (?, ?, ?, ?)";
+            $query = "INSERT INTO commento (Corpo, IDpost, Username_utente, IDcommento_Padre) VALUES (?, ?, ?, ?)";
             $stmt = $db->prepare($query);
-            $stmt->bind_param("sisi", $this->corpo, $this->IDpost, $this->username_utente, $this->IDcommento_padre);
+            $stmt->bind_param("sisi", $this->corpo, $this->IDpost, $this->username_utente, $this->IDcommento_Padre);
             $success = $stmt->execute();
             if (!$success) {
                 throw new \Exception("Error while querying the database: " . $stmt->error);
@@ -540,7 +540,7 @@ namespace Post {
         public static function get_posts_by_username_utente_foto_video($username_utente)
         {
             $db = getDB();
-            $query = "SELECT * FROM post WHERE Username_Utente = ? AND IDpost IN (SELECT IDpost FROM foto_video)";
+            $query = "SELECT * FROM post WHERE Username_Utente = ? AND IDpost IN (SELECT IDpost FROM foto_video) AND Archiviato = 0";
             $stmt = $db->prepare($query);
             $stmt->bind_param("s", $username_utente);
             $success = $stmt->execute();
@@ -571,7 +571,7 @@ namespace Post {
         public static function get_posts_by_username_utente_text($username_utente)
         {
             $db = getDB();
-            $query = "SELECT * FROM post WHERE Username_Utente = ? AND IDpost IN (SELECT IDpost FROM testo)";
+            $query = "SELECT * FROM post WHERE Username_Utente = ? AND IDpost IN (SELECT IDpost FROM testo)  AND Archiviato = 0";
             $stmt = $db->prepare($query);
             $stmt->bind_param("s", $username_utente);
             $success = $stmt->execute();
@@ -602,7 +602,7 @@ namespace Post {
         public static function get_posts_by_username_utente_survey($username_utente)
         {
             $db = getDB();
-            $query = "SELECT * FROM post WHERE Username_Utente = ? AND IDpost IN (SELECT DISTINCT IDpost FROM opzione)";
+            $query = "SELECT * FROM post WHERE Username_Utente = ? AND IDpost IN (SELECT DISTINCT IDpost FROM opzione) AND Archiviato = 0";
             $stmt = $db->prepare($query);
             $stmt->bind_param("s", $username_utente);
             $success = $stmt->execute();
@@ -757,7 +757,7 @@ namespace Post {
                         $row["IDcommento"],
                         $row["IDpost"],
                         $row["Username_Utente"],
-                        $row["IDcommento_padre"]
+                        $row["IDcommento_Padre"]
                     );
                     array_push($comments, $comment);
                 }
@@ -849,6 +849,23 @@ namespace Post {
             $query = "SELECT * FROM like_post WHERE IDpost = ? AND Username_Utente = ?";
             $stmt = $db->prepare($query);
             $stmt->bind_param("is", $IDpost, $username_utente);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . $stmt->error);
+            }
+            $result = $stmt->get_result();
+            if ($result->num_rows == 0) {
+                return false;
+            }
+            return true;
+        }
+
+        public static function check_like_comment($IDcomment, $username_utente)
+        {
+            $db = getDB();
+            $query = "SELECT * FROM like_commento WHERE IDcommento = ? AND Username_Utente = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("is", $IDcomment, $username_utente);
             $success = $stmt->execute();
             if (!$success) {
                 throw new \Exception("Error while querying the database: " . $stmt->error);

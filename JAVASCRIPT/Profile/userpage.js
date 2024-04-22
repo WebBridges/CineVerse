@@ -223,7 +223,7 @@ async function like(IDpost) {
     const nLikes = document.getElementById("post-count-likes");
     if (liked) {
         nLikes.innerHTML = parseInt(nLikes.innerHTML) - 1;
-        likeButton.innerHTML = "<em class='fa-regular fa-heart'></em>";
+        likeButton.innerHTML = "<em class='fa-regular fa-heart' style='color: #ffffff;'></em>";
     } else {
         nLikes.innerHTML = parseInt(nLikes.innerHTML) + 1;
         likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500;'></em>";
@@ -237,7 +237,11 @@ async function openModalPostPhoto(post, photo) {
     document.getElementById("comments-button").replaceWith(document.getElementById("comments-button").cloneNode(true));
     document.getElementById("likes-button").replaceWith(document.getElementById("likes-button").cloneNode(true));
     // show modal
-    document.getElementById("post-user-photo").src = "../../img/" + await loadUserImage(post.username_utente);
+    document.getElementById("post-title").innerHTML = post.titolo;
+    const userImage = await loadUserImage(post.username_utente);
+    if (userImage != null) {
+        document.getElementById("post-user-photo").src = "../../img/" + userImage;
+    }
     document.getElementById("post-username").innerHTML = post.username_utente;
     document.getElementById("post-photo").src = "../../img/" + photo.foto_video;
     document.getElementById("post-count-likes").innerHTML = await loadLikes(post.IDpost);
@@ -247,10 +251,128 @@ async function openModalPostPhoto(post, photo) {
     if (liked) {
         likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500;'></em>";
     } else {
-        likeButton.innerHTML = "<em class='fa-regular fa-heart'></em>";
+        likeButton.innerHTML = "<em class='fa-regular fa-heart' style='color: #ffffff;'></em>";
     }
-    //postActions.querySelector("#comments-button").addEventListener("click", function() { showComments(post.post_id); });
+    document.getElementById("comments-button").addEventListener("click", function() { showComments(post.IDpost); });
 }
+
+async function loadComments(IDpost) {
+    const response = await fetch(phpPath + "/user/load_comments.php?IDpost=" + IDpost);
+    const comments = await response.json();
+    return comments;
+}
+
+async function loadCommentLikes(IDcomment) {
+    const response = await fetch(phpPath + "/user/load_comment_likes.php?IDcomment=" + IDcomment);
+    const nLikes = await response.json();
+    return nLikes;
+}
+
+async function checkCommentLike(IDcomment, username) {
+    const request = phpPath + "/user/check_comment_like.php?IDcomment=" + IDcomment + "&username=" + username;
+    const response = await fetch(request);
+    const liked = await response.json();
+    return liked;
+}
+
+async function likeComment(IDcomment) {
+    const liked = await checkCommentLike(IDcomment, GetUsername());
+    const request = liked ? phpPath + "/user/remove_like_comment.php" : phpPath + "/user/add_like_comment.php";
+    await fetch(request, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "IDcomment": IDcomment
+        })
+    });
+    const commentContainer = document.getElementsByName("comment" + IDcomment)[0];
+    const likeButton = commentContainer.querySelector(".like-comment-button");
+    const nLikes = commentContainer.querySelector(".nLikes")
+    if (liked) {
+        nLikes.innerHTML = parseInt(nLikes.innerHTML) - 1;
+        likeButton.innerHTML = "<em class='fa-regular fa-heart' style='color: #ffffff;'></em>";
+    } else {
+        nLikes.innerHTML = parseInt(nLikes.innerHTML) + 1;
+        likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500;'></em>";
+    }
+}
+
+async function submitComment(IDpost) {
+    const commentsModal = document.getElementById("comments-modal");
+    const commentText = commentsModal.querySelector("input").value;
+    commentsModal.querySelector("input").value = ""; 
+    if (!commentText.replace(/\s/g, '').length) {
+        return;
+    }
+    await fetch(phpPath + "/user/add_comment.php", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "IDpost": IDpost,
+            "commentText": commentText
+        })
+    });
+    showComments(IDpost);
+}
+
+export async function showComments(IDpost) {
+    //const comModal = document.getElementById("comments-modal");
+    const commentsModal = document.getElementById("comments-modal");
+    const commentsModalBody = commentsModal.querySelector(".modal-body");
+    while (commentsModalBody.getElementsByClassName('comment-container').length > 0) {
+        commentsModalBody.removeChild(commentsModalBody.lastChild);
+    }
+    const comments = await loadComments(IDpost);
+    const template = document.getElementById("template-comments");
+    if (comments.length == 0) {
+        let clone = template.content.cloneNode(true);
+        clone.querySelector("img").style.visibility = "hidden";
+        clone.querySelector("a").style.visibility = "hidden";
+        clone.querySelector(".comment").textContent = "No comments yet";
+        clone.querySelector(".like-comment-button").style.visibility = "hidden";
+        clone.querySelector(".nLikes").style.visibility = "hidden";
+        commentsModalBody.appendChild(clone);
+    }
+    for (let i = 0; i < comments.length; i++) {
+        let comment = comments[i];
+        let clone = template.content.cloneNode(true);
+        let liked = await checkCommentLike(comment.IDcommento, GetUsername());
+        let userImage = await loadUserImage(comment.username_utente);
+        let nLikes = await loadCommentLikes(comment.IDcommento);
+        
+        clone.querySelector(".comment-container").setAttribute("name", "comment" + comment.IDcommento);
+        if (userImage != null) {
+            clone.querySelector("img").src = "../../img/" + userImage;
+        }
+        clone.querySelector("a").textContent = comment.username_utente;
+        clone.querySelector("a").href = "/profile?user=" + comment.username_utente;
+        clone.querySelector(".comment").textContent = comment.corpo;
+        /*if (comment.owner) {
+            clone.querySelector(".trash-button").classList.remove("invisible");
+            clone.querySelector(".trash-button").addEventListener("click", function() { removeComment(comment.comment_id, post_id); })
+        }*/
+        clone.querySelector(".nLikes").innerHTML = nLikes
+        const likeButton = clone.querySelector(".like-comment-button");
+        likeButton.addEventListener("click", function () { likeComment(comment.IDcommento)});
+        if (liked) {
+            likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500;'></em>";
+        }
+        commentsModalBody.appendChild(clone);
+    }
+    const modalFooter = commentsModal.querySelector(".modal-footer");
+    /*modalFooter.querySelector("form").onkeydown = function(event) {
+        return event.key != 'Enter';
+    }*/
+    const submitCommentButton = modalFooter.querySelector("button");
+    submitCommentButton.addEventListener("click", function() { submitComment(IDpost); });
+}
+
 
 loadUserInformation();
 showpost(0);

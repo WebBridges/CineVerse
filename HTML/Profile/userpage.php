@@ -146,20 +146,20 @@
           </nav>
     </div>
     <!-- Post Modal -->
-    <div class="modal fade" id="post-modal" tabindex="-1" aria-labelledby="post-name" aria-hidden="true">
+    <div class="modal fade" id="post-modal" tabindex="-1" aria-labelledby="postModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="row">
                         <div class="col-5 d-flex align-items-center">
-                            <h3 id="post-title">Post title</h3>
+                            <h3 class="white-text" id="post-title">Post title</h3>
                         </div>
                         <div class="col-2">
                             <img id="post-user-photo" src="../../img/default-user.WEBP" alt=""
                                 class="rounded-circle img-fluid img-thumbnail">
                         </div>
                         <div class="col-3 d-flex align-items-center me-2">
-                            <h3 id="post-username">Username</h3>
+                            <h3 class="white-text" id="post-username">Username</h3>
                         </div>
                         <div class="col-1 ms-1 me-1">
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -177,16 +177,16 @@
                             <div id="post-actions" class="row mt-3">
                                 <div class="col-2">
                                     <button class="btn" id="likes-button">
-                                        <em class="fa-regular fa-heart"></em>
+                                        <em class="fa-regular fa-heart" style="color: #ffffff;"></em>
                                     </button>
                                 </div>
                                 <div class="col-2">
                                     <button class="btn" id="comments-button" data-bs-toggle="modal" data-bs-target="#comments-modal" data-bs-dismiss="modal">
-                                        <em class="fa-regular fa-comment"></em>
+                                        <em class="fa-regular fa-comment" style="color: #ffffff;"></em>
                                     </button>
                                 </div>
                                 <div class="col-8">
-                                    <p id="post-description">Post description can be very long and take the whole page</p>
+                                    <p class="white-text" id="post-description">Post description can be very long and take the whole page</p>
                                 </div>
                             </div>
                             <!-- <ol id="post-actions" class="list-group list-group-flush list-group-horizontal">
@@ -217,13 +217,72 @@
                     <!-- <div class="container-fluid"> -->
                         <div class="row">
                             <div class="col">
-                                <p>Like:</p>
+                                <p class="white-text">Like:</p>
                             </div>
-                            <div class="col" id="post-count-likes">
-                                <p>0</p>
+                            <div class="col">
+                                <p class="white-text" id="post-count-likes">0</p>
                             </div>
                         </div>
                     <!-- </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="comments-modal" tabindex="-1" aria-labelledby="commentsModal" aria-hidden="true">
+        <div
+            class="modal-dialog modal-dialog-centered modal-dialog-scrollable align-items-md-center modal-lg">
+            <div class="modal-content bg-primary">
+                <div class="modal-header justify-content-end">
+                    <div class="row">
+                        <div class="col-auto">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#post-modal"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <template id="template-comments">
+                        <div class="comment-container">
+                            <div class="row justify-content-start">
+                                <div class="col-2 mb-1 col-lg-1">
+                                    <img src="../../img/default-user.webp" alt="" class="img-fluid rounded-circle">
+                                </div>
+                                <div class="col">
+                                    <a href="#" class="fs-5 white-text">Username</a>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="flex-grow-1">
+                                    <p class="comment white-text">Comment</p>
+                                </div>
+                                <!-- <div>
+                                    <button class="trash-button btn invisible">
+                                        <em class="fa-solid fa-trash-can"></em>
+                                    </button>
+                                </div> -->
+                                <div>
+                                    <button class="like-comment-button btn">
+                                        <em class="fa-regular fa-heart" style="color: #ffffff;"></em>
+                                    </button>
+                                </div>
+                                <div class="ms-3 pt-1">
+                                    <p class="nLikes white-text">0</p>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <form class="row">
+                        <label for="new-comment" class="col-form-label" >New Comment:</label>
+                        <div class="col-10">
+                            <input type="text" id="new-comment" name="new-comment" class="form-control border-dark" placeholder="Write new comment...">
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="btn border border-black btn-send" name="submit-comment">
+                                <i class="fa-solid fa-paper-plane" style="color: #ff8500;"></i>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

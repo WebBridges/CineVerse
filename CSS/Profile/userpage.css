@@ -212,3 +212,31 @@ li{
     height: auto;
     z-index: 1; /* Assicura che l'icona sia sopra il video */
 }
+
+.btn-close {
+    color: #fff !important; /* Colore del testo bianco */
+    background-color: #fff !important; /* Sfondo bianco */
+    border: none !important; /* Rimuove il bordo */
+}
+
+.btn-send {
+    color: #fff !important; /* Colore del testo bianco */
+    background-color: rgba(255,255,255, 0.9) !important; /* Sfondo bianco */
+    border: none !important; /* Rimuove il bordo */
+}
+
+.modal-header {
+    background-color: #240046;
+}
+
+.modal-body {
+    background-color: #7B2CBF;
+}
+
+.modal-footer {
+    background-color: #240046 !important;
+}
+
+.white-text{
+    color: white;
+}
