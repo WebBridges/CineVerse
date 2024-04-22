@@ -10,6 +10,6 @@ if(checkAuthTfa($_POST['2fa'])=="false"){
         unset($_SESSION['email']);
         unset($_SESSION['token']);
         unset($_SESSION['email']);
-        header("location: ../../HTML/Access/LoginPage.html");
+        header("location: ../../HTML/Access/LoginPage.php");
     }
 ?>
