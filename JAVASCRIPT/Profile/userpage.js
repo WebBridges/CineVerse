@@ -1,6 +1,8 @@
 const phpPath = "../../PHP";
 import { GetUsernameInfo } from "../Utils/utils.js";
 import { GetUsername } from "../Utils/utils.js";
+import { GetFollowerCount } from "../Utils/utils.js";
+import { GetFollowingCount } from "../Utils/utils.js";
 
 const openOptionsButtons = document.getElementById("openbtn");
 const closeOptions = document.getElementById("closebtn");
@@ -58,8 +60,8 @@ async function loadUserInformation(usernameURL) {
     const nPosts = await response.json();
     document.getElementById("username").innerHTML = usernameInfo.Username;
     document.getElementById("nPosts").innerHTML = nPosts;
-    document.getElementById("nFollower").innerHTML = usernameInfo.Follower;
-    document.getElementById("nSeguiti").innerHTML = usernameInfo.Seguiti;
+    document.getElementById("nFollower").innerHTML = await GetFollowerCount(usernameInfo.Username);
+    document.getElementById("nSeguiti").innerHTML = await GetFollowingCount(usernameInfo.Username);
     document.getElementById("user_description").innerHTML = usernameInfo.Descrizione;
     const topicContainer = document.getElementById("topic-container");
     usernameInfo.topics.forEach(element => {

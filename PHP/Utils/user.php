@@ -423,11 +423,11 @@ namespace User {
                     $user = new DBUtente(
                         null,
                         null,
-                        $row["username"],
+                        $row["Username"],
                         null,
                         null,
                         null,
-                        $row["foto_profilo"],
+                        $row["Foto_profilo"],
                         null,
                         null,
                         null
@@ -530,11 +530,11 @@ namespace User {
                     $user = new DBUtente(
                         null,
                         null,
-                        $row["username"],
+                        $row["Username"],
                         null,
                         null,
                         null,
-                        $row["foto_profilo"],
+                        $row["Foto_profilo"],
                         null,
                         null,
                         null

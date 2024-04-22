@@ -13,7 +13,7 @@
             if ($followedUser instanceof DBUtente) {
                 if ($followedUser->get_username() === $_POST['usernameURL']) {
                     echo json_encode(true);
-                    break;
+                    return;
                 }
             }
         }

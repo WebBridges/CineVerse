@@ -1,3 +1,5 @@
+import { GetFollowerCount } from "../Utils/utils.js";
+
 document.addEventListener('DOMContentLoaded', async (event) => {
     await loadFollowButton();
 });
@@ -19,6 +21,7 @@ async function addFollowButton(){
     document.getElementById('buttonField').innerHTML =`<button class="btn btn-primary" id="followButtonNotFollow" style="width: 86%;">segui</button>` ;
     document.getElementById('followButtonNotFollow').addEventListener('click', async (event) => {
         if(await addFollowToUsername(usernameURL)){
+            document.getElementById("nFollower").innerHTML = await GetFollowerCount(usernameURL);
             addFollowedButton();
         }
     });
@@ -30,6 +33,7 @@ async function addFollowedButton(){
     document.getElementById('buttonField').innerHTML =`<button class="btn btn-secondary" id="followButtonFollowed" style="width: 86%;">segui già</button>` ;
     document.getElementById('followButtonFollowed').addEventListener('click', async (event) => {
         if(await removeFollowToUsername(usernameURL)){
+            document.getElementById("nFollower").innerHTML = await GetFollowerCount(usernameURL);
             addFollowButton();
         }
     });
