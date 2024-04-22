@@ -28,10 +28,9 @@ include_once (__DIR__ . "/../Utils/authUtilities.php");
             $hashedPassword =password_hash($_POST['password'],PASSWORD_DEFAULT);
             $desc="";
             $default2FA = 0;
-            $background = "default-background.jpg";
-            $profile = "default-user.jpg";
+            $void = NULL;
 
-            $stmt->bind_param("ssssssssssi", $_POST['name'], $_POST['surname'], $_POST['username'], $_POST['email'], $hashedPassword, $_POST['birthDate'], $gender, $desc, $profile, $background, $default2FA);
+            $stmt->bind_param("ssssssssssi", $_POST['name'], $_POST['surname'], $_POST['username'], $_POST['email'], $hashedPassword, $_POST['birthDate'], $gender, $desc, $void, $void, $default2FA);
             $stmt->execute();
 
             $_SESSION['email'] = $_POST['email'];

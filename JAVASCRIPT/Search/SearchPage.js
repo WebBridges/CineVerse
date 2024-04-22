@@ -24,13 +24,13 @@ document.addEventListener("DOMContentLoaded", function() {
                     let username = user.Username;
                     let profilePic = user.Foto_profilo;
                     if(profilePic === null){
-                        profilePic = "../../img/default-user.jpg";
+                        profilePic = "../../img/default-user.jpg.jpg";
                     } else{
                         let parts = user.Foto_profilo.split('.');
                         let extension = parts[parts.length - 1];
                         profilePic = "../../img/" + profilePic + "." + extension;
                     }
-                    let userHTML = `<div class=" col-12  d-flex align-items-center px-3 mt-3">
+                    let userHTML = `<div class=" col-12  d-flex align-items-center px-3 mt-3 mb-2">
                                         <div class="col-2 user_images">
                                             <img src=${profilePic} alt="user image" class="img-fluid overflow-hidden" id="user_images">
                                         </div>

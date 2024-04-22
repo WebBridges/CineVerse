@@ -421,16 +421,16 @@ namespace User {
                 for ($i = 0; $i < $result->num_rows; $i++) {
                     $row = $result->fetch_array();
                     $user = new DBUtente(
-                        $row["nome"],
-                        $row["cognome"],
+                        null,
+                        null,
                         $row["username"],
-                        $row["data_nascita"],
-                        $row["email"],
-                        $row["password"],
+                        null,
+                        null,
+                        null,
                         $row["foto_profilo"],
-                        $row["sesso"],
-                        $row["descrizione"],
-                        $row["foto_background"]
+                        null,
+                        null,
+                        null
                     );
                     array_push($users, $user);
                 }
@@ -528,16 +528,16 @@ namespace User {
                 for ($i = 0; $i < $result->num_rows; $i++) {
                     $row = $result->fetch_array();
                     $user = new DBUtente(
-                        $row["nome"],
-                        $row["cognome"],
+                        null,
+                        null,
                         $row["username"],
-                        $row["data_nascita"],
-                        $row["email"],
-                        $row["password"],
+                        null,
+                        null,
+                        null,
                         $row["foto_profilo"],
-                        $row["sesso"],
-                        $row["descrizione"],
-                        $row["foto_background"]
+                        null,
+                        null,
+                        null
                     );
                     array_push($users, $user);
                 }
@@ -609,6 +609,31 @@ namespace User {
                 return null;
             }
         }
+
+        public static function addFollow($usernameFollowed)
+        {
+            $db = getDB();
+            $query = "INSERT INTO relazione (Username_Segue, Username_Seguito) VALUES (?, ?)";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("ss", $_SESSION['username'], $usernameFollowed);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
+            }
+        }
+
+        public static function removeFollow($usernameFollowed)
+        {
+            $db = getDB();
+            $query = "DELETE FROM relazione WHERE Username_Segue = ? AND Username_Seguito = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("ss", $_SESSION['username'], $usernameFollowed);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . mysqli_error($db));
+            }
+        }
+
     }
 }
 

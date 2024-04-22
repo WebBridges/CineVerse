@@ -26,13 +26,13 @@
                 <a href="#" class="sidebarField">Post Archiviati</a>
                 <a href="../../PHP/Utils/Logout.php" class="sidebarField">Logout</a>
             </div>
-            <img src="../../img/default-background.jpg" alt="background profile image" class="img-fluid overflow-hidden border-top border-2 border-black" id="background_image">
+            <img src="../../img/default-background.jpg.jpg" alt="background profile image" class="img-fluid overflow-hidden border-top border-2 border-black" id="background_image">
         </header>
         <main class="pt-3 border-top border-black border-2">
             <div id="user_info">
                 <div class="row justify-content-center gy-2">
                     <div class="col-auto user_images">
-                        <img src="../../img/default-user.jpg" alt="user image" class="img-fluid overflow-hidden" id="user_images">
+                        <img src="../../img/default-user.jpg.jpg" alt="user image" class="img-fluid overflow-hidden" id="user_images">
                     </div>
                     <div class="col-auto username text-center">
                         <p id="username">Username</p>
@@ -50,8 +50,7 @@
                                 <p id="nSeguiti">0</p>
                             </div>
                         </div>
-                        <div class="col-11">
-                            <button class="btn btn-primary" id="followButton" style="width: 86%;">segui</button>
+                        <div class="col-11" id="buttonField">
                         </div>
                     </div>
                     <div class="col-auto user_description">
@@ -229,4 +228,5 @@
             crossorigin="anonymous">
     </script>
     <script src="../../JAVASCRIPT/Profile/userpage.js" type="module"></script>
+    <script src="../../JAVASCRIPT/Profile/SearchUserPage.js" type="module"></script>
 </body>

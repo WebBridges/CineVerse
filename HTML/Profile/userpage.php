@@ -33,13 +33,13 @@
                     <path d="M3 24.6313H73" stroke="#FF9E00" stroke-width="5" stroke-linecap="round"/>
                 </svg>
             </button>
-            <img src="../../img/default-background.jpg" alt="background profile image" class="img-fluid overflow-hidden border-top border-2 border-black" id="background_image">
+            <img src="../../img/default-background.jpg.jpg" alt="background profile image" class="img-fluid overflow-hidden border-top border-2 border-black" id="background_image">
         </header>
         <main class="pt-3 border-top border-black border-2">
             <div id="user_info">
                 <div class="row justify-content-center gy-2">
                     <div class="col-auto user_images">
-                        <img src="../../img/default-user.jpg" alt="user image" class="img-fluid overflow-hidden" id="user_images">
+                        <img src="../../img/default-user.jpg.jpg" alt="user image" class="img-fluid overflow-hidden" id="user_images">
                     </div>
                     <div class="col-auto username text-center">
                         <p id="username">Username</p>

@@ -44,7 +44,7 @@ async function loadUserInformation(usernameURL) {
         extension = parts[parts.length - 1];
         document.getElementById("background_image").src ="../../img/" + usernameInfo.Foto_background + "." + extension;
     } else {
-        document.getElementById("background_image").src = "../../img/affammoc_background_1713712835.jpg";
+        document.getElementById("background_image").src = "../../img/default-background.jpg.jpg";
     }
 
     if(usernameInfo.Foto_profilo != null){
@@ -52,7 +52,7 @@ async function loadUserInformation(usernameURL) {
         extension = parts[parts.length - 1];
         document.getElementById("user_images").src = "../../img/" + usernameInfo.Foto_profilo + "." + extension;
     } else {
-        document.getElementById("user_images").src = "../../img/default-user.jpg";
+        document.getElementById("user_images").src = "../../img/default-user.jpg.jpg";
     }
     const response = await fetch(phpPath + "/user/load_posts_number.php?username=" + usernameInfo.Username);
     const nPosts = await response.json();
