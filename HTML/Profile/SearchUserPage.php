@@ -26,13 +26,13 @@
                 <a href="#" class="sidebarField">Post Archiviati</a>
                 <a href="../../PHP/Utils/Logout.php" class="sidebarField">Logout</a>
             </div>
-            <img src="../../img/default-background.jpg.jpg" alt="background profile image" class="img-fluid overflow-hidden border-top border-2 border-black" id="background_image">
+            <img src="../../img/default-background.jpg" alt="background profile image" class="img-fluid overflow-hidden border-top border-2 border-black" id="background_image">
         </header>
         <main class="pt-3 border-top border-black border-2">
             <div id="user_info">
                 <div class="row justify-content-center gy-2">
                     <div class="col-auto user_images">
-                        <img src="../../img/default-user.jpg.jpg" alt="user image" class="img-fluid overflow-hidden" id="user_images">
+                        <img src="../../img/default-user.jpg" alt="user image" class="img-fluid overflow-hidden" id="user_images">
                     </div>
                     <div class="col-auto username text-center">
                         <p id="username">Username</p>
@@ -150,7 +150,7 @@
                             <h3 id="post-title">Post title</h3>
                         </div>
                         <div class="col-2">
-                            <img id="post-user-photo" src="../../img/default-user.WEBP" alt=""
+                            <img id="post-user-photo" src="../../img/default-user.jpg" alt=""
                                 class="rounded-circle img-fluid img-thumbnail">
                         </div>
                         <div class="col-3 d-flex align-items-center me-2">
@@ -166,7 +166,7 @@
                         <!--<div id="post-id">-->
                             <div class="row">
                                 <div class="col text-center">
-                                    <img id="post-photo" src="../../img/default-image.png" alt="" class="img-fluid">
+                                    <img id="post-photo" src="../../img/default-image.jpg" alt="" class="img-fluid">
                                 </div>
                             </div>
                             <div id="post-actions" class="row mt-3">
