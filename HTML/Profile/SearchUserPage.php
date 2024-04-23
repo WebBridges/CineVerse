@@ -122,7 +122,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                     <a class="nav-link" href="#">
+                     <a class="nav-link" href="Createpost.php">
                         <svg xmlns="http://www.w3.org/2000/svg" width="49.5" height="48.75" viewBox="0 0 66 65" fill="none">
                             <path d="M2.9989 32.4998H32.9988M32.9988 32.4998H62.9987M32.9988 32.4998V2.49994M32.9988 32.4998V62.4997" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
