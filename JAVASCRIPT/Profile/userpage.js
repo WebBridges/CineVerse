@@ -4,6 +4,9 @@ import { GetUsername } from "../Utils/utils.js";
 import { GetFollowerCount } from "../Utils/utils.js";
 import { GetFollowingCount } from "../Utils/utils.js";
 
+const urlParams = new URLSearchParams(window.location.search);
+const URLusername = urlParams.get('username');
+
 const openOptionsButtons = document.getElementById("openbtn");
 const closeOptions = document.getElementById("closebtn");
 let params = new URLSearchParams(window.location.search);
@@ -73,37 +76,22 @@ async function loadUserInformation(usernameURL) {
  * 
  */
 async function loadPhotos() {
-    const response = await fetch(phpPath + "/user/load_posted_photos.php", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        credentials: "include"
-    });
+    const request = URLusername != null ? phpPath + "/user/load_posted_photos.php?username=" + URLusername : phpPath + "/user/load_posted_photos.php";
+    const response = await fetch(request);
     const posts = await response.json();
     return posts;
 }
 
 async function loadText() {
-    const response = await fetch(phpPath + "/user/load_posted_text.php", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        credentials: "include"
-    });
+    const request = URLusername != null ? phpPath + "/user/load_posted_text.php?username=" + URLusername : phpPath + "/user/load_posted_text.php";
+    const response = await fetch(request);
     const posts = await response.json();
     return posts;
 }
 
 async function loadSurvey() {
-    const response = await fetch(phpPath + "/user/load_posted_survey.php", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        credentials: "include"
-    });
+    const request = URLusername != null ? phpPath + "/user/load_posted_survey.php?username=" + URLusername : phpPath + "/user/load_posted_survey.php";
+    const response = await fetch(request);
     const posts = await response.json();
     return posts;
 }
@@ -242,7 +230,14 @@ async function like(IDpost) {
     } else {
         nLikes.innerHTML = parseInt(nLikes.innerHTML) + 1;
         likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500;'></em>";
+        sendNotificationEmail(IDpost, "post");
     }
+}
+
+async function sendNotificationEmail(id, type) {
+    console.log("entrato");
+    const response = await fetch(phpPath + "/user/send_notification_email.php?id=" + id + "&type=" + type);
+    console.log(response);
 }
 
 async function openModalPostPhoto(post, photo) {
@@ -312,6 +307,7 @@ async function likeComment(IDcomment) {
     } else {
         nLikes.innerHTML = parseInt(nLikes.innerHTML) + 1;
         likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500;'></em>";
+        sendNotificationEmail(IDcomment, "comment");
     }
 }
 
