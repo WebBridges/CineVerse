@@ -736,6 +736,31 @@ namespace Post {
             return $posts;
         }
 
+        public static function get_comment_by_IDcommento($idcommento)
+        {
+            $db = getDB();
+            $query = "SELECT * FROM commento WHERE IDcommento = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("i", $idcommento);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . $stmt->error);
+            }
+
+            $result = $stmt->get_result();
+            if ($result->num_rows == 0) {
+                return null;
+            }
+            $row = $result->fetch_assoc();
+            return new DBCommento(
+                $row["Corpo"],
+                $row["IDcommento"],
+                $row["IDpost"],
+                $row["Username_Utente"],
+                $row["IDcommento_Padre"]
+            );
+        }
+
         public static function get_comments_by_IDpost($idpost)
         {
             $db = getDB();
