@@ -235,9 +235,7 @@ async function like(IDpost) {
 }
 
 async function sendNotificationEmail(id, type) {
-    console.log("entrato");
     const response = await fetch(phpPath + "/user/send_notification_email.php?id=" + id + "&type=" + type);
-    console.log(response);
 }
 
 async function openModalPostPhoto(post, photo) {
