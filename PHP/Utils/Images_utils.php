@@ -3,7 +3,6 @@
     function upload_image($image, $new_name) {
         $target_dir = "../../img/";
         if($image != null && $image != ""){
-            $imageFileType = pathinfo($image["name"], PATHINFO_EXTENSION);
             $new_file_name = $new_name;
             $target_file = $target_dir . $new_file_name;
             move_uploaded_file($image["tmp_name"], $target_file);

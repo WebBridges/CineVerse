@@ -56,7 +56,7 @@
                         </div>
                     </form>
                     <div class="d-flex justify-content-center mt-3">
-                        <a id=RegisterLink href="RegistrationPage.html">Don't have an account? Register here</a>
+                        <a id=RegisterLink href="RegistrationPage.php">Don't have an account? Register here</a>
                     </div>
                 </div>
             </div>
