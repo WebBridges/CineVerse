@@ -18,7 +18,7 @@
                     <h1>CineVerse</h1>
                 </div>
 
-                <div id="MainBlock" class="col-7">
+                <div id="MainBlock" class="col-lg-7 col-10">
                     <div id="BlockBanner" class="col-12 d-flex flex-column justify-content-center align-items-center text-center ">
                         Impostazioni Profilo
                     </div>
