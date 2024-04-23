@@ -35,10 +35,6 @@ div[id="MainBlock"]{
     color: #050301;
 }
 
-.form-control{
-    height: 60%;
-}
-
 a[id=RegisterLink]{
     color: #050301;
     text-decoration: none;
