@@ -38,23 +38,16 @@ function closeSideBar() {
  */
 async function loadUserInformation(usernameURL) {
     const usernameInfo = await GetUsernameInfo(usernameURL);
-    let parts;
-    let extension;
-
     if(usernameInfo.Foto_background != null){
-        parts = usernameInfo.Foto_background.split(".");
-        extension = parts[parts.length - 1];
-        document.getElementById("background_image").src ="../../img/" + usernameInfo.Foto_background + "." + extension;
+        document.getElementById("background_image").src ="../../img/" + usernameInfo.Foto_background;
     } else {
-        document.getElementById("background_image").src = "../../img/default-background.jpg.jpg";
+        document.getElementById("background_image").src = "../../img/default-background.jpg";
     }
 
     if(usernameInfo.Foto_profilo != null){
-        parts = usernameInfo.Foto_profilo.split(".");
-        extension = parts[parts.length - 1];
-        document.getElementById("user_images").src = "../../img/" + usernameInfo.Foto_profilo + "." + extension;
+        document.getElementById("user_images").src = "../../img/" + usernameInfo.Foto_profilo;
     } else {
-        document.getElementById("user_images").src = "../../img/default-user.jpg.jpg";
+        document.getElementById("user_images").src = "../../img/default-user.jpg";
     }
     const response = await fetch(phpPath + "/user/load_posts_number.php?username=" + usernameInfo.Username);
     const nPosts = await response.json();
@@ -133,9 +126,10 @@ async function getType(type) {
 
 async function showpost(type) {
     let loadedPosts = await getType(type);
-    let loadedPost = loadedPosts[0];
+    let loadedPost = [];
     let postsContainerDiv = document.getElementById("post-container");
     if (loadedPosts.length == 0) {
+
         console.log("No posts to show");
     } else {
         if(type === 0){
@@ -155,7 +149,7 @@ async function showpost(type) {
 
                     // Immagine che indica un video
                     img.alt = 'play-icon-identifier';
-                    img.src = "../../img/play_button.WEBP";
+                    img.src = "../../img/play_button.jpg";
                     img.className = 'play-icon';
                     
                     //Impostazione degli attributi del video
@@ -391,7 +385,9 @@ export async function showComments(IDpost) {
         return event.key != 'Enter';
     }*/
     const submitCommentButton = modalFooter.querySelector("button");
-    submitCommentButton.addEventListener("click", function() { submitComment(IDpost); });
+    const newSubmitCommentButton = submitCommentButton.cloneNode(true);
+    submitCommentButton.parentNode.replaceChild(newSubmitCommentButton, submitCommentButton);
+    newSubmitCommentButton.addEventListener("click", function() { submitComment(IDpost); });
 }
 
 

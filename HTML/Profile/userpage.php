@@ -17,7 +17,7 @@
 
 </head>
 <body>
-    <div class="container-fluid p-0 overflow-x-hidden overflow-y-auto" id="body_container"> 
+    <div class="container-fluid p-0 overflow-x-hidden overflow-y-auto bg-dark" id="body_container"> 
         <header id="profile_header">
             <div id="mySidebar" class="sidebar justify-content-end">
                 <a href="#" class="closebtn" id="closebtn">&times;</a>
@@ -33,13 +33,13 @@
                     <path d="M3 24.6313H73" stroke="#FF9E00" stroke-width="5" stroke-linecap="round"/>
                 </svg>
             </button>
-            <img src="../../img/default-background.jpg.jpg" alt="background profile image" class="img-fluid overflow-hidden border-top border-2 border-black" id="background_image">
+            <img src="../../img/default-background.jpg" alt="background profile image" class="img-fluid overflow-hidden border-top border-2 border-black" id="background_image">
         </header>
         <main class="pt-3 border-top border-black border-2">
             <div id="user_info">
                 <div class="row justify-content-center gy-2">
                     <div class="col-auto user_images">
-                        <img src="../../img/default-user.jpg.jpg" alt="user image" class="img-fluid overflow-hidden" id="user_images">
+                        <img src="../../img/default-user.jpg" alt="user image" class="img-fluid overflow-hidden" id="user_images">
                     </div>
                     <div class="col-auto username text-center">
                         <p id="username">Username</p>
@@ -155,7 +155,7 @@
                             <h3 class="white-text" id="post-title">Post title</h3>
                         </div>
                         <div class="col-2">
-                            <img id="post-user-photo" src="../../img/default-user.WEBP" alt=""
+                            <img id="post-user-photo" src="../../img/default-user.jpg" alt=""
                                 class="rounded-circle img-fluid img-thumbnail">
                         </div>
                         <div class="col-3 d-flex align-items-center me-2">
@@ -171,7 +171,7 @@
                         <!--<div id="post-id">-->
                             <div class="row">
                                 <div class="col text-center">
-                                    <img id="post-photo" src="../../img/default-image.png" alt="" class="img-fluid">
+                                    <img id="post-photo" src="../../img/default-image.jpg" alt="" class="img-fluid">
                                 </div>
                             </div>
                             <div id="post-actions" class="row mt-3">
@@ -244,7 +244,7 @@
                         <div class="comment-container">
                             <div class="row justify-content-start">
                                 <div class="col-2 mb-1 col-lg-1">
-                                    <img src="../../img/default-user.webp" alt="" class="img-fluid rounded-circle">
+                                    <img src="../../img/default-user.jpg" alt="" class="img-fluid rounded-circle">
                                 </div>
                                 <div class="col">
                                     <a href="#" class="fs-5 white-text">Username</a>
