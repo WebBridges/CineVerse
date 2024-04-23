@@ -8,7 +8,6 @@ if(checkAuthTfa($_POST['2fa'])=="false"){
 } else{
         unset($_SESSION['email']);
         unset($_SESSION['token']);
-        unset($_SESSION['email']);
-        header("location: ../../HTML/Profile/userpage.php");
+        header("location: ../../HTML/Profile/LoginPage.php");
     }
 ?>

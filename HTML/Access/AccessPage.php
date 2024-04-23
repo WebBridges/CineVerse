@@ -22,10 +22,10 @@
                 
                 <div id="MainBlock" class=" col-12 container d-flex flex-column justify-content-center align-items-center mt-3 mb-3">
                     <div class="col-12 mt-5 mb-2 d-flex justify-content-center">
-                        <a href="LoginPage.html" class="btn btn-primary mb-2">Accedi</a>
+                        <a href="LoginPage.php" class="btn btn-primary mb-2">Accedi</a>
                     </div>
                     <div class="col-12 mb-5 d-flex justify-content-center">
-                        <a href="RegistrationPage.html" class="btn btn-secondary">Registrati</a>
+                        <a href="RegistrationPage.php" class="btn btn-secondary">Registrati</a>
                     </div>
                 </div>
             </div>

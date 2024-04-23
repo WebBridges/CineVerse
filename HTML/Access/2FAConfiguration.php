@@ -30,7 +30,7 @@
                             </div>
                             <div class="d-flex justify-content-center align-items-center">
                                 <button id="Process" class="btn btn-primary me-4">Procedere</button>
-                                <button id="Deny" class="btn btn-secondary" onclick="location.href='LoginPage.html'">No grazie</button>
+                                <button id="Deny" class="btn btn-secondary" onclick="location.href='LoginPage.php'">No grazie</button>
                             </div>
                         </div>
                     </div>

@@ -4,7 +4,7 @@
     sec_session_start();
 
     if(!isset($_COOKIE['token'])) {
-        header('Location: ../../HTML/Access/LoginPage.html');
+        header('Location: ../../HTML/Access/LoginPage.php');
         exit;
     } 
     try {
@@ -13,7 +13,7 @@
     } catch (Exception $e) {
         header('Content-Type: application/json');
         echo json_encode(array("error" => "Invalid token"));
-        header('Location: ../../HTML/Access/LoginPage.html');
+        header('Location: ../../HTML/Access/LoginPage.php');
         exit();
     }
 ?>
