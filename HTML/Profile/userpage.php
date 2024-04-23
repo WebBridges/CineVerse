@@ -39,7 +39,7 @@
             <div id="user_info">
                 <div class="row justify-content-center gy-2">
                     <div class="col-auto user_images">
-                        <img src="../../img/default-user.jpg" alt="user image" class="img-fluid overflow-hidden" id="user_images">
+                        <img src="../../img/default-user.jpg" alt="user image" class="img-fluid" id="user_images">
                     </div>
                     <div class="col-auto username text-center">
                         <p id="username">Username</p>
