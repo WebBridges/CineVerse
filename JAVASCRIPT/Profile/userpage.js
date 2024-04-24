@@ -36,6 +36,23 @@ function closeSideBar() {
     document.getElementById("mySidebar").style.width = "0";
 }
 
+async function changePostType(type) {
+    if (type === 0) {
+        textButton.classList.remove("current_button");
+        surveyButton.classList.remove("current_button");
+        photoButton.classList.add("current_button");
+    } else if (type === 1) {
+        surveyButton.classList.remove("current_button");
+        photoButton.classList.remove("current_button");
+        textButton.classList.add("current_button");
+    } else if (type === 2) {
+        photoButton.classList.remove("current_button");
+        textButton.classList.remove("current_button");
+        surveyButton.classList.add("current_button");
+    }
+    showPost(type);
+}
+
 /**
  * Function to load user information
  */
@@ -112,27 +129,29 @@ async function getType(type) {
     return returnarray;
 }
 
-async function showpost(type) {
+async function showPost(type) {
     let loadedPosts = await getType(type);
     let loadedPost = [];
     let postsContainerDiv = document.getElementById("post-container");
+    while (postsContainerDiv.firstChild) {
+        postsContainerDiv.removeChild(postsContainerDiv.firstChild);
+    }
     if (loadedPosts.length == 0) {
-
         console.log("No posts to show");
     } else {
-        if(type === 0){
-            let dim = 0;
+        if(type === 0) {
+            //let dim = 0;
             let loadedMedia;
             let path;
-            for (let photo_index = 0; photo_index < loadedPosts.length/2; photo_index++) {
-                loadedPost = loadedPosts[photo_index];
-                loadedMedia = loadedPosts[photo_index + loadedPosts.length/2];
+            for (let post_index = 0; post_index < loadedPosts.length/2; post_index++) {
+                loadedPost = loadedPosts[post_index];
+                loadedMedia = loadedPosts[post_index + loadedPosts.length/2];
                 path = loadedMedia.foto_video;
                 let split = path.split(".");
                 if (split[1] == "mp4") {
-                    var container = document.createElement('div');
-                    var video = document.createElement('video');
-                    var img = document.createElement('img');
+                    let container = document.createElement('div');
+                    let video = document.createElement('video');
+                    let img = document.createElement('img');
                     container.classList.add('video-container');
 
                     // Immagine che indica un video
@@ -160,7 +179,7 @@ async function showpost(type) {
                     postsContainerDiv.appendChild(container);
                 } else {
                     //Creazione dell'elemento immagine
-                    var img = document.createElement('img');
+                    let img = document.createElement('img');
                     img.alt = '';
                     img.className = 'img-fluid mx-auto d-block border border-black';
                     img.id = 'photo-id';
@@ -174,7 +193,7 @@ async function showpost(type) {
                     //Inserimento dell'elemento immagine nell'html
                     postsContainerDiv.appendChild(img);
                 }
-                dim++;
+                //dim++;
             }
             /**Prima servira a riempire i buchi nel caso nella linea non si arrivi a 3 post
             let i = 0;
@@ -191,6 +210,26 @@ async function showpost(type) {
                 postsContainerDiv.appendChild(clone);
             }
             */
+        } else if (type === 1) {
+            let loadedText;
+            for (let text_index = 0; text_index < loadedPosts.length/2; text_index++) {
+                loadedPost = loadedPosts[text_index];
+                loadedText = loadedPosts[text_index + loadedPosts.length/2];
+                let titleContainer = document.createElement('div');
+                titleContainer.className = "text-center p-3 text-white border border-black border-top-0 border-bottom-2 border-start-1 border-end-1";
+                let title = document.createElement('p');
+                title.id = 'text-title';
+                title.classList.add("m-0");
+                title.innerHTML = loadedPost.titolo;
+                titleContainer.addEventListener("click", function (post, text) { 
+                    return function() {
+                        openModalPost(post, text, "text");
+                    }; 
+                }(loadedPost, loadedText));
+                titleContainer.appendChild(title);
+                postsContainerDiv.appendChild(titleContainer);
+            }
+        
         }
     }
 }
@@ -291,6 +330,12 @@ async function openModalPost(post, media, type) {
 
         postElement.appendChild(video);
         addDescriptionToModal(postDescriptionContainer, media.descrizione);
+    } else if (type == "text") {
+        let paragraph = document.createElement("p");
+        paragraph.classList.add("white-text");
+        paragraph.innerHTML = media.corpo;
+
+        postElement.appendChild(paragraph);
     }
 
     document.getElementById("post-username").innerHTML = post.username_utente;
@@ -435,4 +480,4 @@ export async function showComments(IDpost) {
 
 
 loadUserInformation(usernameURL);
-showpost(0);
+showPost(0);
