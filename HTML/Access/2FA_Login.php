@@ -31,7 +31,7 @@
                     <form id="2FA_Form" class="mt-1 mb-2" action="../../PHP/Access/Process2FA_login.php" method="POST" novalidate>
                         <div class="d-flex justify-content-center">
                             <div class="col-9 mt-1 py-3">
-                                <input type="text" class="form-control py-3" name="2fa" id="2fa" value="" maxlength="10" placeholder="codice" required>
+                                <input type="text" class="form-control py-2" name="2fa" id="2fa" value="" maxlength="10" placeholder="codice" required>
                                 <div class="invalid-feedback">
                                     Please provide a valid code
                                 </div>

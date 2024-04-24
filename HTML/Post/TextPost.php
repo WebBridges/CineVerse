@@ -19,20 +19,32 @@
                 <h1>CineVerse</h1>
             </div>
 
-            <div id="MainBlock" class="col-lg-4 col-9 pb-3">
+            <div id="MainBlock" class="col-md-6 col-lg-4 col-9 pb-3">
                 <div id="BlockBanner" class="col-12 d-flex flex-column justify-content-center align-items-center text-center ">
                     Creazione post
                 </div>
                 
-                <form action="../../PHP/Post/SendTextPost.php" method="post">
+                <form id="FormPostText">
                     <div class="form-group d-flex flex-column justify-content-center align-items-center text-center">
                         <div class="col-6 mt-2 mb-3">
                             <label class="form-label mb-1" for="postTitle">Titolo</label>
-                            <input type="text" class="form-control" id="postTitle" name="postTitle" placeholder="Inserisci il titolo del post" required>
+                            <input type="text" class="form-control" id="postTitle" name="postTitle" maxlength="50" placeholder="Inserisci il titolo del post">
                         </div>
                         <div>
                             <label for="description" class="form-label">Descrizione (massimo 50 caratteri)</label>
-                            <textarea class="form-control" name="description" id="description" maxlength="100" rows="3" cols="35" placeholder="Inserisci la descrizione" style="resize: none;"></textarea>
+                            <textarea class="form-control" name="postDescription" id="postDescription" maxlength="50" rows="3" cols="35" placeholder="Inserisci la descrizione" style="resize: none;"></textarea>
+                        </div>
+                    </div>
+                    <div class="row container-fluid text-left pt-2 pl-2">
+                        <div class="col-12 d-flex flex-column justify-content-center align-items-center text-center">
+                            <div class="form-group" style="color:#8B0000;" >
+                                <div id="errorDescription" class="error-message" style="display: none;">
+                                    Inserisci una descrizione
+                                </div>
+                                <div id="errorTitle" class="error-message" style="display: none;">
+                                    Inserisci un titolo valido
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row justify-content-center pt-4">
@@ -92,6 +104,7 @@
             </div>
           </nav>
         </div>
+        <script src="../../JAVASCRIPT/Post/TextPost.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>
 </html>

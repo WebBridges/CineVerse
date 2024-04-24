@@ -209,7 +209,18 @@ input[name="topic[]"]:checked + .form-check-label {
 }
 
 .btn-primary:focus {
-    outline: none;
+    outline:none;
+    background-color: #ff9e00;
+    border-color:transparent;
+    border:none;
+    width: 40%;
+    transition: background-color 0.5s ease;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.5);
+    padding-top: 2px;
+    color: #050301;
+    text-rendering: optimizeLegibility;
 }
 
 .btn-primary:active{
@@ -251,7 +262,18 @@ a:focus {
 }
 
 .btn-secondary:focus {
-    outline: none;
+    outline:none;
+    background-color: #7b2cbf;
+    border-color:transparent;
+    border:none;
+    width: 40%;
+    transition: background-color 0.5s ease;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.5);
+    padding-top: 2px;
+    color: #050301;
+    text-rendering: optimizeLegibility;
 }
 
 .btn-secondary:active{

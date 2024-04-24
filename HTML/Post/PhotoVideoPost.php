@@ -14,7 +14,7 @@
         
     </head>
     <body>
-        <div class="container-fluid d-flex flex-column justify-content-center align-items-center pt-5">
+        <div class="container-fluid d-flex flex-column justify-content-center align-items-center pt-3">
             <div class="justify-content-center align-items-center">
                 <h1>CineVerse</h1>
             </div>
@@ -24,19 +24,30 @@
                     Creazione post
                 </div>
                 
-                <form action="../../PHP/Post/SendPhotoVideoPost.php" method="post">
+                <form id="FormPostPhotoVideo">
                     <div class="form-group d-flex flex-column justify-content-center align-items-center text-center">
                         <div class="col-7 mt-2 mb-3">
                             <label class="form-label mb-1" for="postTitle">Titolo</label>
-                            <input type="text" class="form-control" id="postTitle" name="postTitle" placeholder="Inserisci il titolo del post" required>
+                            <input type="text" class="form-control" id="postTitle" maxlength="50" name="postTitle" placeholder="Inserisci il titolo del post" >
                         </div>
                         <div>
                             <label for="description" class="form-label">Descrizione (massimo 50 caratteri)</label>
-                            <textarea class="form-control" name="description" id="description" maxlength="100" rows="3" cols="35" placeholder="Inserisci la descrizione" style="resize: none;"></textarea>
+                            <textarea class="form-control" name="postDescription" id="postDescription" maxlength="50" rows="3" cols="35" placeholder="Inserisci la descrizione" style="resize: none;"></textarea>
                         </div>
                         <div class="mt-2">
                             <label for="uploadFile" class="form-label">Immagine/video da caricare:</label>
-                            <input type="file" class="form-control" name="uploadFile" id="uploadFile" accept="image/*,video/*" required>
+                            <input type="file" class="form-control" name="uploadFile" id="uploadFile" accept="image/*,video/*" >
+                        </div>
+                    </div>
+                    <div class="form-group mt-2 d-flex flex-column justify-content-center align-items-center text-center" style="color:#8B0000;">
+                        <div id="errorDescription" class="error-message" style="display: none;">
+                            Inserisci una descrizione
+                        </div>
+                        <div id="errorTitle" class="error-message" style="display: none;">
+                            Inserisci un titolo valido
+                        </div>
+                        <div id="errorFile" class="error-message" style="display: none;">
+                            Inserisci un file valido
                         </div>
                     </div>
                     <div class="row justify-content-center pt-4">
@@ -45,17 +56,7 @@
                         </div>
                     </div>
                 </form>
-
-
-
-
             </div>
-
-
-
-
-
-
 
             <nav class="navbar navbar-custom fixed-bottom navbar-expand mx-auto bottom-navbar">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -100,6 +101,7 @@
             </div>
           </nav>
         </div>
+        <script src="../../JAVASCRIPT/Post/PhotoVideoPost.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>
 </html>
