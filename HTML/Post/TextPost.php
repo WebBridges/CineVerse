@@ -31,8 +31,8 @@
                             <input type="text" class="form-control" id="postTitle" name="postTitle" maxlength="50" placeholder="Inserisci il titolo del post">
                         </div>
                         <div>
-                            <label for="description" class="form-label">Descrizione (massimo 50 caratteri)</label>
-                            <textarea class="form-control" name="postDescription" id="postDescription" maxlength="50" rows="3" cols="35" placeholder="Inserisci la descrizione" style="resize: none;"></textarea>
+                            <label for="description" class="form-label">Corpo (massimo 150 caratteri)</label>
+                            <textarea class="form-control" name="postDescription" id="postDescription" maxlength="150" rows="3" cols="35" placeholder="Inserisci la descrizione" style="resize: none;"></textarea>
                         </div>
                     </div>
                     <div class="row container-fluid text-left pt-2 pl-2">
