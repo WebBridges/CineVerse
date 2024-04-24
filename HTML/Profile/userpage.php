@@ -147,7 +147,7 @@
     </div>
     <!-- Post Modal -->
     <div class="modal fade" id="post-modal" tabindex="-1" aria-labelledby="postModal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="row">
@@ -170,7 +170,7 @@
                     <!--<div class="container-fluid">-->
                         <!--<div id="post-id">-->
                             <div class="row">
-                                <div class="col text-center">
+                                <div class="col text-center" id="post-element">
                                     <img id="post-photo" src="../../img/default-image.jpg" alt="" class="img-fluid">
                                 </div>
                             </div>
@@ -185,7 +185,7 @@
                                         <em class="fa-regular fa-comment" style="color: #ffffff;"></em>
                                     </button>
                                 </div>
-                                <div class="col-8">
+                                <div class="col-8" id="post-description-container">
                                     <p class="white-text" id="post-description">Post description can be very long and take the whole page</p>
                                 </div>
                             </div>

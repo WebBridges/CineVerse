@@ -148,6 +148,11 @@ async function showpost(type) {
                     video.muted = false;
                     video.className = 'img-fluid mx-auto d-block border border-black'; // Classe CSS
                     video.id = 'video-id'; // ID del video
+                    video.addEventListener("click", function (post, media) { 
+                        return function() {
+                            openModalPost(post, media, "video");
+                        }; 
+                    }(loadedPost, loadedMedia));
                 
                     //Inserimento degli elementi nell'html
                     container.appendChild(video);
@@ -163,7 +168,7 @@ async function showpost(type) {
                     loadedPost
                     img.addEventListener("click", function (post, media) { 
                         return function() {
-                            openModalPostPhoto(post, media);
+                            openModalPost(post, media, "photo");
                         }; 
                     }(loadedPost, loadedMedia));
                     //Inserimento dell'elemento immagine nell'html
@@ -238,7 +243,7 @@ async function sendNotificationEmail(id, type) {
     const response = await fetch(phpPath + "/user/send_notification_email.php?id=" + id + "&type=" + type);
 }
 
-async function openModalPostPhoto(post, photo) {
+async function openModalPost(post, media, type) {
     const postActions = document.getElementById("post-actions");
     const liked = await checkLike(post.IDpost, GetUsername());
     // clean buttons event listeners
@@ -250,10 +255,46 @@ async function openModalPostPhoto(post, photo) {
     if (userImage != null) {
         document.getElementById("post-user-photo").src = "../../img/" + userImage;
     }
+    
+    //the postElement represents the heart of the post, it can be an image, a video, a text or a survey
+    let postElement = document.getElementById("post-element");
+    while (postElement.firstChild) {
+        postElement.removeChild(postElement.firstChild);
+    }
+    let postDescriptionContainer = document.getElementById("post-description-container");
+    while (postDescriptionContainer.firstChild) {
+        postDescriptionContainer.removeChild(postDescriptionContainer.firstChild);
+    }
+
+    if (type == "photo") {
+        let img = document.createElement("img");
+        img.id = "post-photo";
+        img.classList.add("img-fluid");
+        img.src
+        img.src = "../../img/" + media.foto_video;
+        let description = document.createElement("p")
+        description.id = "post-description";
+        description.classList.add("white-text");
+        description.innerHTML = media.descrizione;
+
+        postElement.appendChild(img);
+        addDescriptionToModal(postDescriptionContainer, media.descrizione);
+    } else if (type == "video") {
+        let video = document.createElement("video");
+        video.src = "../../img/" + media.foto_video; //percorso del video
+        video.controls = true; //Abilita i controlli del video
+        video.autoplay = false;
+        video.loop = false; 
+        video.muted = false;
+        video.className = 'img-fluid mx-auto d-block border border-black'; // Classe CSS
+        video.id = 'video-id'; // ID del video
+
+        postElement.appendChild(video);
+        addDescriptionToModal(postDescriptionContainer, media.descrizione);
+    }
+
     document.getElementById("post-username").innerHTML = post.username_utente;
-    document.getElementById("post-photo").src = "../../img/" + photo.foto_video;
     document.getElementById("post-count-likes").innerHTML = await loadLikes(post.IDpost);
-    document.getElementById("post-description").innerHTML = photo.descrizione;
     const likeButton = postActions.querySelector("#likes-button");
     likeButton.addEventListener("click", function () { like(post.IDpost) });
     if (liked) {
@@ -262,6 +303,14 @@ async function openModalPostPhoto(post, photo) {
         likeButton.innerHTML = "<em class='fa-regular fa-heart' style='color: #ffffff;'></em>";
     }
     document.getElementById("comments-button").addEventListener("click", function() { showComments(post.IDpost); });
+}
+
+async function addDescriptionToModal(parentElement, description) {
+    let descriptionElement = document.createElement("p")
+    descriptionElement.id = "post-description";
+    descriptionElement.classList.add("white-text");
+    descriptionElement.innerHTML = description;
+    parentElement.appendChild(descriptionElement);    
 }
 
 async function loadComments(IDpost) {
