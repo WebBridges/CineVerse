@@ -17,8 +17,8 @@
     <link rel="stylesheet" type="text/css" href="../../CSS/Profile/userpage.css"/>
 
 </head>
-<body style="background-color: white;">
-    <div class="container-fluid p-0 overflow-x-hidden overflow-y-auto bg-dark" id="body_container"> 
+<body class="bg-dark">
+    <div class="container-fluid p-0 overflow-x-hidden overflow-y-auto" id="body_container"> 
         <header id="profile_header">
             <div id="mySidebar" class="sidebar justify-content-end">
                 <a href="#" class="closebtn" id="closebtn">&times;</a>

@@ -16,8 +16,8 @@
     <script src="https://kit.fontawesome.com/d9b18796bb.js" crossorigin="anonymous"></script>
 
 </head>
-<body>
-    <div class="container-fluid p-0 overflow-x-hidden overflow-y-auto bg-dark" id="body_container"> 
+<body class="bg-dark">
+    <div class="container-fluid p-0 overflow-x-hidden overflow-y-auto" id="body_container"> 
         <header id="profile_header">
             <div id="mySidebar" class="sidebar justify-content-end">
                 <a href="#" class="closebtn" id="closebtn">&times;</a>
@@ -102,7 +102,7 @@
             </div>
         </main>
         <!--Navbar-->
-        <nav class="navbar navbar-custom fixed-bottom navbar-expand mx-auto bottom-navbar">
+        <nav class="navbar navbar-custom fixed-bottom navbar-expand mx-auto bottom-navbar border border-1 border-light">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
