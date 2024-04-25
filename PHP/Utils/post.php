@@ -66,7 +66,10 @@ namespace Post {
             $success = $stmt->execute();
             if (!$success) {
                 throw new \Exception("Error while querying the database: " . $stmt->error);
+            } else {
+                $this->IDpost = $db->insert_id;
             }
+
         }
     }
 

@@ -23,7 +23,7 @@
                 <div id="BlockBanner" class="col-12 d-flex flex-column justify-content-center align-items-center text-center ">
                     Creazione post
                 </div>
-                <form id="FormPostSurvey">
+                <form id="FormPostSurvey" action="../../PHP/Post/UploadSurveyPost.php" method="post">
                     <div class="row ">
                         <div class="col-lg-6 px-5">
                             <div class="col-lg-10 col-md-9 col-8 mt-2 mb-3">

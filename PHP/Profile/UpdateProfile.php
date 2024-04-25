@@ -22,12 +22,12 @@
             $oldBackgroundPic = $userUtility::retrieve_background($_SESSION['username']);
 
             if($profilePic!=null && $profilePic != ""){
-                $oldProfilePicRes=delete_image($oldProfilePic);
+                $oldProfilePicRes=delete_file($oldProfilePic);
                 $profilePicExtension = pathinfo($profilePic, PATHINFO_EXTENSION);
                 $newProfilePicName = $_SESSION['username'] . "_profile_" . time() . "." . $profilePicExtension;
             }
             if($backgroundPic!=null && $backgroundPic != ""){
-                $oldBackgroundPic=delete_image($oldBackgroundPic);
+                $oldBackgroundPic=delete_file($oldBackgroundPic);
                 $backgroundPicExtension = pathinfo($backgroundPic, PATHINFO_EXTENSION);
                 $newBackgroundPicName = $_SESSION['username'] . "_background_" . time() . "." . $backgroundPicExtension;
             }
@@ -37,10 +37,10 @@
             $user->update_topics_account($_POST['topic']);
 
             if($profilePic!=null && $profilePic != ""){
-                upload_image($_FILES['profilePic'], $newProfilePicName);
+                upload_file($_FILES['profilePic'], $newProfilePicName);
             }
             if($backgroundPic!=null && $backgroundPic != ""){
-                upload_image($_FILES['backgroundPic'], $newBackgroundPicName);
+                upload_file($_FILES['backgroundPic'], $newBackgroundPicName);
             }
 
             header("Location: ../../HTML/Profile/userpage.php");
