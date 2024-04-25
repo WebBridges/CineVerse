@@ -7,15 +7,15 @@ require_once(__DIR__ . "/CheckInputForms.php");
 require_once(__DIR__ . "/../Database/DataBase.php");
 require_once(__DIR__ . "/../../vendor/autoload.php");
 
-$host = "sql.freedb.tech";
+/*$host = "sql.freedb.tech";
 $user = "freedb_amministratore";
 $password = "?rTU*96%DDJMPNj";
-$dbName = "freedb_cineverse";
+$dbName = "freedb_cineverse";*/
 
-/*$host = "localhost";
+$host = "localhost";
 $user = "root";
 $password = "";
-$dbName = "cineverse";*/
+$dbName = "cineverse";
 
 $database = DataBase::getInstance($host, $user, $password, $dbName);
 $db = $database->getDatabase();

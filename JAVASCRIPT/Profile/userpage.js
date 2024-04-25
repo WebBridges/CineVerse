@@ -121,6 +121,7 @@ async function getType(type) {
         posts = await loadText();
     }else if(type === 2){
         posts = await loadSurvey();
+        return posts;
     }
     const returnarray = [];
     posts.forEach(element => {
@@ -167,6 +168,8 @@ async function showPost(type) {
                     video.muted = false;
                     video.className = 'img-fluid mx-auto d-block border border-black'; // Classe CSS
                     video.id = 'video-id'; // ID del video
+                    video.setAttribute("data-bs-toggle", "modal");
+                    video.setAttribute("data-bs-target", "#post-modal");
                     video.addEventListener("click", function (post, media) { 
                         return function() {
                             openModalPost(post, media, "video");
@@ -184,7 +187,9 @@ async function showPost(type) {
                     img.className = 'img-fluid mx-auto d-block border border-black';
                     img.id = 'photo-id';
                     img.src = "../../img/" + path;
-                    loadedPost
+                    img.setAttribute("data-bs-toggle", "modal");
+                    img.setAttribute("data-bs-target", "#post-modal");
+                    //loadedPost
                     img.addEventListener("click", function (post, media) { 
                         return function() {
                             openModalPost(post, media, "photo");
@@ -221,6 +226,8 @@ async function showPost(type) {
                 title.id = 'text-title';
                 title.classList.add("m-0");
                 title.innerHTML = loadedPost.titolo;
+                titleContainer.setAttribute("data-bs-toggle", "modal");
+                titleContainer.setAttribute("data-bs-target", "#post-modal");
                 titleContainer.addEventListener("click", function (post, text) { 
                     return function() {
                         openModalPost(post, text, "text");
@@ -229,7 +236,27 @@ async function showPost(type) {
                 titleContainer.appendChild(title);
                 postsContainerDiv.appendChild(titleContainer);
             }
-        
+        }else if (type === 2) {
+            let loadedOptions;
+            for (let survey_index = 0; survey_index < loadedPosts["posts"].length; survey_index++) {
+                loadedPost = loadedPosts["posts"][survey_index];
+                loadedOptions = loadedPosts["options"][loadedPost.IDpost];
+                let titleContainer = document.createElement('div');
+                titleContainer.className = "text-center p-3 text-white border border-black border-top-0 border-bottom-2 border-start-1 border-end-1";
+                let title = document.createElement('p');
+                title.id = 'text-title';
+                title.classList.add("m-0");
+                title.innerHTML = loadedPost.titolo;
+                titleContainer.setAttribute("data-bs-toggle", "modal");
+                titleContainer.setAttribute("data-bs-target", "#post-modal");
+                titleContainer.addEventListener("click", function (post, text) { 
+                    return function() {
+                        openModalPost(post, text, "text");
+                    }; 
+                }(loadedPost, loadedOptions));
+                titleContainer.appendChild(title);
+                postsContainerDiv.appendChild(titleContainer);
+            }
         }
     }
 }
