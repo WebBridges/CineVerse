@@ -15,7 +15,7 @@
                 $post->db_serialize();
                 $fields = array();
                 for ($i = 1; $i <= 4; $i++) {
-                    if (isset($_POST['field' . $i])) {
+                    if (isset($_POST['field' . $i]) && !empty($_POST['field' . $i])) {
                         $fields[] = $_POST['field' . $i];
                     }
                 }
