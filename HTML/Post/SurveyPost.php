@@ -23,7 +23,7 @@
                 <div id="BlockBanner" class="col-12 d-flex flex-column justify-content-center align-items-center text-center ">
                     Creazione post
                 </div>
-                <form id="FormPostSurvey">
+                <form id="FormPostSurvey" action="../../PHP/Post/UploadSurveyPost.php" method="post">
                     <div class="row ">
                         <div class="col-lg-6 px-5">
                             <div class="col-lg-10 col-md-9 col-8 mt-2 mb-3">
@@ -34,13 +34,13 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="optionType" id="radioOption" value="radio" checked>
                                     <label class="form-check-label" for="radioOption" style="color:black">
-                                        Radio Button
+                                        Risposta singola
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="optionType" id="checkboxOption" value="checkbox">
                                     <label class="form-check-label" for="checkboxOption" style="color:black">
-                                        Checkbox
+                                        Risposta multipla
                                     </label>
                                 </div>
                             </div>

@@ -24,7 +24,7 @@
                     Creazione post
                 </div>
                 
-                <form id="FormPostPhotoVideo">
+                <form id="FormPostPhotoVideo" action="../../PHP/Post/UploadPhotoVideoPost.php" method="post" enctype="multipart/form-data">
                     <div class="form-group d-flex flex-column justify-content-center align-items-center text-center">
                         <div class="col-7 mt-2 mb-3">
                             <label class="form-label mb-1" for="postTitle">Titolo</label>
