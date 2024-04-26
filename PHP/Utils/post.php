@@ -338,7 +338,7 @@ namespace Post {
             $db = getDB();
             $query = "INSERT INTO voto (IDpost, Username_utente, testo_opzione) VALUES (?, ?, ?)";
             $stmt = $db->prepare($query);
-            $stmt->bind_param("isi", $this->IDpost, $this->username_utente, $this->testo_opzione);
+            $stmt->bind_param("iss", $this->IDpost, $this->username_utente, $this->testo_opzione);
             $success = $stmt->execute();
             if (!$success) {
                 throw new \Exception("Error while querying the database: " . $stmt->error);
@@ -703,7 +703,8 @@ namespace Post {
                     $row = $result->fetch_assoc();
                     $opzione = new DBOpzione(
                         $row["IDpost"],
-                        $row["Testo"]
+                        $row["Testo"],
+                        $row["TipoOpzione"]
                     );
                     array_push($opzioni, $opzione);
                 }
@@ -824,6 +825,44 @@ namespace Post {
             );
         }
 
+        public static function get_number_of_votes_by_IDpost($IDpost)
+        {
+            $db = getDB();
+            $query = "SELECT COUNT(*) AS count FROM voto WHERE IDpost = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("i", $IDpost);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . $stmt->error);
+            }
+
+            $result = $stmt->get_result();
+            if ($result->num_rows == 0) {
+                return null;
+            }
+            $row = $result->fetch_assoc();
+            return $row["count"];
+        }
+
+        public static function get_number_of_votes_for_option($IDpost, $option)
+        {
+            $db = getDB();
+            $query = "SELECT COUNT(*) AS count FROM voto WHERE IDpost = ? AND testo_opzione = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("is", $IDpost, $option);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . $stmt->error);
+            }
+
+            $result = $stmt->get_result();
+            if ($result->num_rows == 0) {
+                return null;
+            }
+            $row = $result->fetch_assoc();
+            return $row["count"];
+        }
+
         public static function get_count_opzione_by_IDpost($IDpost, $testo_opzione)
         {
             $db = getDB();
@@ -913,7 +952,54 @@ namespace Post {
             return true;
         }
 
-        public static function check_like_commento($IDcommento, $username_utente)
+        public static function check_vote($IDpost, $option, $username_utente)
+        {
+            $db = getDB();
+            $query = "SELECT * FROM voto WHERE IDpost = ? AND testo_opzione = ? AND Username_utente = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("iss", $IDpost, $option, $username_utente);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . $stmt->error);
+            }
+            $result = $stmt->get_result();
+            if ($result->num_rows == 0) {
+                return false;
+            }
+            return true;
+        }
+
+        public static function get_number_of_votes_for_post_by_username($IDpost, $username)
+        {
+            $db = getDB();
+            $query = "SELECT COUNT(*) AS count FROM voto WHERE IDpost = ? AND Username_utente = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("is", $IDpost, $username);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . $stmt->error);
+            }
+            $result = $stmt->get_result();
+            if ($result->num_rows == 0) {
+                return null;
+            }
+            $row = $result->fetch_assoc();
+            return $row["count"];
+        }
+
+        public static function remove_all_vote_by_IDpost_and_username($IDpost, $username)
+        {
+            $db = getDB();
+            $query = "DELETE FROM voto WHERE IDpost = ? AND Username_utente = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("is", $IDpost, $username);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . $stmt->error);
+            }
+        }
+
+        /*public static function check_like_commento($IDcommento, $username_utente)
         {
             $db = getDB();
             $query = "SELECT * FROM like_commento WHERE IDcommento = ? AND Username_Utente = ?";
@@ -928,7 +1014,7 @@ namespace Post {
                 return false;
             }
             return true;
-        }
+        }*/
 
         /**
          * mancano le query per inserire e archiviare i post e inserire i commenti
