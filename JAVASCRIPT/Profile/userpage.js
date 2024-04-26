@@ -11,6 +11,13 @@ const openOptionsButtons = document.getElementById("openbtn");
 const closeOptions = document.getElementById("closebtn");
 let params = new URLSearchParams(window.location.search);
 let usernameURL = params.get('username');
+const postModal = document.getElementById("post-modal");
+postModal.addEventListener("hidden.bs.modal", function () {
+    let video = document.getElementById("video-id-modal");
+    if (video != null) {
+        video.pause();
+    }
+});
 
 if(openOptionsButtons!=null){
     openOptionsButtons.addEventListener("click", function () { openSideBar(); });
@@ -353,7 +360,7 @@ async function openModalPost(post, media, type) {
         video.loop = false; 
         video.muted = false;
         video.className = 'img-fluid mx-auto d-block border border-black'; // Classe CSS
-        video.id = 'video-id'; // ID del video
+        video.id = 'video-id-modal'; // ID del video
 
         postElement.appendChild(video);
         addDescriptionToModal(postDescriptionContainer, media.descrizione);
