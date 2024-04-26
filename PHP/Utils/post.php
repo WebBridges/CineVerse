@@ -251,18 +251,21 @@ namespace Post {
     {
         private $IDpost;
         private $testo;
+        private $opzione;
 
-        public function __construct($IDpost = null, $testo = null)
+        public function __construct($IDpost = null, $testo = null, $opzione = null)
         {
             $this->IDpost = $IDpost;
             $this->testo = $testo;
+            $this->opzione = $opzione;
         }
 
         public function jsonSerialize()
         {
             return [
                 "IDpost" => $this->IDpost,
-                "testo" => $this->testo
+                "testo" => $this->testo,
+                "opzione" => $this->opzione
             ];
         }
 
@@ -276,12 +279,17 @@ namespace Post {
             return $this->testo;
         }
 
+        public function get_opzione()
+        {
+            return $this->opzione;
+        }
+
         public function db_serialize()
         {
             $db = getDB();
-            $query = "INSERT INTO opzione (IDpost, Testo) VALUES (?, ?)";
+            $query = "INSERT INTO opzione (IDpost, Testo, TipoOpzione) VALUES (?, ?, ?)";
             $stmt = $db->prepare($query);
-            $stmt->bind_param("is", $this->IDpost, $this->testo);
+            $stmt->bind_param("iss", $this->IDpost, $this->testo, $this->opzione);
             $success = $stmt->execute();
             if (!$success) {
                 throw new \Exception("Error while querying the database: " . $stmt->error);

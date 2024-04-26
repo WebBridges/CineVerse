@@ -34,13 +34,13 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="optionType" id="radioOption" value="radio" checked>
                                     <label class="form-check-label" for="radioOption" style="color:black">
-                                        Radio Button
+                                        Risposta singola
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="optionType" id="checkboxOption" value="checkbox">
                                     <label class="form-check-label" for="checkboxOption" style="color:black">
-                                        Checkbox
+                                        Risposta multipla
                                     </label>
                                 </div>
                             </div>

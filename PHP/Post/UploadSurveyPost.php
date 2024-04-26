@@ -20,7 +20,7 @@
                     }
                 }
                 foreach($fields as $field){
-                    $option=new DBOpzione($post->get_IDpost(),$field);
+                    $option=new DBOpzione($post->get_IDpost(),$field,$_POST["optionType"]);
                     $option->db_serialize();
                 }
                 header('Location: ../../HTML/Profile/userpage.php');
