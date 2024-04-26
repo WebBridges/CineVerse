@@ -249,9 +249,9 @@ async function showPost(type) {
                 title.innerHTML = loadedPost.titolo;
                 titleContainer.setAttribute("data-bs-toggle", "modal");
                 titleContainer.setAttribute("data-bs-target", "#post-modal");
-                titleContainer.addEventListener("click", function (post, text) { 
+                titleContainer.addEventListener("click", function (post, options) { 
                     return function() {
-                        openModalPost(post, text, "text");
+                        openModalPost(post, options, "survey");
                     }; 
                 }(loadedPost, loadedOptions));
                 titleContainer.appendChild(title);
@@ -363,6 +363,67 @@ async function openModalPost(post, media, type) {
         paragraph.innerHTML = media.corpo;
 
         postElement.appendChild(paragraph);
+    } else if (type == "survey") {
+        let nVotes = await getVotesNumber(post.IDpost);
+        let survey = document.createElement("div");
+        survey.className = "survey-container border border-2 border-black rounded p-3";
+        let options = media;
+        for (let i = 0; i < options.length; i++) {
+            let voted = await checkVoted(post.IDpost, options[i].testo);
+
+            let optionContainer = document.createElement("div");
+            optionContainer.className = "row mb-3";
+            
+            let optionValue = document.createElement("div");
+            optionValue.addEventListener("click", function (post, option) { 
+                return function() {
+                    vote(post, option);
+                }; 
+            }(post, options[i]));
+            optionValue.className = "col-10";
+            let option = document.createElement("p");
+            option.className = "survey-option white-text m-0 pt-2 pb-2";
+            if (voted) {
+                option.classList.add("border", "border-3", "border-white");
+            }
+            option.id = "option" + options[i].testo;
+            option.innerHTML = options[i].testo;
+            
+            let optionVotes = document.createElement("div");
+            optionVotes.className = "col-2";
+            let votes = document.createElement("p");
+            let votesForOption = await getVotesForOptionNumber(post.IDpost, options[i].testo);
+            votes.className = "survey-votes white-text m-0 pt-2 pb-2";
+            votes.innerHTML = calcVotesPercentage(votesForOption, nVotes) + "%";
+            
+            optionValue.appendChild(option);
+            optionVotes.appendChild(votes);
+            optionContainer.appendChild(optionValue);
+            optionContainer.appendChild(optionVotes);
+            survey.appendChild(optionContainer);
+        };
+        
+        let footer = document.createElement("div");
+        footer.className = "row";
+
+        let footerHint = document.createElement("div");
+        footerHint.className = "col-8";
+        let hint = document.createElement("p");
+        hint.className = "white-text text-start m-0";
+        hint.innerHTML = options[0].opzione == "radio" ? "Click on an option to vote" : "Click one or more options to vote";
+        footerHint.appendChild(hint);
+
+        let footerTotalVotes = document.createElement("div");
+        footerTotalVotes.className = "col-4";
+        let totalVotes = document.createElement("p");
+        totalVotes.className = "white-text text-end m-0";
+        totalVotes.innerHTML = "Total votes: " + nVotes;
+        footerTotalVotes.appendChild(totalVotes);
+
+        footer.appendChild(footerHint);
+        footer.appendChild(footerTotalVotes);
+        survey.appendChild(footer);
+        postElement.appendChild(survey);
     }
 
     document.getElementById("post-username").innerHTML = post.username_utente;
@@ -375,6 +436,57 @@ async function openModalPost(post, media, type) {
         likeButton.innerHTML = "<em class='fa-regular fa-heart' style='color: #ffffff;'></em>";
     }
     document.getElementById("comments-button").addEventListener("click", function() { showComments(post.IDpost); });
+}
+
+async function getVotesNumber(IDpost) {
+    const response = await fetch(phpPath + "/user/load_votes_number.php?IDpost=" + IDpost);
+    const votes = await response.json();
+    return votes;
+}
+
+async function getVotesForOptionNumber(IDpost, option) {
+    const response = await fetch(phpPath + "/user/load_votes_for_option_number.php?IDpost=" + IDpost + "&option=" + option);
+    const votes = await response.json();
+    return votes;
+}
+
+async function checkVoted(IDpost, option) {
+    const request = phpPath + "/user/check_voted.php?IDpost=" + IDpost + "&option=" + option + "&username=" + GetUsername();
+    const response = await fetch(request);
+    const voted = await response.json();
+    return voted;
+}
+
+function calcVotesPercentage(votesForOption, nVotes) {
+    if (nVotes == 0) {
+        return 0;
+    } else {
+        return Math.trunc(votesForOption/nVotes*100);
+    }
+}
+
+async function vote(post, option) {
+    const voted = await checkVoted(post.IDpost, option.testo);
+    const request = voted ? phpPath + "/user/remove_vote_option.php" : phpPath + "/user/add_vote_option.php";
+    const responde = await fetch(request, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "IDpost": post.IDpost,
+            "option": option
+        })
+    });
+    updateSurveyModal(post);
+}
+
+async function updateSurveyModal(post) {
+    const loadedPosts = await loadSurvey();
+    const loadedOptions = loadedPosts["options"][post.IDpost];
+    
+    openModalPost(post, loadedOptions, "survey");
 }
 
 async function addDescriptionToModal(parentElement, description) {

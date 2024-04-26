@@ -244,3 +244,8 @@ li{
 .white-text{
     color: white;
 }
+
+.survey-option {
+    border-radius: 25px;
+    background: rgba(255, 158, 0);
+}
