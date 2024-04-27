@@ -171,7 +171,7 @@ async function showPost(type) {
 
                     // Immagine che indica un video
                     img.alt = 'play-icon-identifier';
-                    img.src = "../../img/play_button.jpg";
+                    img.src = "../../img/play_button.png";
                     img.className = 'play-icon';
                     
                     //Impostazione degli attributi del video
@@ -320,11 +320,21 @@ async function like(IDpost) {
 }
 
 async function deletePost(IDpost) {
+    const photo = await load_photo_by_IDpost(IDpost);
     const response = await fetch(phpPath + "/user/delete_post.php?IDpost=" + IDpost);
     const result = await response.json();
     if (result) {
+        if (photo != null) {
+            fetch(phpPath + "/Utils/delete_file.php?file_name=" + photo.foto_video);
+        }
         location.reload();
     }
+}
+
+async function load_photo_by_IDpost(IDpost) {
+    const response = await fetch(phpPath + "/user/load_photo_by_IDpost.php?IDpost=" + IDpost);
+    const photo = await response.json();
+    return photo;
 }
 
 async function sendNotificationEmail(id, type) {
