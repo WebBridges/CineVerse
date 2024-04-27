@@ -88,14 +88,16 @@ namespace Post {
         private $IDpost;
         private $username_utente;
         private $IDcommento_Padre;
+        private $date_time;
 
-        public function __construct($corpo = null, $IDcommento = null, $IDpost = null, $username_utente = null, $IDcommento_Padre = null)
+        public function __construct($corpo = null, $IDcommento = null, $IDpost = null, $username_utente = null, $IDcommento_Padre = null, $date_time = null)
         {
             $this->corpo = $corpo;
             $this->IDcommento = $IDcommento;
             $this->IDpost = $IDpost;
             $this->username_utente = $username_utente;
             $this->IDcommento_Padre = $IDcommento_Padre;
+            $this->date_time = $date_time;
         }
 
         public function jsonSerialize()
@@ -105,7 +107,8 @@ namespace Post {
                 "IDcommento" => $this->IDcommento,
                 "IDpost" => $this->IDpost,
                 "username_utente" => $this->username_utente,
-                "IDcommento_Padre" => $this->IDcommento_Padre
+                "IDcommento_Padre" => $this->IDcommento_Padre,
+                "date_time" => $this->date_time
             ];
         }
 
@@ -132,6 +135,11 @@ namespace Post {
         public function get_IDcommento_Padre()
         {
             return $this->IDcommento_Padre;
+        }
+
+        public function get_date_time()
+        {
+            return $this->date_time;
         }
 
         public function db_serialize()
@@ -810,7 +818,7 @@ namespace Post {
         public static function get_comments_by_IDpost($idpost)
         {
             $db = getDB();
-            $query = "SELECT * FROM commento WHERE IDpost = ?";
+            $query = "SELECT * FROM commento WHERE IDpost = ? ORDER BY Date_time DESC";
             $stmt = $db->prepare($query);
             $stmt->bind_param("i", $idpost);
             $success = $stmt->execute();
