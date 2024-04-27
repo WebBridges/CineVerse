@@ -38,6 +38,11 @@ main p, .btn.btn-default{
     object-fit: contain; 
 }
 
+.img-thumbnail{
+    aspect-ratio: 1;
+    object-fit: contain;
+}
+
 .username{
     height: min-content;
 }
