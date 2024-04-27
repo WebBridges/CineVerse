@@ -12,13 +12,15 @@ namespace Post {
         private $archiviato;
         private $username_utente;
         private $nome_tag_topic;
-        public function __construct($titolo = null, $IDpost = null, $archiviato = null, $username_utente = null, $nome_tag_topic = null)
+        private $date_time;
+        public function __construct($titolo = null, $IDpost = null, $archiviato = null, $username_utente = null, $nome_tag_topic = null, $date_time = null)
         {
             $this->titolo = $titolo;
             $this->IDpost = $IDpost;
             $this->archiviato = $archiviato;
             $this->username_utente = $username_utente;
             $this->nome_tag_topic = $nome_tag_topic;
+            $this->date_time = $date_time;
         }
 
         public function jsonSerialize()
@@ -28,7 +30,8 @@ namespace Post {
                 "IDpost" => $this->IDpost,
                 "archiviato" => $this->archiviato,
                 "username_utente" => $this->username_utente,
-                "nome_tag_topic" => $this->nome_tag_topic
+                "nome_tag_topic" => $this->nome_tag_topic,
+                "date_time" => $this->date_time
             ];
         }
 
@@ -55,6 +58,11 @@ namespace Post {
         public function get_nome_tag_topic()
         {
             return $this->nome_tag_topic;
+        }
+
+        public function get_date_time()
+        {
+            return $this->date_time;
         }
 
         public function db_serialize()
@@ -551,7 +559,7 @@ namespace Post {
         public static function get_posts_by_username_utente_foto_video($username_utente)
         {
             $db = getDB();
-            $query = "SELECT * FROM post WHERE Username_Utente = ? AND IDpost IN (SELECT IDpost FROM foto_video) AND Archiviato = 0";
+            $query = "SELECT * FROM post WHERE Username_Utente = ? AND IDpost IN (SELECT IDpost FROM foto_video) AND Archiviato = 0 ORDER BY Date_time DESC";
             $stmt = $db->prepare($query);
             $stmt->bind_param("s", $username_utente);
             $success = $stmt->execute();
@@ -582,7 +590,7 @@ namespace Post {
         public static function get_posts_by_username_utente_text($username_utente)
         {
             $db = getDB();
-            $query = "SELECT * FROM post WHERE Username_Utente = ? AND IDpost IN (SELECT IDpost FROM testo)  AND Archiviato = 0";
+            $query = "SELECT * FROM post WHERE Username_Utente = ? AND IDpost IN (SELECT IDpost FROM testo)  AND Archiviato = 0 ORDER BY Date_time DESC";
             $stmt = $db->prepare($query);
             $stmt->bind_param("s", $username_utente);
             $success = $stmt->execute();
@@ -613,7 +621,7 @@ namespace Post {
         public static function get_posts_by_username_utente_survey($username_utente)
         {
             $db = getDB();
-            $query = "SELECT * FROM post WHERE Username_Utente = ? AND IDpost IN (SELECT DISTINCT IDpost FROM opzione) AND Archiviato = 0";
+            $query = "SELECT * FROM post WHERE Username_Utente = ? AND IDpost IN (SELECT DISTINCT IDpost FROM opzione) AND Archiviato = 0 ORDER BY Date_time DESC";
             $stmt = $db->prepare($query);
             $stmt->bind_param("s", $username_utente);
             $success = $stmt->execute();
