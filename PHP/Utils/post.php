@@ -712,6 +712,32 @@ namespace Post {
             return $opzioni;
         }
 
+        public static function delete_post_by_IDpost($IDpost)
+        {
+            $db = getDB();
+            $query = "DELETE FROM post WHERE IDpost = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("i", $IDpost);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . $stmt->error);
+            }
+            return $success;
+        }
+
+        public static function delete_comment_by_IDcommento($IDcommento)
+        {
+            $db = getDB();
+            $query = "DELETE FROM commento WHERE IDcommento = ?";
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("i", $IDcommento);
+            $success = $stmt->execute();
+            if (!$success) {
+                throw new \Exception("Error while querying the database: " . $stmt->error);
+            }
+            return $success;
+        }
+
         public static function recent_posts_followed($username, $max_posts)
         {
             $db = getDB();

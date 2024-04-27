@@ -224,9 +224,7 @@ li{
 }
 
 .btn-send {
-    color: #fff !important; /* Colore del testo bianco */
-    background-color: rgba(255,255,255, 0.9) !important; /* Sfondo bianco */
-    border: none !important; /* Rimuove il bordo */
+    background-color: rgba(255,255,255, 1) !important; /* Sfondo bianco */
 }
 
 .modal-header {

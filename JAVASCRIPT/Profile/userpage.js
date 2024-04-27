@@ -99,6 +99,13 @@ async function loadUserInformation(usernameURL) {
  * All function to load posts
  * 
  */
+async function isOwner(username) {
+    if (username == await GetUsername()) {
+        return true;
+    }
+    return false;
+} 
+
 async function loadPhotos() {
     const request = URLusername != null ? phpPath + "/user/load_posted_photos.php?username=" + URLusername : phpPath + "/user/load_posted_photos.php";
     const response = await fetch(request);
@@ -312,6 +319,14 @@ async function like(IDpost) {
     }
 }
 
+async function deletePost(IDpost) {
+    const response = await fetch(phpPath + "/user/delete_post.php?IDpost=" + IDpost);
+    const result = await response.json();
+    if (result) {
+        location.reload();
+    }
+}
+
 async function sendNotificationEmail(id, type) {
     const response = await fetch(phpPath + "/user/send_notification_email.php?id=" + id + "&type=" + type);
 }
@@ -442,6 +457,11 @@ async function openModalPost(post, media, type) {
     } else {
         likeButton.innerHTML = "<em class='fa-regular fa-heart' style='color: #ffffff;'></em>";
     }
+    const trash = document.getElementById("delete-post-button");
+    trash.addEventListener("click", function() { deletePost(post.IDpost); });
+    if (await isOwner(post.username_utente)) {
+        trash.classList.remove("invisible");
+    }
     document.getElementById("comments-button").addEventListener("click", function() { showComments(post.IDpost); });
 }
 
@@ -570,6 +590,14 @@ async function submitComment(IDpost) {
     showComments(IDpost);
 }
 
+async function deleteComment(comment) {
+    const response = await fetch(phpPath + "/user/delete_comment.php?IDcomment=" + comment.IDcommento);
+    const result = await response.json();
+    if (result) {
+        showComments(comment.IDpost);
+    }
+}
+
 export async function showComments(IDpost) {
     //const comModal = document.getElementById("comments-modal");
     const commentsModal = document.getElementById("comments-modal");
@@ -600,7 +628,7 @@ export async function showComments(IDpost) {
             clone.querySelector("img").src = "../../img/" + userImage;
         }
         clone.querySelector("a").textContent = comment.username_utente;
-        clone.querySelector("a").href = "/profile?user=" + comment.username_utente;
+        clone.querySelector("a").href = "/CineVerse/HTML/Profile/SearchUserPage.php?username=" + comment.username_utente;
         clone.querySelector(".comment").textContent = comment.corpo;
         /*if (comment.owner) {
             clone.querySelector(".trash-button").classList.remove("invisible");
@@ -611,6 +639,11 @@ export async function showComments(IDpost) {
         likeButton.addEventListener("click", function () { likeComment(comment.IDcommento)});
         if (liked) {
             likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500;'></em>";
+        }
+        const trash = clone.querySelector(".delete-comment-button");
+        trash.addEventListener("click", function() { deleteComment(comment); });
+        if (await isOwner(comment.username_utente)) {
+            trash.classList.remove("invisible");
         }
         commentsModalBody.appendChild(clone);
     }

@@ -214,16 +214,21 @@
                     <!--</div>-->
                 </div>
                 <div class="modal-footer">
-                    <!-- <div class="container-fluid"> -->
+                    <div class="container-fluid">
                         <div class="row">
-                            <div class="col">
+                            <div class="col-8 white-text">
+                                <button class="btn invisible" id="delete-post-button">
+                                    <em class="fa-solid fa-trash" style="color: #ffffff;"> Delete post</em>
+                                </button>
+                            </div>
+                            <div class="col-3 text-end pt-1">
                                 <p class="white-text">Like:</p>
                             </div>
-                            <div class="col">
+                            <div class="col-1 text-end pt-1">
                                 <p class="white-text" id="post-count-likes">0</p>
                             </div>
                         </div>
-                    <!-- </div> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -250,22 +255,27 @@
                                     <a href="#" class="fs-5 white-text">Username</a>
                                 </div>
                             </div>
-                            <div class="d-flex">
-                                <div class="flex-grow-1">
-                                    <p class="comment white-text">Comment</p>
+                            <div class="row">
+                                <div class="d-flex col-9 align-items-center">
+                                    <p class="comment white-text m-0">Comment</p>
                                 </div>
                                 <!-- <div>
                                     <button class="trash-button btn invisible">
                                         <em class="fa-solid fa-trash-can"></em>
                                     </button>
                                 </div> -->
-                                <div>
+                                <div class="d-flex col-1 align-items-center">
                                     <button class="like-comment-button btn">
                                         <em class="fa-regular fa-heart" style="color: #ffffff;"></em>
                                     </button>
                                 </div>
-                                <div class="ms-3 pt-1">
-                                    <p class="nLikes white-text">0</p>
+                                <div class="d-flex col-1 align-items-center">
+                                    <p class="nLikes white-text m-0">0</p>
+                                </div>
+                                <div class="d-flex col-1 align-items-center">
+                                    <button class="btn invisible delete-comment-button">
+                                        <em class="fa-solid fa-trash" style="color: #ffffff;"></em>
+                                    </button>
                                 </div>
                             </div>
                         </div>
