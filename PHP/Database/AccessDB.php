@@ -137,7 +137,6 @@ include_once (__DIR__ . "/../Utils/authUtilities.php");
         $stmt = $db->prepare($query);
         $stmt->bind_param("s", $_SESSION['email']);
         $stmt->execute();
-        unset($_SESSION['email']);
     }
 
      function setCode2FA(){
