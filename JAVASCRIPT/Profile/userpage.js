@@ -413,7 +413,7 @@ async function openModalPost(post, media, type) {
                 }; 
             }(post, options[i]));
             optionValue.className = "col-10";
-            let option = document.createElement("p");
+            let option = document.createElement("button");
             option.className = "survey-option white-text m-0 pt-2 pb-2";
             if (voted) {
                 option.classList.add("border", "border-3", "border-white");
