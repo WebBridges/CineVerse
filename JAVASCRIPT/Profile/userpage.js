@@ -337,7 +337,7 @@ async function load_photo_by_IDpost(IDpost) {
     return photo;
 }
 
-async function sendNotificationEmail(id, type) {
+export async function sendNotificationEmail(id, type) {
     const response = await fetch(phpPath + "/user/send_notification_email.php?id=" + id + "&type=" + type);
 }
 

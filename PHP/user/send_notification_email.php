@@ -37,6 +37,18 @@
                 </h1>
             </div>
             </body>';
+    } else if($type == 'follow') {
+        $username = $_GET['id'];
+        $subject = "Follow";
+        $email = UserUtility::get_utente_by_username($username)->get_email();
+        $message=
+            '<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;">
+            <div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #fff; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+                <h1 style="text-align: center; color: #333;">
+                    L\'utente ' . $_SESSION['username'] . ' ha iniziato a seguirti.
+                </h1>
+            </div>
+            </body>';
     }
 
     //Send email only if the post or comment owner user is not the same user that left the like
