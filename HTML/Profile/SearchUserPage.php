@@ -93,7 +93,7 @@
                         <button type="button" class="btn btn-default border border-black border-2 rounded-0" id="survey_button">Survey</button>
                     </div>
                 </div>
-                <div class="row g-0" id="posts" data-bs-toggle="modal" data-bs-target="#post-modal">
+                <div class="row g-0" id="posts">
                     <div class="col-4 post-container" id="post-container">
                         <!--<img src="../../img/default-image.png" alt="" class="img-fluid mx-auto d-block border border-black" id="photo-id">
                         <video src="../../img/default-video.mp4" controls class="img-fluid mx-auto d-block border border-black" id="video-id"></video>-->
@@ -102,7 +102,7 @@
             </div>
         </main>
         <!--Navbar-->
-        <nav class="navbar navbar-custom fixed-bottom navbar-expand mx-auto bottom-navbar">
+        <nav class="navbar navbar-custom fixed-bottom navbar-expand mx-auto bottom-navbar border border-1 border-light">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -127,7 +127,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                     <a class="nav-link" href="Createpost.php">
+                     <a class="nav-link" href="CreatePost.php">
                         <svg xmlns="http://www.w3.org/2000/svg" width="49.5" height="48.75" viewBox="0 0 66 65" fill="none">
                             <path d="M2.9989 32.4998H32.9988M32.9988 32.4998H62.9987M32.9988 32.4998V2.49994M32.9988 32.4998V62.4997" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
@@ -147,7 +147,7 @@
     </div>
     <!-- Post Modal -->
     <div class="modal fade" id="post-modal" tabindex="-1" aria-labelledby="postModal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="row">
@@ -170,7 +170,7 @@
                     <!--<div class="container-fluid">-->
                         <!--<div id="post-id">-->
                             <div class="row">
-                                <div class="col text-center">
+                                <div class="col text-center" id="post-element">
                                     <img id="post-photo" src="../../img/default-image.jpg" alt="" class="img-fluid">
                                 </div>
                             </div>
@@ -185,7 +185,7 @@
                                         <em class="fa-regular fa-comment" style="color: #ffffff;"></em>
                                     </button>
                                 </div>
-                                <div class="col-8">
+                                <div class="col-8" id="post-description-container">
                                     <p class="white-text" id="post-description">Post description can be very long and take the whole page</p>
                                 </div>
                             </div>
@@ -214,16 +214,21 @@
                     <!--</div>-->
                 </div>
                 <div class="modal-footer">
-                    <!-- <div class="container-fluid"> -->
+                    <div class="container-fluid">
                         <div class="row">
-                            <div class="col">
+                            <div class="col-8 white-text">
+                                <button class="btn invisible" id="delete-post-button">
+                                    <em class="fa-solid fa-trash" style="color: #ffffff;"> Delete post</em>
+                                </button>
+                            </div>
+                            <div class="col-3 text-end pt-1">
                                 <p class="white-text">Like:</p>
                             </div>
-                            <div class="col">
+                            <div class="col-1 text-end pt-1">
                                 <p class="white-text" id="post-count-likes">0</p>
                             </div>
                         </div>
-                    <!-- </div> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -250,22 +255,27 @@
                                     <a href="#" class="fs-5 white-text">Username</a>
                                 </div>
                             </div>
-                            <div class="d-flex">
-                                <div class="flex-grow-1">
-                                    <p class="comment white-text">Comment</p>
+                            <div class="row">
+                                <div class="d-flex col-9 align-items-center">
+                                    <p class="comment white-text m-0">Comment</p>
                                 </div>
                                 <!-- <div>
                                     <button class="trash-button btn invisible">
                                         <em class="fa-solid fa-trash-can"></em>
                                     </button>
                                 </div> -->
-                                <div>
+                                <div class="d-flex col-1 align-items-center">
                                     <button class="like-comment-button btn">
                                         <em class="fa-regular fa-heart" style="color: #ffffff;"></em>
                                     </button>
                                 </div>
-                                <div class="ms-3 pt-1">
-                                    <p class="nLikes white-text">0</p>
+                                <div class="d-flex col-1 align-items-center">
+                                    <p class="nLikes white-text m-0">0</p>
+                                </div>
+                                <div class="d-flex col-1 align-items-center">
+                                    <button class="btn invisible delete-comment-button">
+                                        <em class="fa-solid fa-trash" style="color: #ffffff;"></em>
+                                    </button>
                                 </div>
                             </div>
                         </div>
