@@ -1,0 +1,258 @@
+html, body{
+    min-width: 300px;
+    height: 100%;
+    width: 100%;
+}
+
+#profile_header {
+    background-color: #3C096C;
+}
+
+#background_image{
+    max-height: 110px;
+    width: 100%;
+}
+
+main{
+    background-color: #3C096C;
+}
+
+main p, .btn.btn-default{
+    color: white;
+}
+
+#user_info{
+    height: fit-content;
+    width: 100%;
+}
+
+
+#user_images{
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    background-color: #240046;
+    object-fit: contain; 
+}
+
+.img-thumbnail{
+    aspect-ratio: 1;
+    object-fit: contain;
+}
+
+.username{
+    height: min-content;
+}
+
+#username{
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 25px;
+    background: rgba(255, 158, 0);
+    padding-bottom: 7px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+#user_number p{
+    font-size: 16px;
+}
+
+.user_description{
+    height: fit-content;
+}
+
+#user_description{
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    max-width: 1000px;
+    word-wrap: break-word;
+    font-size: 20px;
+    line-height: normal;
+    font-weight: 550;
+}
+
+.topic_row p{
+    border-radius: 25px;
+    background: rgba(255, 158, 0);
+    padding-bottom: 7px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10%;
+}
+
+.topic_row .col-auto{
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+@media (max-width: 768px) {
+    .topic_row .col-auto{
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+}
+
+.btn.btn-default{
+    width: 100%;
+    height: auto;
+    background-color:#240046;
+}
+
+.btn.btn-default:hover{
+    background-color:#7B2CBF;
+    color: white;
+}
+
+.btn.btn-default.current_button{
+    background-color: #7B2CBF;
+}
+
+
+.navbar-custom{
+    background-color: #240046;
+}
+
+li{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.bottom-navbar{
+    width: 400px;
+    height: 70px;
+    border-radius: 25px;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 500px) {
+    .bottom-navbar{
+        width: 100%;
+        height: 70px;
+        border-radius: 0px;
+        margin-bottom: 0px;
+    }
+    main{
+        margin-bottom: 70px;
+    }
+}
+
+.sidebar {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  top: 0;
+  right: 0;
+  background-color: #5A189A; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+}
+
+/* The sidebar links */
+.sidebar a {
+  padding: 8px 8px 8px 8px;
+  text-decoration: none;
+  font-size: 20px;
+  color: white;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebarField{
+    border-bottom: 2px solid black;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidebar a:hover {
+  background-color: #7B2CBF;
+}
+
+/* Position and style the close button (top right corner) */
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* The button used to open the sidebar */
+.openbtn {
+    float: right;
+    height: 60px;
+    width: 80px;
+    background-color: inherit;
+    border: none;
+}
+
+.openbtn:hover {
+  background-color: #7B2CBF;
+}
+
+.post-container {
+    display: grid;
+    grid-template-columns: repeat(3, 100%);
+    max-width: 700px;
+}
+
+.modal-header h3 {
+    overflow-wrap: break-word; /* Fai andare a capo anche se non ci sono spazi */
+    max-width: 100%; /* Assicurati che l'h3 non superi la larghezza del contenitore */
+}
+
+#photo-id, #video-id {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+.video-container {
+    position: relative;
+}
+
+.play-icon {
+    position: absolute;
+    top: 7%;
+    left: 92%;
+    transform: translate(-50%, -50%);
+    width: 10%; /* Imposta la dimensione dell'icona */
+    height: auto;
+    z-index: 1; /* Assicura che l'icona sia sopra il video */
+}
+
+.btn-close {
+    color: #fff !important; /* Colore del testo bianco */
+    background-color: #fff !important; /* Sfondo bianco */
+    border: none !important; /* Rimuove il bordo */
+}
+
+.btn-send {
+    background-color: rgba(255,255,255, 1) !important; /* Sfondo bianco */
+}
+
+.modal-header {
+    background-color: #240046;
+}
+
+.modal-body {
+    background-color: #7B2CBF;
+}
+
+.modal-footer {
+    background-color: #240046 !important;
+}
+
+.white-text{
+    color: white;
+}
+
+.survey-option {
+    border-radius: 25px;
+    background: rgba(255, 158, 0);
+    width: 100%;
+}
