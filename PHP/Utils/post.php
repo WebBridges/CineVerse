@@ -759,11 +759,11 @@ namespace Post {
             $db = getDB();
             $query = "SELECT P.*
                     FROM post P
-                    WHERE P.username IN (
+                    WHERE P.Username_Utente IN (
                         SELECT R.Username_Seguito
                         FROM relazione R
                         WHERE R.Username_Segue = ?)
-                    ORDER BY P.posted DESC
+                    ORDER BY P.Date_time DESC
                     LIMIT ?";
             $stmt = $db->prepare($query);
             $stmt->bind_param("si", $username, $max_posts);
