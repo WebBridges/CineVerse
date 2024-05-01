@@ -176,7 +176,7 @@
                             </div>
                             <div id="post-actions" class="row mt-3">
                                 <div class="col-2">
-                                    <button class="btn" id="likes-button">
+                                    <button class="likes-button btn" id="likes-button">
                                         <em class="fa-regular fa-heart" style="color: #ffffff;"></em>
                                     </button>
                                 </div>
@@ -214,7 +214,7 @@
                     <!--</div>-->
                 </div>
                 <div class="modal-footer">
-                    <div class="container-fluid">
+                    <div class="container-fluid" id="post-footer">
                         <div class="row">
                             <div class="col-8 white-text">
                                 <button class="btn invisible" id="delete-post-button">
@@ -225,7 +225,7 @@
                                 <p class="white-text">Like:</p>
                             </div>
                             <div class="col-1 text-end pt-1">
-                                <p class="white-text" id="post-count-likes">0</p>
+                                <p class="post-count-likes white-text" id="post-count-likes">0</p>
                             </div>
                         </div>
                     </div>
@@ -255,7 +255,7 @@
                                     <a href="#" class="fs-5 white-text">Username</a>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mb-3">
                                 <div class="d-flex col-9 align-items-center">
                                     <p class="comment white-text m-0">Comment</p>
                                 </div>
