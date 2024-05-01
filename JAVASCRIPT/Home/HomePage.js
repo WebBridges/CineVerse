@@ -5,6 +5,9 @@ import { loadLikes } from "../Utils/utils.js";
 import { loadUserImage } from "../Utils/utils.js";
 import { createSurveyElement } from "../Utils/utils.js";
 import { getMedia } from "../Utils/utils.js";
+import { like } from "../Utils/utils.js";
+import { checkLike } from "../Utils/utils.js";
+import { showComments } from "../Utils/utils.js";
 
 
 let max_posts = 10;
@@ -17,17 +20,16 @@ async function getHomePosts(user) {
 
 async function showHomePosts() {
     const posts = await getHomePosts(await GetUsername());
-    console.log(posts);
     for (let i = 0; i < posts.length; i++) {
         const post = posts[i];
         const value = await getMedia(post.IDpost);
         const media = value.data;
         const type = value.type;
-        console.log(media, type);
 
         const postsSection = document.getElementById("posts-section");
         const template = document.getElementById("template-posts");
         const clone = template.content.cloneNode(true);
+        
         //Post header
         clone.querySelector(".post-title").innerHTML = post.titolo;
         const userImage = await loadUserImage(post.username_utente);
@@ -35,6 +37,8 @@ async function showHomePosts() {
             clone.querySelector(".post-user-photo").src = "../../img/" + userImage;
         }
         clone.querySelector(".post-username").innerHTML = post.username_utente;
+        
+        //Post body
         const postElement = clone.querySelector(".post-element");
         let element;
         if (type == "foto_video") {
@@ -69,8 +73,23 @@ async function showHomePosts() {
             postElement.appendChild(element);
         }
 
-        clone.querySelector(".post-element")
-        clone.querySelector(".post-count-likes").innerHTML = await loadLikes(posts[i].IDpost);
+        const liked = await checkLike(post.IDpost, GetUsername());
+        const postActions = clone.querySelector(".post-actions");
+        const likeButton = postActions.querySelector(".likes-button");
+        likeButton.id = "likes-button" + post.IDpost;
+        likeButton.addEventListener("click", function () { like(post.IDpost) });
+        if (liked) {
+            likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500;'></em>";
+        } else {
+            likeButton.innerHTML = "<em class='fa-regular fa-heart' style='color: #ffffff;'></em>";
+        }
+
+        clone.querySelector(".comments-button").addEventListener("click", function() { showComments(post.IDpost); });
+
+        //Post footer
+        const nLikes = clone.querySelector(".post-count-likes");
+        nLikes.id = "post-count-likes" + post.IDpost;
+        nLikes.innerHTML = await loadLikes(posts[i].IDpost);
         postsSection.appendChild(clone);
     }
 }
