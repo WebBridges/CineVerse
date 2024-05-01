@@ -8,28 +8,27 @@ html, body{
     background-color: #3C096C;
 }
 
-#background_image{
-    max-height: 110px;
-    width: 100%;
-}
-
-main{
+main {
     background-color: #3C096C;
+
 }
 
 main p, .btn.btn-default{
     color: white;
 }
 
-#user_info{
-    height: fit-content;
-    width: 100%;
+#posts-section {
+    max-width: 700px;
 }
 
+#posts-section h3 {
+    overflow-wrap: break-word; /* Fai andare a capo anche se non ci sono spazi */
+    max-width: 100%; /* Assicurati che l'h3 non superi la larghezza del contenitore */
+}
 
-#user_images{
-    height: 150px;
-    width: 150px;
+.post-user-photo{
+    height: 100px;
+    width: 100px;
     border-radius: 50%;
     aspect-ratio: 1;
     background-color: #240046;

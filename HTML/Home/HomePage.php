@@ -20,20 +20,20 @@
         <header id="profile_header">
             <h1 class="text-center m-0 pb-1 white-text">Cineverse</h1>
         </header>
-        <main class="pt-3 border-top border-black border-2">
+        <main class="border-top border-black border-2 align-items-center d-flex justify-content-center">
             <!--Post section-->
             <div id="posts-section">
                 <template id="template-posts">
                     <div class="post-header">
-                        <div class="row">
-                            <div class="col-5 d-flex align-items-center">
+                        <div class="row mt-3 mb-3">
+                            <div class="col-7 ps-4 d-flex align-items-center">
                                 <h3 class="white-text post-title" >Post title</h3>
                             </div>
-                            <div class="col-2">
+                            <div class="col-2 text-end">
                                 <img src="../../img/default-user.jpg" alt=""
                                     class="post-user-photo rounded-circle img-fluid img-thumbnail">
                             </div>
-                            <div class="col-3 d-flex align-items-center me-2">
+                            <div class="col-3 ps-3 pe-4 d-flex align-items-center text-end justify-content-end">
                                 <h3 class="white-text post-username">Username</h3>
                             </div>
                         </div>
@@ -59,15 +59,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="post-footer">
+                    <div class="post-footer border-bottom">
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-8 white-text">
-                                    <button class="btn invisible delete-post-button">
-                                        <em class="fa-solid fa-trash" style="color: #ffffff;"> Delete post</em>
-                                    </button>
-                                </div>
-                                <div class="col-3 text-end pt-1">
+                                <div class="col-11 text-end pt-1">
                                     <p class="white-text">Like:</p>
                                 </div>
                                 <div class="col-1 text-end pt-1">
@@ -130,7 +125,7 @@
                 <div class="modal-header justify-content-end">
                     <div class="row">
                         <div class="col-auto">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#post-modal"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                     </div>
                 </div>
@@ -145,7 +140,7 @@
                                     <a href="#" class="fs-5 white-text">Username</a>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mb-3">
                                 <div class="d-flex col-9 align-items-center">
                                     <p class="comment white-text m-0">Comment</p>
                                 </div>
