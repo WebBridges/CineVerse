@@ -1,5 +1,5 @@
 import { GetFollowerCount } from "../Utils/utils.js";
-import { sendNotificationEmail } from "../Profile/userpage.js";
+import { sendNotificationEmail } from "../Utils/utils.js";
 
 document.addEventListener('DOMContentLoaded', async (event) => {
     await loadFollowButton();
