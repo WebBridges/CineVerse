@@ -1,6 +1,8 @@
 export { 
     GetUsernameInfo, GetUsername, GetFollowerCount, GetFollowingCount, loadLikes, loadUserImage, getVotesNumber,
-    getVotesForOptionNumber, checkVoted, calcVotesPercentage, vote, createSurveyElement, getMedia
+    getVotesForOptionNumber, checkVoted, calcVotesPercentage, vote, createSurveyElement, getMedia, like, checkLike,
+    sendNotificationEmail, showComments, loadComments, loadCommentLikes, checkCommentLike, likeComment, submitComment, 
+    deleteComment, isOwner,
 };
 
 async function GetUsernameInfo(usernameURL=null){
@@ -221,4 +223,180 @@ async function getMedia(IDpost) {
     const response = await fetch("../../PHP/Home/LoadPostMedia.php?IDpost=" + IDpost);
     const value = await response.json();
     return value;
+}
+
+async function like(IDpost) {
+    const liked = await checkLike(IDpost, GetUsername());
+    const request = liked ? "../../PHP/user/remove_like_post.php" : "../../PHP/user/add_like_post.php";
+    await fetch(request, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "IDpost": IDpost
+        })
+    });
+    const likeButton = document.getElementById("likes-button" + IDpost);
+    const nLikes = document.getElementById("post-count-likes" + IDpost);
+    if (liked) {
+        nLikes.innerHTML = parseInt(nLikes.innerHTML) - 1;
+        likeButton.innerHTML = "<em class='fa-regular fa-heart' style='color: #ffffff;'></em>";
+    } else {
+        nLikes.innerHTML = parseInt(nLikes.innerHTML) + 1;
+        likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500;'></em>";
+        sendNotificationEmail(IDpost, "post");
+    }
+}
+
+async function checkLike(IDpost, username) {
+    const request = "../../PHP/user/check_post_like.php?IDpost=" + IDpost + "&username=" + username;
+    const response = await fetch(request);
+    const liked = await response.json();
+    return liked;
+}
+
+async function sendNotificationEmail(id, type) {
+    const response = await fetch("../../PHP/user/send_notification_email.php?id=" + id + "&type=" + type);
+}
+
+async function isOwner(username) {
+    if (username == await GetUsername()) {
+        return true;
+    }
+    return false;
+} 
+
+async function showComments(IDpost) {
+    //const comModal = document.getElementById("comments-modal");
+    const commentsModal = document.getElementById("comments-modal");
+    const commentsModalBody = commentsModal.querySelector(".modal-body");
+    while (commentsModalBody.getElementsByClassName('comment-container').length > 0) {
+        commentsModalBody.removeChild(commentsModalBody.lastChild);
+    }
+    const comments = await loadComments(IDpost);
+    const template = document.getElementById("template-comments");
+    if (comments.length == 0) {
+        let clone = template.content.cloneNode(true);
+        clone.querySelector("img").style.visibility = "hidden";
+        clone.querySelector("a").style.visibility = "hidden";
+        clone.querySelector(".comment").textContent = "No comments yet";
+        clone.querySelector(".like-comment-button").style.visibility = "hidden";
+        clone.querySelector(".nLikes").style.visibility = "hidden";
+        commentsModalBody.appendChild(clone);
+    }
+    for (let i = 0; i < comments.length; i++) {
+        let comment = comments[i];
+        let clone = template.content.cloneNode(true);
+        let liked = await checkCommentLike(comment.IDcommento, GetUsername());
+        let userImage = await loadUserImage(comment.username_utente);
+        let nLikes = await loadCommentLikes(comment.IDcommento);
+        
+        clone.querySelector(".comment-container").setAttribute("name", "comment" + comment.IDcommento);
+        if (userImage != null) {
+            clone.querySelector("img").src = "../../img/" + userImage;
+        }
+        clone.querySelector("a").textContent = comment.username_utente;
+        clone.querySelector("a").href = "/CineVerse/HTML/Profile/SearchUserPage.php?username=" + comment.username_utente;
+        clone.querySelector(".comment").textContent = comment.corpo;
+        /*if (comment.owner) {
+            clone.querySelector(".trash-button").classList.remove("invisible");
+            clone.querySelector(".trash-button").addEventListener("click", function() { removeComment(comment.comment_id, post_id); })
+        }*/
+        clone.querySelector(".nLikes").innerHTML = nLikes
+        const likeButton = clone.querySelector(".like-comment-button");
+        likeButton.addEventListener("click", function () { likeComment(comment.IDcommento)});
+        if (liked) {
+            likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500;'></em>";
+        }
+        const trash = clone.querySelector(".delete-comment-button");
+        trash.addEventListener("click", function() { deleteComment(comment); });
+        if (await isOwner(comment.username_utente)) {
+            trash.classList.remove("invisible");
+        }
+        commentsModalBody.appendChild(clone);
+    }
+    const modalFooter = commentsModal.querySelector(".modal-footer");
+    /*modalFooter.querySelector("form").onkeydown = function(event) {
+        return event.key != 'Enter';
+    }*/
+    const submitCommentButton = modalFooter.querySelector("button");
+    const newSubmitCommentButton = submitCommentButton.cloneNode(true);
+    submitCommentButton.parentNode.replaceChild(newSubmitCommentButton, submitCommentButton);
+    newSubmitCommentButton.addEventListener("click", function() { submitComment(IDpost); });
+}
+
+async function loadComments(IDpost) {
+    const response = await fetch("../../PHP/user/load_comments.php?IDpost=" + IDpost);
+    const comments = await response.json();
+    return comments;
+}
+
+async function loadCommentLikes(IDcomment) {
+    const response = await fetch("../../PHP/user/load_comment_likes.php?IDcomment=" + IDcomment);
+    const nLikes = await response.json();
+    return nLikes;
+}
+
+async function checkCommentLike(IDcomment, username) {
+    const request = "../../PHP/user/check_comment_like.php?IDcomment=" + IDcomment + "&username=" + username;
+    const response = await fetch(request);
+    const liked = await response.json();
+    return liked;
+}
+
+async function likeComment(IDcomment) {
+    const liked = await checkCommentLike(IDcomment, GetUsername());
+    const request = liked ? "../../PHP/user/remove_like_comment.php" : "../../PHP/user/add_like_comment.php";
+    await fetch(request, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "IDcomment": IDcomment
+        })
+    });
+    const commentContainer = document.getElementsByName("comment" + IDcomment)[0];
+    const likeButton = commentContainer.querySelector(".like-comment-button");
+    const nLikes = commentContainer.querySelector(".nLikes")
+    if (liked) {
+        nLikes.innerHTML = parseInt(nLikes.innerHTML) - 1;
+        likeButton.innerHTML = "<em class='fa-regular fa-heart' style='color: #ffffff;'></em>";
+    } else {
+        nLikes.innerHTML = parseInt(nLikes.innerHTML) + 1;
+        likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500;'></em>";
+        sendNotificationEmail(IDcomment, "comment");
+    }
+}
+
+async function submitComment(IDpost) {
+    const commentsModal = document.getElementById("comments-modal");
+    const commentText = commentsModal.querySelector("input").value;
+    commentsModal.querySelector("input").value = ""; 
+    if (!commentText.replace(/\s/g, '').length) {
+        return;
+    }
+    await fetch("../../PHP/user/add_comment.php", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "IDpost": IDpost,
+            "commentText": commentText
+        })
+    });
+    showComments(IDpost);
+}
+
+async function deleteComment(comment) {
+    const response = await fetch("../../PHP/user/delete_comment.php?IDcomment=" + comment.IDcommento);
+    const result = await response.json();
+    if (result) {
+        showComments(comment.IDpost);
+    }
 }
