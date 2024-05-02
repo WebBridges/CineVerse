@@ -18,7 +18,7 @@
 <body>
     <div class="container-fluid p-0 overflow-x-hidden overflow-y-auto" id="body_container"> 
         <header id="profile_header">
-            <h1 class="text-center m-0 pb-1 white-text">Cineverse</h1>
+            <h1 class="text-center m-0 pb-3 pt-3 white-text">Cineverse</h1>
         </header>
         <main class="border-top border-black border-2 align-items-center d-flex justify-content-center">
             <!--Post section-->
@@ -74,6 +74,11 @@
                 </template>
             </div>
         </main>
+        <div class="align-items-center d-flex justify-content-center" id="load-more-post-div">
+            <button class="btn-primary" id="load-more-post-button">
+                Load 5 more posts
+            </button>
+        </div>
         <!--Navbar-->
         <nav class="navbar navbar-custom fixed-bottom navbar-expand mx-auto bottom-navbar border border-1 border-light">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -116,7 +121,7 @@
                 </li>
               </ul>
             </div>
-          </nav>
+        </nav>
     </div>
     <div class="modal fade" id="comments-modal" tabindex="-1" aria-labelledby="commentsModal" aria-hidden="true">
         <div
