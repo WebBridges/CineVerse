@@ -10,16 +10,28 @@ import { checkLike } from "../Utils/utils.js";
 import { showComments } from "../Utils/utils.js";
 
 
-let max_posts = 10;
+const max_posts = 5;
+let offset = 0;
+
+const loadMorePostButton = document.getElementById("load-more-post-button");
+loadMorePostButton.addEventListener("click", async function() {
+    offset += 5;
+    showHomePosts();
+});
 
 async function getHomePosts(user) {
-    const response = await fetch(phpPath + "/Home/LoadAllFollowedPosts.php?user=" + user + "&max_posts=" + max_posts);
+    const response = await fetch(phpPath + "/Home/LoadAllFollowedPosts.php?user=" + user + "&max_posts=" + max_posts + "&offset=" + offset);
     const data = await response.json();
     return data;
 }
 
 async function showHomePosts() {
     const posts = await getHomePosts(await GetUsername());
+    if (posts.length == 0) {
+        loadMorePostButton.innerHTML = "No more posts to show";
+        loadMorePostButton.disabled = true;
+    };
+    
     for (let i = 0; i < posts.length; i++) {
         const post = posts[i];
         const value = await getMedia(post.IDpost);

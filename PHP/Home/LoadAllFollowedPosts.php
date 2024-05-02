@@ -10,8 +10,9 @@
     }
 
     $max_posts = $_GET['max_posts'];
+    $offset = $_GET['offset'];
     
-    $posts = PostUtility::recent_posts_followed($username, $max_posts);
+    $posts = PostUtility::recent_posts_followed($username, $max_posts, $offset);
     
     header('Content-Type: application/json');
     echo json_encode($posts, JSON_PRETTY_PRINT);
