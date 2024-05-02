@@ -14,7 +14,7 @@
         <link href="../../CSS/Access/AccessStyleBase.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <div class="container-fluid vh-100 d-flex justify-content-center align-items-center ">
+        <div class="container-fluid col-12 vh-100 d-flex justify-content-center align-items-center ">
             <div>
                 <div class="d-flex justify-content-center align-items-center">
                     <h1>CineVerse</h1>

@@ -11,6 +11,7 @@ form.addEventListener("submit", async function(event) {
         
         const errorMessage = document.getElementById("error-message");
         errorMessage.textContent = "Email or password is incorrect";
+        errorMessage.style.color = "#8B0000";
         errorMessage.classList.remove('d-none');
         return false;
     } else {

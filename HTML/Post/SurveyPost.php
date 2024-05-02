@@ -60,10 +60,10 @@
                     <div class="row container-fluid text-left">
                         <div class="col-12 d-flex flex-column justify-content-center align-items-center text-center">
                             <div class="form-group" style="color:#8B0000;" >
-                                <div id="errorField" class="error-message" style="display: none;">
+                                <div id="errorField" class="error-message" style="display: none;color:#8B0000 !important;">
                                     I campi non sono stati compilati correttamente
                                 </div>
-                                <div id="errorTitle" class="error-message" style="display: none;">
+                                <div id="errorTitle" class="error-message" style="display: none;color:#8B0000 !important;">
                                     Inserisci un titolo
                                 </div>
                             </div>

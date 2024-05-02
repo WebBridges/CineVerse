@@ -57,7 +57,7 @@
                         <div class="row container-fluid text-left">
                             <div class="col-12 mb-2 d-flex flex-column justify-content-center align-items-center text-center">
                                 <div class="form-group" style="color:#8B0000;" >
-                                    <div id="errorTopic" class="mt-1 mb-1 error-message" style="display: none;">
+                                    <div id="errorTopic" class="mt-1 mb-1 error-message" style="display: none;color:#8B0000 !important;">
                                             Seleziona minimo due topic
                                     </div>
                                 </div>

@@ -14,7 +14,7 @@
         <link href="../../CSS/Access/AccessStyleBase.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <div class="container-fluid d-flex flex-column justify-content-center align-items-center mt-4">
+        <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
             
                 <div class="justify-content-center align-items-center">
                     <h1>CineVerse</h1>
@@ -95,7 +95,7 @@
                                 <div class="col-md-9 mt-2 ms-3 ms-md-4">
                                     <div class="col-8 offset-1 offset-md-2">
                                         <div class="form-group">
-                                            <label for="birthdate" class="form-label">Data di nascita</label>
+                                            <label for="birthdate" class="form-label">Data di nascita:</label>
                                             <input type="date" class="form-control" name="birthDate" id="birthDate" required>
                                         </div>
                                     </div>
@@ -104,7 +104,7 @@
                             <div class="col-md-6 mb-4 d-flex  flex-column justify-content-center align-items-center">
                                 <div class="form-group">
                                     <div>
-                                        <p class="mt-md-0 mt-3 offset-2">Scegli quali topic ti rappresentano di più (massimo 5)</p>
+                                        <p class="mt-md-0 mt-3 offset-2">Scegli quali topic ti rappresentano di più (massimo 5):</p>
                                     </div>
                                     <div id="TopicList" class="col-9 offset-2" style="max-height: 170px; overflow-y: auto; display: flex; flex-wrap: wrap;">
                                     </div>
@@ -113,35 +113,35 @@
                         </div>
                         <div class="row container-fluid text-left">
                             <div class="col-12 mb-2 d-flex flex-column justify-content-center align-items-center text-center">
-                                <div class="form-group" style="color:#8B0000;" >
-                                    <div id="errorName" class="error-message" style="display: none;">
+                                <div class="form-group" style="color:#8B0000 !important;" >
+                                    <div id="errorName" class="error-message" style="display: none;color:#8B0000 !important;">
                                         Il nome non deve contenere caratteri speciali o numeri
                                     </div>
-                                    <div id="errorSurname" class="mt-1 mb-1 error-message" style="display: none;">
+                                    <div id="errorSurname" class="mt-1 mb-1 error-message" style="display: none;color:#8B0000 !important;">
                                         Il cognome non deve contenere caratteri speciali o numeri
                                     </div>
-                                    <div id="usernameSpecialChar" class="mt-1 mb-1 error-message" style="display:none;">
+                                    <div id="usernameSpecialChar" class="mt-1 mb-1 error-message" style="display:none;color:#8B0000 !important;">
                                         Lo username non deve contenere caratteri speciali (esclusi numeri e _)
                                     </div>
-                                    <div id="usernameNotAvaible" class="mt-1 mb-1 error-message" style="display: none;">
+                                    <div id="usernameNotAvaible" class="mt-1 mb-1 error-message" style="display: none;color:#8B0000 !important;">
                                         Lo username non è disponibile
                                     </div>
-                                    <div id="errorEmail" class="mt-1 mb-1 error-message" style="display: none;">
+                                    <div id="errorEmail" class="mt-1 mb-1 error-message" style="display: none;color:#8B0000 !important;">
                                         inserire un'email valida
                                     </div>
-                                    <div id="passwordLength" class="mt-1 mb-1 error-message" style="display: none;">
+                                    <div id="passwordLength" class="mt-1 mb-1 error-message" style="display: none;color:#8B0000 !important;">
                                         La password deve contenere almeno 8 caratteri.
                                     </div>
-                                    <div id="passwordSpecialChar" class="mt-1 mb-1 error-message" style="display: none;">
+                                    <div id="passwordSpecialChar" class="mt-1 mb-1 error-message" style="display: none;color:#8B0000 !important;">
                                         La password può contenere solo lettere, numeri, spazi, e i caratteri _!@#$%^*
                                     </div>
-                                    <div id="errorPasswords" class="mt-1 mb-1 error-message" style="display: none;">
+                                    <div id="errorPasswords" class="mt-1 mb-1 error-message" style="display: none;color:#8B0000 !important;">
                                         Le password non coincidono
                                     </div>
-                                    <div id="errorAge" class="mt-1 mb-1 error-message" style="display: none;">
+                                    <div id="errorAge" class="mt-1 mb-1 error-message" style="display: none;color:#8B0000 !important;">
                                         L'età minima per registrarsi è di 14 anni
                                     </div>
-                                    <div id="errorTopic" class="mt-1 mb-1 error-message" style="display: none;">
+                                    <div id="errorTopic" class="mt-1 mb-1 error-message" style="display: none;color:#8B0000 !important;">
                                         Seleziona minimo due topic
                                     </div>
                                 </div>
