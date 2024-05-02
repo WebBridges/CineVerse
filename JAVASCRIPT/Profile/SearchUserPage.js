@@ -1,4 +1,4 @@
-import { GetFollowerCount } from "../Utils/utils.js";
+import { GetFollowerCount, GetUsername } from "../Utils/utils.js";
 import { sendNotificationEmail } from "../Utils/utils.js";
 
 document.addEventListener('DOMContentLoaded', async (event) => {
@@ -8,7 +8,9 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 async function loadFollowButton(){
     let params = new URLSearchParams(window.location.search);
     let usernameURL = params.get('username');
-
+    if(usernameURL == await GetUsername()){
+        return;
+    }
     if(await checkFollow(usernameURL)){
         addFollowedButton();
     } else {
