@@ -17,10 +17,10 @@
 </head>
 <body>
     <div class="container-fluid p-0 overflow-x-hidden overflow-y-auto" id="body_container"> 
-        <header id="profile_header">
-            <h1 class="text-center m-0 pb-3 pt-3 white-text">Cineverse</h1>
+        <header class="fixed-top border-bottom border-black border-2"id="profile_header">
+            <h1 class="text-center m-0 pb-3 pt-3 white-text"><a href="./HomePage.php" id="reload">Cineverse</a></h1>
         </header>
-        <main class="border-top border-black border-2 align-items-center d-flex justify-content-center">
+        <main class="align-items-center d-flex justify-content-center">
             <!--Post section-->
             <div id="posts-section">
                 <template id="template-posts">
