@@ -7,6 +7,18 @@ body{
     background-color: #3c096c;
 }
 
+*{
+    color: white !important;
+}
+
+input {
+    color: #050301 !important;
+}
+
+textarea {
+    color: #000000 !important; /* Black color */
+}
+
 h1{
     font-size: 70px;
     color: white;
@@ -45,7 +57,7 @@ a[id=RegisterLink]:hover {
 }
 
 .invalid-feedback{
-    color: #8B0000;
+    color: #8B0000 !important;
 }
 
 .form-control.is-valid, .was-validated .form-control:valid {
@@ -59,7 +71,11 @@ a[id=RegisterLink]:hover {
 }
 
 div[id="error-message"]{
-    color: #8B0000;
+    color: #8B0000 !important;
+}
+
+#error-message p{
+    color: #8B0000 !important;
 }
 
 p{
@@ -95,7 +111,7 @@ input[name="topic[]"] + .form-check-label:hover {
 
 /* Change the background color of the custom checkbox when it is checked */
 input[name="topic[]"]:checked + .form-check-label {
-    background-color: #2196F3;
+    background-color: #7b2cbf;
 }
 
 #TopicList {
@@ -196,7 +212,7 @@ input[name="topic[]"]:checked + .form-check-label {
     font-weight: bold;
     box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.5);
     padding-top: 2px;
-    color: #050301;
+    color: #050301 !important;
     text-rendering: optimizeLegibility;
 }
 
@@ -219,7 +235,7 @@ input[name="topic[]"]:checked + .form-check-label {
     font-weight: bold;
     box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.5);
     padding-top: 2px;
-    color: #050301;
+    color: #050301 !important;
     text-rendering: optimizeLegibility;
 }
 
@@ -249,7 +265,7 @@ a:focus {
     font-weight: bold;
     box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.5);
     padding-top: 2px;
-    color: #050301;
+    color: #050301 !important;
     text-rendering: optimizeLegibility;
 }
 

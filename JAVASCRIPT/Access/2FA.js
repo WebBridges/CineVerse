@@ -10,13 +10,15 @@ document.addEventListener("DOMContentLoaded",function() {
             </div>
             <form id="2FA_Form" class=" mt-1" action="../../PHP/Access/Process2FA.php" method="POST" >
                 <div class="mb-1 mt-1">
-                    <input type="text" class="form-control" name="2fa" id="2fa" value="" maxlength="10" placeholder="codice" required>
-                    <div class="invalid-feedback">
+                    <input type="text" class="form-control" name="2fa" id="2fa" value="" maxlength="10" placeholder="codice">
+                    <div class="invalid-feedback" style="color:#8B0000 !important;">
                         Please provide a valid code
                     </div>
                 </div>
             </form>
-            <div id="error-message" class="error-message d-none"></div>
+            <div id="error-message" class="error-message d-none">
+                Codice non valido
+            </div>
             <div class="d-flex justify-content-center mt-4">
                 <button id="resend" class=" btn btn-secondary me-4">Rinvia codice</button>
                 <button id="conferma" class="btn btn-primary" type="submit" form="2FA_Form">Verifica</button>
@@ -50,6 +52,7 @@ document.addEventListener("DOMContentLoaded",function() {
                     if( result ) {
                         event.target.form.submit();
                     } else {
+                        document.getElementById("error-message").classList.remove("d-none");
                         return false;
                     }
                     

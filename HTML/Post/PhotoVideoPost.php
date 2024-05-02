@@ -26,7 +26,7 @@
                 
                 <form id="FormPostPhotoVideo" action="../../PHP/Post/UploadPhotoVideoPost.php" method="post" enctype="multipart/form-data">
                     <div class="form-group d-flex flex-column justify-content-center align-items-center text-center">
-                        <div class="col-7 mt-2 mb-3">
+                        <div class="col-7 col-lg-6 mt-2 mb-3">
                             <label class="form-label mb-1" for="postTitle">Titolo</label>
                             <input type="text" class="form-control" id="postTitle" maxlength="50" name="postTitle" placeholder="Inserisci il titolo del post" >
                         </div>
@@ -40,13 +40,13 @@
                         </div>
                     </div>
                     <div class="form-group mt-2 d-flex flex-column justify-content-center align-items-center text-center" style="color:#8B0000;">
-                        <div id="errorDescription" class="error-message" style="display: none;">
+                        <div id="errorDescription" class="error-message" style="display: none;color:#8B0000 !important;">
                             Inserisci una descrizione
                         </div>
-                        <div id="errorTitle" class="error-message" style="display: none;">
+                        <div id="errorTitle" class="error-message" style="display: none;color:#8B0000 !important;">
                             Inserisci un titolo valido
                         </div>
-                        <div id="errorFile" class="error-message" style="display: none;">
+                        <div id="errorFile" class="error-message" style="display: none;color:#8B0000 !important;">
                             Inserisci un file valido
                         </div>
                     </div>

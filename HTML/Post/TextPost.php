@@ -38,10 +38,10 @@
                     <div class="row container-fluid text-left pt-2 pl-2">
                         <div class="col-12 d-flex flex-column justify-content-center align-items-center text-center">
                             <div class="form-group" style="color:#8B0000;" >
-                                <div id="errorDescription" class="error-message" style="display: none;">
+                                <div id="errorDescription" class="error-message" style="display: none;color:#8B0000 !important;">
                                     Inserisci una descrizione
                                 </div>
-                                <div id="errorTitle" class="error-message" style="display: none;">
+                                <div id="errorTitle" class="error-message" style="display: none;color:#8B0000 !important;">
                                     Inserisci un titolo valido
                                 </div>
                             </div>

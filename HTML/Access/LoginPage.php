@@ -29,7 +29,7 @@
                             <div class="col-9 mb-2 mt-4 d-flex flex-column justify-content-center">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" name="email" id="email" value="" maxlength="50" placeholder="email" required>
-                                <div class="invalid-feedback">
+                                <div class="invalid-feedback" style="color:#8B0000 !important;">
                                     Please provide a valid email
                                 </div>
                             </div>

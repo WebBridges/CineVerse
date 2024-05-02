@@ -106,28 +106,28 @@
                         <div class="row container-fluid text-left">
                             <div class="col-12 mb-2 d-flex flex-column justify-content-center align-items-center text-center">
                                 <div class="form-group" style="color:#8B0000;" >
-                                    <div id="errorName" class="error-message" style="display: none;">
+                                    <div id="errorName" class="error-message" style="display: none;color:#8B0000 !important;">
                                         Il nome non deve contenere caratteri speciali o numeri
                                     </div>
-                                    <div id="errorSurname" class="mt-1 mb-1 error-message" style="display: none;">
+                                    <div id="errorSurname" class="mt-1 mb-1 error-message" style="display: none;color:#8B0000 !important;">
                                         Il cognome non deve contenere caratteri speciali o numeri
                                     </div>
-                                    <div id="usernameSpecialChar" class="mt-1 mb-1 error-message" style="display:none;">
+                                    <div id="usernameSpecialChar" class="mt-1 mb-1 error-message" style="display:none;color:#8B0000 !important;">
                                         Lo username non deve contenere caratteri speciali (esclusi numeri e _)
                                     </div>
-                                    <div id="usernameNotAvaible" class="mt-1 mb-1 error-message" style="display: none;">
+                                    <div id="usernameNotAvaible" class="mt-1 mb-1 error-message" style="display: none;color:#8B0000 !important;">
                                         Lo username non è disponibile
                                     </div>
-                                    <div id="errorEmail" class="mt-1 mb-1 error-message" style="display: none;">
+                                    <div id="errorEmail" class="mt-1 mb-1 error-message" style="display: none;color:#8B0000 !important;">
                                         inserire un'email valida
                                     </div>
-                                    <div id="passwordLength" class="mt-1 mb-1 error-message" style="display: none;">
+                                    <div id="passwordLength" class="mt-1 mb-1 error-message" style="display: none;color:#8B0000 !important;">
                                         La password deve contenere almeno 8 caratteri.
                                     </div>
-                                    <div id="passwordSpecialChar" class="mt-1 mb-1 error-message" style="display: none;">
+                                    <div id="passwordSpecialChar" class="mt-1 mb-1 error-message" style="display: none;color:#8B0000 !important;">
                                         La password può contenere solo lettere, numeri, spazi, e i caratteri _!@#$%^*
                                     </div>
-                                    <div id="errorAge" class="mt-1 mb-1 error-message" style="display: none;">
+                                    <div id="errorAge" class="mt-1 mb-1 error-message" style="display: none;color:#8B0000 !important;">
                                         L'età minima consentita è di 14 anni
                                     </div>
                                 </div>

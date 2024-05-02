@@ -26,11 +26,11 @@
                         2FA Verification
                     </div>
                     <div class="mt-4 text-center">
-                        <p>Inserire il codice inviato alla tua mail:</p>
+                        <p class="mb-0">Inserire il codice inviato alla tua mail:</p>
                     </div>
-                    <form id="2FA_Form" class="mt-1 mb-2" action="../../PHP/Access/Process2FA_login.php" method="POST" novalidate>
+                    <form id="2FA_Form" class="mb-2" action="../../PHP/Access/Process2FA_login.php" method="POST" novalidate>
                         <div class="d-flex justify-content-center">
-                            <div class="col-9 mt-1 py-3">
+                            <div class="col-9 mt-1 py-2">
                                 <input type="text" class="form-control py-2" name="2fa" id="2fa" value="" maxlength="10" placeholder="codice" required>
                                 <div class="invalid-feedback">
                                     Please provide a valid code
@@ -38,10 +38,12 @@
                             </div>
                         </div>
                     </form>
-                    <div id="error-message" class="error-message d-none"></div>
+                    <div id="error-message" class="error-message d-none" style="color:#8B0000;">
+                        <p class="text-center">Codice non valido</p>
+                    </div>
                     <div class="d-flex justify-content-center mb-4">
                         <button id="resend" class="btn btn-secondary mb-4 me-4">Rinvia codice</button>
-                        <button id="submit" class="btn btn-primary mb-4" type="submit" form="2FA_Form">Verifica</button>
+                        <button id="submitBtn" class="btn btn-primary mb-4" type="submit" form="2FA_Form">Verifica</button>
                     </div>
                 </div>
             </div>
