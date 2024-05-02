@@ -61,7 +61,7 @@
 
 
             
-            <nav class="navbar navbar-custom fixed-bottom navbar-expand mx-auto bottom-navbar">
+            <nav class="navbar navbar-custom fixed-bottom navbar-expand mx-auto bottom-navbar border border-1 border-light">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>

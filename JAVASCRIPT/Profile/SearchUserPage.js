@@ -1,4 +1,5 @@
 import { GetFollowerCount } from "../Utils/utils.js";
+import { sendNotificationEmail } from "../Utils/utils.js";
 
 document.addEventListener('DOMContentLoaded', async (event) => {
     await loadFollowButton();
@@ -65,6 +66,8 @@ async function addFollowToUsername(usernameURL) {
         body: `usernameURL=${usernameURL}`,
     });
 
+    sendNotificationEmail(usernameURL, "follow");
+    
     if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
     }
