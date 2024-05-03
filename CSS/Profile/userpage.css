@@ -53,9 +53,7 @@ main p, .btn.btn-default{
     font-weight: bold;
     border-radius: 25px;
     background: rgba(255, 158, 0);
-    padding-bottom: 7px;
-    padding-left: 25px;
-    padding-right: 25px;
+    padding: 5px 25px;
 }
 
 #user_number p{
