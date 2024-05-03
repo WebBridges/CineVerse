@@ -19,7 +19,7 @@
                 <h1>CineVerse</h1>
             </div>
 
-            <div id="MainBlock" class="col-md-4 col-7">
+            <div id="MainBlock" class="col-md-4 col-9">
                 <div id="BlockBanner" class="col-12 d-flex flex-column justify-content-center align-items-center text-center ">
                     Creazione post
                 </div>

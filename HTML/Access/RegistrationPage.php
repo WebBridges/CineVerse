@@ -20,7 +20,7 @@
                     <h1>CineVerse</h1>
                 </div>
                 
-                <div id="MainBlock" class="col-8">
+                <div id="MainBlock" class="col-10 col-xs-8">
                     <div id="BlockBanner" class="col-12 d-flex flex-column justify-content-center align-items-center text-center ">
                         Registrazione
                     </div>
