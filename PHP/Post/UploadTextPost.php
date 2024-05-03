@@ -10,7 +10,7 @@
         http_response_code(400); // Bad Request
         echo "There was an error during validation of post's field. Please try again.";
     } else if (strlen($_POST["postTitle"]) == 0 || strlen($_POST["postDescription"]) == 0 ||
-               strlen($_POST["postTitle"]) > 50 || strlen($_POST["postDescription"]) > 50){
+               strlen($_POST["postTitle"]) > 50 || strlen($_POST["postDescription"]) > 150){
                 http_response_code(400); // Bad Request
                 echo "There was an error during validation of post's field. Please try again.";
                } else {
