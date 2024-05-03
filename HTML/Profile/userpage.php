@@ -62,7 +62,7 @@
                         <p id="user_description">descrizione utente descrizione utente descrizione </p>
                     </div>
                 </div>
-                <div class="row justify-content-center topic_row mt-2" id="topic-container">
+                <div class="row justify-content-center topic_row mt-4 mb-4" id="topic-container">
                     <!--<div class="col-auto">
                         <p id="topic1">Marvel</p>
                     </div>

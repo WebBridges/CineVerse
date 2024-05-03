@@ -80,12 +80,10 @@ main p, .btn.btn-default{
 .topic_row p{
     border-radius: 25px;
     background: rgba(255, 158, 0);
-    padding-bottom: 7px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 5px 15px;
+    margin: 5px 0px;
     font-size: 20px;
     font-weight: bold;
-    margin-top: 10%;
 }
 
 .topic_row .col-auto{
