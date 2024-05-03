@@ -245,7 +245,7 @@ async function like(IDpost) {
         likeButton.innerHTML = "<em class='fa-regular fa-heart' style='color: #ffffff;'></em>";
     } else {
         nLikes.innerHTML = parseInt(nLikes.innerHTML) + 1;
-        likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500;'></em>";
+        likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500 !important;'></em>";
         sendNotificationEmail(IDpost, "post");
     }
 }
@@ -308,7 +308,7 @@ async function showComments(IDpost) {
         const likeButton = clone.querySelector(".like-comment-button");
         likeButton.addEventListener("click", function () { likeComment(comment.IDcommento)});
         if (liked) {
-            likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500;'></em>";
+            likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500 !important;'></em>";
         }
         const trash = clone.querySelector(".delete-comment-button");
         trash.addEventListener("click", function() { deleteComment(comment); });
@@ -367,7 +367,7 @@ async function likeComment(IDcomment) {
         likeButton.innerHTML = "<em class='fa-regular fa-heart' style='color: #ffffff;'></em>";
     } else {
         nLikes.innerHTML = parseInt(nLikes.innerHTML) + 1;
-        likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500;'></em>";
+        likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500 !important;'></em>";
         sendNotificationEmail(IDcomment, "comment");
     }
 }

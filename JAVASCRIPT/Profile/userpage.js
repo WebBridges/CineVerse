@@ -361,7 +361,7 @@ async function openModalPost(post, media, type) {
     likeButton.id = "likes-button" + post.IDpost;
     likeButton.addEventListener("click", function () { like(post.IDpost) });
     if (liked) {
-        likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500;'></em>";
+        likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500 !important;'></em>";
     } else {
         likeButton.innerHTML = "<em class='fa-regular fa-heart' style='color: #ffffff;'></em>";
     }

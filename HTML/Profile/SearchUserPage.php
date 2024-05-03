@@ -289,7 +289,7 @@
                         </div>
                         <div class="col-2">
                             <button type="button" class="btn border border-black btn-send" name="submit-comment">
-                                <i class="fa-solid fa-paper-plane" style="color: #ff8500;"></i>
+                                <i class="fa-solid fa-paper-plane" style="color: #ff8500 !important;"></i>
                             </button>
                         </div>
                     </form>
