@@ -146,7 +146,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="d-flex col-9 align-items-center">
+                                <div class="d-flex col-6 align-items-center">
                                     <p class="comment white-text m-0">Comment</p>
                                 </div>
                                 <!-- <div>
@@ -154,15 +154,15 @@
                                         <em class="fa-solid fa-trash-can"></em>
                                     </button>
                                 </div> -->
-                                <div class="d-flex col-1 align-items-center">
+                                <div class="d-flex col-2 justify-content-end align-items-center">
                                     <button class="like-comment-button btn">
                                         <em class="fa-regular fa-heart" style="color: #ffffff;"></em>
                                     </button>
                                 </div>
-                                <div class="d-flex col-1 align-items-center">
+                                <div class="d-flex col-2 justify-content-start align-items-center">
                                     <p class="nLikes white-text m-0">0</p>
                                 </div>
-                                <div class="d-flex col-1 align-items-center">
+                                <div class="d-flex col-2 align-items-center">
                                     <button class="btn invisible delete-comment-button">
                                         <em class="fa-solid fa-trash" style="color: #ffffff;"></em>
                                     </button>
