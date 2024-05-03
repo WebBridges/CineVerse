@@ -2,6 +2,7 @@ html, body{
     min-width: 300px;
     height: 100%;
     width: 100%;
+    background-color: #3C096C !important;
 }
 
 #profile_header {
@@ -9,8 +10,14 @@ html, body{
 }
 
 main {
+    margin-top: 80px;
     background-color: #3C096C;
+    
+}
 
+#reload {
+    color: inherit;
+    text-decoration: none;
 }
 
 main p, .btn.btn-default{
@@ -136,8 +143,66 @@ li{
         margin-bottom: 0px;
     }
     main{
-        margin-bottom: 70px;
+        margin-bottom: 20px;
     }
+    #load-more-post-div {
+        padding-bottom: 90px;
+    }
+}
+
+@media (min-width: 500px) {
+    main{
+        padding-bottom: 25px;
+    }
+    #load-more-post-div {
+        padding-bottom: 100px;
+    }
+}
+
+.btn-primary{
+    background-color: #ff9e00 ;
+    border-color:transparent;
+    border:none;
+    width: 200px;
+    transition: background-color 0.5s ease;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.5);
+    padding-top: 2px;
+    padding-bottom: 7px;
+    color: #050301;
+    text-rendering: optimizeLegibility;
+}
+
+.btn-primary:hover{
+    background-color: #ff7900;
+    border-color:transparent;
+    border:none;
+    color: #050301;
+    text-rendering: optimizeLegibility;
+}
+
+.btn-primary:focus {
+    outline:none;
+    background-color: #ff9e00;
+    border-color:transparent;
+    border:none;
+    width: 200px;
+    transition: background-color 0.5s ease;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.5);
+    padding-top: 2px;
+    padding-bottom: 7px;
+    color: #050301;
+    text-rendering: optimizeLegibility;
+}
+
+.btn-primary:active{
+    background-color: #ff7900;
+    border-color:transparent;
+    border:none;
+    box-shadow: inset 0px -2px 0px rgba(0, 0, 0, 0.5);
 }
 
 .sidebar {

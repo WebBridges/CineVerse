@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="../../CSS/Profile/userpage.css"/>
 
 </head>
-<body class="bg-dark">
+<body>
     <div class="container-fluid p-0 overflow-x-hidden overflow-y-auto" id="body_container"> 
         <header id="profile_header">
             <div id="mySidebar" class="sidebar justify-content-end">

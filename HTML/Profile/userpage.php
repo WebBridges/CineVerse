@@ -16,7 +16,7 @@
     <script src="https://kit.fontawesome.com/d9b18796bb.js" crossorigin="anonymous"></script>
 
 </head>
-<body class="bg-dark">
+<body>
     <div class="container-fluid p-0 overflow-x-hidden overflow-y-auto" id="body_container"> 
         <header id="profile_header">
             <div id="mySidebar" class="sidebar justify-content-end">

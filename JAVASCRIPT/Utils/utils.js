@@ -149,7 +149,7 @@ async function vote(post, option) {
 async function createSurveyElement(post, media) {
     let nVotes = await getVotesNumber(post.IDpost);
     let survey = document.createElement("div");
-    survey.className = "survey-container border border-2 border-black rounded p-3";
+    survey.className = "survey-container border border-2 border-white rounded p-3";
     survey.id = "survey" + post.IDpost;
     let options = media;
     for (let i = 0; i < options.length; i++) {

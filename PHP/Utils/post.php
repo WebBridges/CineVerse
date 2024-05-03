@@ -754,7 +754,7 @@ namespace Post {
             return $success;
         }
 
-        public static function recent_posts_followed($username, $max_posts)
+        public static function recent_posts_followed($username, $max_posts, $offset = 0)
         {
             $db = getDB();
             $query = "SELECT P.*
@@ -764,9 +764,10 @@ namespace Post {
                         FROM relazione R
                         WHERE R.Username_Segue = ?)
                     ORDER BY P.Date_time DESC
-                    LIMIT ?";
+                    LIMIT ?
+                    OFFSET ?";
             $stmt = $db->prepare($query);
-            $stmt->bind_param("si", $username, $max_posts);
+            $stmt->bind_param("sii", $username, $max_posts, $offset);
             $success = $stmt->execute();
             if (!$success) {
                 throw new \Exception("Error while querying the database: " . $stmt->error);
