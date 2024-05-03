@@ -12,6 +12,8 @@ import { showComments } from "../Utils/utils.js";
 
 const max_posts = 5;
 let offset = 0;
+let lastClickedID;
+let click = 0;
 
 const loadMorePostButton = document.getElementById("load-more-post-button");
 loadMorePostButton.addEventListener("click", async function() {
@@ -52,6 +54,7 @@ async function showHomePosts() {
         
         //Post body
         const postElement = clone.querySelector(".post-element");
+        postElement.addEventListener("click", function() { checkDoubleClick(post.IDpost); });
         let element;
         if (type == "foto_video") {
             let split = media.foto_video.split(".");
@@ -106,6 +109,27 @@ async function showHomePosts() {
     }
 }
 
+function checkDoubleClick(postID) {
+    if (lastClickedID != postID) {
+        lastClickedID = postID;
+        click = 1;
+        resetClick(333);
+    } else {
+        if (click == 1) {
+            click = 0;
+            like(postID);
+        } else {
+            click = 1;
+            resetClick(333);
+        }
+    }
+}
+
+function resetClick(timeout) {
+    setTimeout(function(){
+        click = 0;
+    }, timeout);
+}
 
 
 showHomePosts();

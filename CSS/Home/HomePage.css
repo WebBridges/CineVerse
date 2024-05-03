@@ -96,6 +96,10 @@ main p, .btn.btn-default{
     margin-right: 30px;
 }
 
+.post-element {
+    user-select: none;
+}
+
 @media (max-width: 768px) {
     .topic_row .col-auto{
         margin-left: 2px;
