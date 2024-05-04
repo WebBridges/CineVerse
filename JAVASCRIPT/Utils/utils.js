@@ -172,7 +172,7 @@ async function createSurveyElement(post, media) {
         if (voted) {
             option.classList.add("border", "border-3", "border-white");
         }
-        option.id = "option" + post.IDpost + options[i].testo;
+        option.id = "option" + post.IDpost + options[i].testo.replace(/ /g,'');
         option.innerHTML = options[i].testo;
         
         let optionVotes = document.createElement("div");
