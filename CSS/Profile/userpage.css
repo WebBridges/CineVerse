@@ -56,6 +56,7 @@ main p,
     border-radius: 25px;
     background: rgba(255, 158, 0);
     padding: 5px 25px;
+    color: black;
 }
 
 #user_number p {
@@ -84,6 +85,7 @@ main p,
     margin: 5px 0px;
     font-size: 20px;
     font-weight: bold;
+    color: black;
 }
 
 .topic_row .col-auto {
@@ -243,8 +245,7 @@ li {
 }
 
 .btn-send {
-    background-color: rgba(255, 255, 255, 1) !important;
-    /* Sfondo bianco */
+    background: #5A189A !important;
 }
 
 .modal-header {
@@ -266,5 +267,7 @@ li {
 .survey-option {
     border-radius: 25px;
     background: rgba(255, 158, 0);
+    color: black;
+    font-weight: 500;
     width: 100%;
 }
