@@ -51,7 +51,7 @@
                                 <p id="nFollower">0</p>
                             </div>
                             <div class="col-auto text-center">
-                                <p>Seguiti</p>
+                                <p>Following</p>
                                 <p id="nSeguiti">0</p>
                             </div>
                         </div>
