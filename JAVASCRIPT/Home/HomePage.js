@@ -1,5 +1,6 @@
 const phpPath = "../../PHP";
 
+//Imports from Utils
 import { GetUsername } from "../Utils/utils.js";
 import { loadLikes } from "../Utils/utils.js";
 import { loadUserImage } from "../Utils/utils.js";
@@ -9,29 +10,43 @@ import { like } from "../Utils/utils.js";
 import { checkLike } from "../Utils/utils.js";
 import { showComments } from "../Utils/utils.js";
 
-
+//Max posts to load at a time
 const max_posts = 5;
+//Variable to load post from the right offset
 let offset = 0;
 
+//Variables to check if the user is double clicking on a post
+let lastClickedID;
+let click = 0;
+
+//Load more post button
 const loadMorePostButton = document.getElementById("load-more-post-button");
-loadMorePostButton.addEventListener("click", async function() {
+loadMorePostButton.addEventListener("click", async function () {
     offset += 5;
     showHomePosts();
 });
 
+/**
+ * Function to get all the posts of the users that the current user is following
+ * @param {String} user 
+ * @returns al the posts of the users that the current user is following
+ */
 async function getHomePosts(user) {
     const response = await fetch(phpPath + "/Home/LoadAllFollowedPosts.php?user=" + user + "&max_posts=" + max_posts + "&offset=" + offset);
     const data = await response.json();
     return data;
 }
 
+/**
+ * Function to show all the posts of the users that the current user is following
+ */
 async function showHomePosts() {
     const posts = await getHomePosts(await GetUsername());
     if (posts.length == 0) {
         loadMorePostButton.innerHTML = "No more posts to show";
         loadMorePostButton.disabled = true;
     };
-    
+
     for (let i = 0; i < posts.length; i++) {
         const post = posts[i];
         const value = await getMedia(post.IDpost);
@@ -41,7 +56,7 @@ async function showHomePosts() {
         const postsSection = document.getElementById("posts-section");
         const template = document.getElementById("template-posts");
         const clone = template.content.cloneNode(true);
-        
+
         //Post header
         clone.querySelector(".post-title").innerHTML = post.titolo;
         const userImage = await loadUserImage(post.username_utente);
@@ -49,9 +64,10 @@ async function showHomePosts() {
             clone.querySelector(".post-user-photo").src = "../../img/" + userImage;
         }
         clone.querySelector(".post-username").innerHTML = post.username_utente;
-        
+
         //Post body
         const postElement = clone.querySelector(".post-element");
+        postElement.addEventListener("click", function () { checkDoubleClick(post.IDpost); });
         let element;
         if (type == "foto_video") {
             let split = media.foto_video.split(".");
@@ -60,7 +76,7 @@ async function showHomePosts() {
                 element.src = "../../img/" + media.foto_video; //percorso del video
                 element.controls = true; //Abilita i controlli del video
                 element.autoplay = false;
-                element.loop = false; 
+                element.loop = false;
                 element.muted = false;
                 element.className = 'img-fluid mx-auto d-block border border-black'; // Classe CSS
                 element.id = 'post-video' + post.IDpost; // ID del video
@@ -69,6 +85,7 @@ async function showHomePosts() {
                 clone.querySelector(".post-description").innerHTML = media.descrizione;
             } else {
                 element = document.createElement("img");
+                element.alt = "post-photo";
                 element.id = "post-photo" + post.IDpost;
                 element.classList.add("img-fluid");
                 element.src = "../../img/" + media.foto_video;
@@ -96,7 +113,7 @@ async function showHomePosts() {
             likeButton.innerHTML = "<em class='fa-regular fa-heart' style='color: #ffffff;'></em>";
         }
 
-        clone.querySelector(".comments-button").addEventListener("click", function() { showComments(post.IDpost); });
+        clone.querySelector(".comments-button").addEventListener("click", function () { showComments(post.IDpost); });
 
         //Post footer
         const nLikes = clone.querySelector(".post-count-likes");
@@ -106,6 +123,37 @@ async function showHomePosts() {
     }
 }
 
+/**
+ * Function to detect if the user is double clicking on a post
+ * and leave a like if it is the case
+ * @param {int} postID 
+ */
+function checkDoubleClick(postID) {
+    if (lastClickedID != postID) {
+        lastClickedID = postID;
+        click = 1;
+        resetClick(333);
+    } else {
+        if (click == 1) {
+            click = 0;
+            like(postID);
+        } else {
+            click = 1;
+            resetClick(333);
+        }
+    }
+}
+
+/**
+ * Function to reset the click variable after a certain amount of time
+ * if the user is not double clicking
+ * @param {int} timeout 
+ */
+function resetClick(timeout) {
+    setTimeout(function () {
+        click = 0;
+    }, timeout);
+}
 
 
 showHomePosts();

@@ -1,4 +1,7 @@
-html, body{
+@import url('https://fonts.googleapis.com/css?family=Electrolize');
+
+html,
+body {
     min-width: 300px;
     height: 100%;
     width: 100%;
@@ -6,13 +9,14 @@ html, body{
 }
 
 #profile_header {
-    background-color: #3C096C;
+    background-color: #240046;
+    font-size: 50px;
+    font-family: 'Electrolize';
 }
 
 main {
     margin-top: 80px;
     background-color: #3C096C;
-    
 }
 
 #reload {
@@ -20,7 +24,8 @@ main {
     text-decoration: none;
 }
 
-main p, .btn.btn-default{
+main p,
+.btn.btn-default {
     color: white;
 }
 
@@ -28,107 +33,51 @@ main p, .btn.btn-default{
     max-width: 700px;
 }
 
-#posts-section h3 {
-    overflow-wrap: break-word; /* Fai andare a capo anche se non ci sono spazi */
-    max-width: 100%; /* Assicurati che l'h3 non superi la larghezza del contenitore */
+.post-header p {
+    overflow-wrap: break-word;
+    /* Fai andare a capo anche se non ci sono spazi */
+    max-width: 100%;
+    /* Assicurati che il p non superi la larghezza del contenitore */
+    font-size: 1.7em;
+    font-weight: 600;
+    margin: 0px;
 }
 
-.post-user-photo{
+.post-user-photo {
     height: 100px;
     width: 100px;
     border-radius: 50%;
     aspect-ratio: 1;
     background-color: #240046;
-    object-fit: contain; 
+    object-fit: contain;
 }
 
-.img-thumbnail{
+.img-thumbnail {
     aspect-ratio: 1;
     object-fit: contain;
 }
 
-.username{
-    height: min-content;
-}
-
-#username{
-    font-size: 30px;
-    font-weight: bold;
-    border-radius: 25px;
-    background: rgba(255, 158, 0);
-    padding-bottom: 7px;
-    padding-left: 25px;
-    padding-right: 25px;
-}
-
-#user_number p{
-    font-size: 16px;
-}
-
-.user_description{
-    height: fit-content;
-}
-
-#user_description{
-    margin-top: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
-    max-width: 1000px;
-    word-wrap: break-word;
-    font-size: 20px;
-    line-height: normal;
-    font-weight: 550;
-}
-
-.topic_row p{
-    border-radius: 25px;
-    background: rgba(255, 158, 0);
-    padding-bottom: 7px;
-    padding-left: 15px;
-    padding-right: 15px;
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: 10%;
-}
-
-.topic_row .col-auto{
-    margin-left: 30px;
-    margin-right: 30px;
+.post-element {
+    user-select: none;
 }
 
 @media (max-width: 768px) {
-    .topic_row .col-auto{
+    .col-auto {
         margin-left: 2px;
         margin-right: 2px;
     }
 }
 
-.btn.btn-default{
-    width: 100%;
-    height: auto;
-    background-color:#240046;
-}
-
-.btn.btn-default:hover{
-    background-color:#7B2CBF;
-    color: white;
-}
-
-.btn.btn-default.current_button{
-    background-color: #7B2CBF;
-}
-
-
-.navbar-custom{
+.navbar-custom {
     background-color: #240046;
 }
 
-li{
+li {
     margin-left: 5px;
     margin-right: 5px;
 }
 
-.bottom-navbar{
+.bottom-navbar {
     width: 400px;
     height: 70px;
     border-radius: 25px;
@@ -136,33 +85,36 @@ li{
 }
 
 @media (max-width: 500px) {
-    .bottom-navbar{
+    .bottom-navbar {
         width: 100%;
         height: 70px;
         border-radius: 0px;
         margin-bottom: 0px;
     }
-    main{
+
+    main {
         margin-bottom: 20px;
     }
+
     #load-more-post-div {
         padding-bottom: 90px;
     }
 }
 
 @media (min-width: 500px) {
-    main{
+    main {
         padding-bottom: 25px;
     }
+
     #load-more-post-div {
         padding-bottom: 100px;
     }
 }
 
-.btn-primary{
-    background-color: #ff9e00 ;
-    border-color:transparent;
-    border:none;
+.btn-primary {
+    background-color: #ff9e00;
+    border-color: transparent;
+    border: none;
     width: 200px;
     transition: background-color 0.5s ease;
     border-radius: 10px;
@@ -174,19 +126,19 @@ li{
     text-rendering: optimizeLegibility;
 }
 
-.btn-primary:hover{
+.btn-primary:hover {
     background-color: #ff7900;
-    border-color:transparent;
-    border:none;
+    border-color: transparent;
+    border: none;
     color: #050301;
     text-rendering: optimizeLegibility;
 }
 
 .btn-primary:focus {
-    outline:none;
+    outline: none;
     background-color: #ff9e00;
-    border-color:transparent;
-    border:none;
+    border-color: transparent;
+    border: none;
     width: 200px;
     transition: background-color 0.5s ease;
     border-radius: 10px;
@@ -198,105 +150,39 @@ li{
     text-rendering: optimizeLegibility;
 }
 
-.btn-primary:active{
+.btn-primary:active {
     background-color: #ff7900;
-    border-color:transparent;
-    border:none;
+    border-color: transparent;
+    border: none;
     box-shadow: inset 0px -2px 0px rgba(0, 0, 0, 0.5);
 }
 
-.sidebar {
-  height: 100%; /* 100% Full-height */
-  width: 0; /* 0 width - change this with JavaScript */
-  position: fixed; /* Stay in place */
-  top: 0;
-  right: 0;
-  background-color: #5A189A; /* Black*/
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px; /* Place content 60px from the top */
-  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
-}
-
-/* The sidebar links */
-.sidebar a {
-  padding: 8px 8px 8px 8px;
-  text-decoration: none;
-  font-size: 20px;
-  color: white;
-  display: block;
-  transition: 0.3s;
-}
-
-.sidebarField{
-    border-bottom: 2px solid black;
-}
-
-/* When you mouse over the navigation links, change their color */
-.sidebar a:hover {
-  background-color: #7B2CBF;
-}
-
-/* Position and style the close button (top right corner) */
-.sidebar .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-}
-
-/* The button used to open the sidebar */
-.openbtn {
-    float: right;
-    height: 60px;
-    width: 80px;
-    background-color: inherit;
-    border: none;
-}
-
-.openbtn:hover {
-  background-color: #7B2CBF;
-}
-
-.post-container {
-    display: grid;
-    grid-template-columns: repeat(3, 100%);
-    max-width: 700px;
-}
-
 .modal-header h3 {
-    overflow-wrap: break-word; /* Fai andare a capo anche se non ci sono spazi */
-    max-width: 100%; /* Assicurati che l'h3 non superi la larghezza del contenitore */
+    overflow-wrap: break-word;
+    /* Fai andare a capo anche se non ci sono spazi */
+    max-width: 100%;
+    /* Assicurati che l'h3 non superi la larghezza del contenitore */
 }
 
-#photo-id, #video-id {
+.photo,
+.video {
     width: 100%;
     aspect-ratio: 1;
     object-fit: cover;
 }
 
-.video-container {
-    position: relative;
-}
-
-.play-icon {
-    position: absolute;
-    top: 7%;
-    left: 92%;
-    transform: translate(-50%, -50%);
-    width: 10%; /* Imposta la dimensione dell'icona */
-    height: auto;
-    z-index: 1; /* Assicura che l'icona sia sopra il video */
-}
-
 .btn-close {
-    color: #fff !important; /* Colore del testo bianco */
-    background-color: #fff !important; /* Sfondo bianco */
-    border: none !important; /* Rimuove il bordo */
+    color: #fff !important;
+    /* Colore del testo bianco */
+    background-color: #fff !important;
+    /* Sfondo bianco */
+    border: none !important;
+    /* Rimuove il bordo */
 }
 
 .btn-send {
-    background-color: rgba(255,255,255, 1) !important; /* Sfondo bianco */
+    background: #5A189A !important;
+    /* Sfondo bianco */
 }
 
 .modal-header {
@@ -311,12 +197,14 @@ li{
     background-color: #240046 !important;
 }
 
-.white-text{
+.white-text {
     color: white;
 }
 
 .survey-option {
     border-radius: 25px;
     background: rgba(255, 158, 0);
+    color: black;
+    font-weight: 500;
     width: 100%;
 }

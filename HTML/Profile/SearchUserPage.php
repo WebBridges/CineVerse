@@ -62,7 +62,7 @@
                         <p id="user_description">descrizione utente descrizione utente descrizione </p>
                     </div>
                 </div>
-                <div class="row justify-content-center topic_row mt-2" id="topic-container">
+                <div class="row justify-content-center topic_row mt-4 mb-4" id="topic-container">
                     <!--<div class="col-auto">
                         <p id="topic1">Marvel</p>
                     </div>
@@ -256,7 +256,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="d-flex col-9 align-items-center">
+                                <div class="d-flex col-6 align-items-center">
                                     <p class="comment white-text m-0">Comment</p>
                                 </div>
                                 <!-- <div>
@@ -264,15 +264,15 @@
                                         <em class="fa-solid fa-trash-can"></em>
                                     </button>
                                 </div> -->
-                                <div class="d-flex col-1 align-items-center">
+                                <div class="d-flex col-2 justify-content-end align-items-center">
                                     <button class="like-comment-button btn">
                                         <em class="fa-regular fa-heart" style="color: #ffffff;"></em>
                                     </button>
                                 </div>
-                                <div class="d-flex col-1 align-items-center">
+                                <div class="d-flex col-2 justify-content-start align-items-center">
                                     <p class="nLikes white-text m-0">0</p>
                                 </div>
-                                <div class="d-flex col-1 align-items-center">
+                                <div class="d-flex col-2 align-items-center">
                                     <button class="btn invisible delete-comment-button">
                                         <em class="fa-solid fa-trash" style="color: #ffffff;"></em>
                                     </button>
@@ -289,7 +289,7 @@
                         </div>
                         <div class="col-2">
                             <button type="button" class="btn border border-black btn-send" name="submit-comment">
-                                <i class="fa-solid fa-paper-plane" style="color: #ff8500;"></i>
+                                <i class="fa-solid fa-paper-plane" style="color: #ff8500 !important;"></i>
                             </button>
                         </div>
                     </form>
