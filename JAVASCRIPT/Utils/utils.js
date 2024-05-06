@@ -1,13 +1,19 @@
-export { 
+//Ecporting functions to be used in other files
+export {
     GetUsernameInfo, GetUsername, GetFollowerCount, GetFollowingCount, loadLikes, loadUserImage, getVotesNumber,
     getVotesForOptionNumber, checkVoted, calcVotesPercentage, vote, createSurveyElement, getMedia, like, checkLike,
-    sendNotificationEmail, showComments, loadComments, loadCommentLikes, checkCommentLike, likeComment, submitComment, 
+    sendNotificationEmail, showComments, loadComments, loadCommentLikes, checkCommentLike, likeComment, submitComment,
     deleteComment, isOwner,
 };
 
-async function GetUsernameInfo(usernameURL=null){
+/**
+ * Function to get the all the info of the user passed as parameter or the current user logged in
+ * @param {String} usernameURL 
+ * @returns all the user info
+ */
+async function GetUsernameInfo(usernameURL = null) {
     let username;
-    if(usernameURL===null){
+    if (usernameURL === null) {
         username = await GetUsername();
     } else {
         username = usernameURL;
@@ -27,14 +33,17 @@ async function GetUsernameInfo(usernameURL=null){
     const contentType = response.headers.get("content-type");
     if (contentType && contentType.indexOf("application/json") !== -1) {
         const data = await response.json();
-        return data; 
+        return data;
     } else {
         throw new Error(`Expected JSON but received a ${contentType} and ${await response.text()}`);
-    } 
+    }
 }
 
-async function GetUsername(){
-    
+/**
+ * Function to get the username of the current user logged in
+ * @returns the username of the current user logged in
+ */
+async function GetUsername() {
     const response = await fetch('../../PHP/Profile/getUsername.php', {
         method: 'GET',
         headers: {
@@ -46,12 +55,17 @@ async function GetUsername(){
         throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    return data.username;  
+    return data.username;
 }
 
-async function GetFollowerCount(usernameURL=null){
+/**
+ * Function to get the number of followers of the user passed as parameter or the current user logged in
+ * @param {String} usernameURL 
+ * @returns followers count
+ */
+async function GetFollowerCount(usernameURL = null) {
     let username;
-    if(usernameURL==null){
+    if (usernameURL == null) {
         username = await GetUsername();
     } else {
         username = usernameURL;
@@ -66,13 +80,18 @@ async function GetFollowerCount(usernameURL=null){
     if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const data= await response.json();
+    const data = await response.json();
     return data;
 }
 
-async function GetFollowingCount(usernameURL=null){
+/**
+ * Function to get the number of following of the user passed as parameter or the current user logged in
+ * @param {String} usernameURL 
+ * @returns following count
+ */
+async function GetFollowingCount(usernameURL = null) {
     let username;
-    if(usernameURL==null){
+    if (usernameURL == null) {
         username = await GetUsername();
     } else {
         username = usernameURL;
@@ -87,34 +106,61 @@ async function GetFollowingCount(usernameURL=null){
     if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const data= await response.json();
+    const data = await response.json();
     return data;
 }
 
+/**
+ * Function to get the number of likes of the post by the IDpost passed as parameter
+ * @param {int} IDpost 
+ * @returns post likes count
+ */
 async function loadLikes(IDpost) {
     const response = await fetch("../../PHP/user/load_post_likes.php?IDpost=" + IDpost);
     const nLikes = await response.json();
     return nLikes;
 }
 
+/**
+ * Function to get the image of the user by the username passed as parameter
+ * @param {String} username 
+ * @returns the image path
+ */
 async function loadUserImage(username) {
     const response = await fetch("../../PHP/user/load_user_image.php?user=" + username);
     const image = await response.json();
     return image;
 }
 
+/**
+ * Function to get the number of votes of the post by the IDpost passed as parameter
+ * @param {int} IDpost 
+ * @returns the votes count
+ */
 async function getVotesNumber(IDpost) {
     const response = await fetch("../../PHP/user/load_votes_number.php?IDpost=" + IDpost);
     const votes = await response.json();
     return votes;
 }
 
+/**
+ * Function to get the number of votes of the option in the post by the IDpost and the option passed as parameter
+ * @param {int} IDpost 
+ * @param {String} option 
+ * @returns the votes count
+ */
 async function getVotesForOptionNumber(IDpost, option) {
     const response = await fetch("../../PHP/user/load_votes_for_option_number.php?IDpost=" + IDpost + "&option=" + option);
     const votes = await response.json();
     return votes;
 }
 
+/**
+ * Function to check if the user has voted the option in the post by the IDpost and the option passed as parameter
+ * @param {int} IDpost 
+ * @param {String} option 
+ * @returns true if the user has voted, false otherwise
+ */
 async function checkVoted(IDpost, option) {
     const request = "../../PHP/user/check_voted.php?IDpost=" + IDpost + "&option=" + option + "&username=" + GetUsername();
     const response = await fetch(request);
@@ -122,14 +168,25 @@ async function checkVoted(IDpost, option) {
     return voted;
 }
 
+/**
+ * Function to calc the percentage of votes for the option in the post by the votes for the option and the total votes
+ * @param {int} votesForOption 
+ * @param {int} nVotes 
+ * @returns the percentage of votes
+ */
 function calcVotesPercentage(votesForOption, nVotes) {
     if (nVotes == 0) {
         return 0;
     } else {
-        return Math.trunc(votesForOption/nVotes*100);
+        return Math.trunc(votesForOption / nVotes * 100);
     }
 }
 
+/**
+ * Function to vote the option in the post passed as parameter
+ * @param {Object} post 
+ * @param {Object} option 
+ */
 async function vote(post, option) {
     const voted = await checkVoted(post.IDpost, option.testo);
     const request = voted ? "../../PHP/user/remove_vote_option.php" : "../../PHP/user/add_vote_option.php";
@@ -146,6 +203,12 @@ async function vote(post, option) {
     });
 }
 
+/**
+ * Function to create the html survey element for the post passed as parameter
+ * @param {Object} post 
+ * @param {Object} media 
+ * @returns the survey element
+ */
 async function createSurveyElement(post, media) {
     let nVotes = await getVotesNumber(post.IDpost);
     let survey = document.createElement("div");
@@ -157,14 +220,14 @@ async function createSurveyElement(post, media) {
 
         let optionContainer = document.createElement("div");
         optionContainer.className = "row mb-3";
-        
+
         let optionValue = document.createElement("div");
-        optionValue.addEventListener("click", function (post, option) { 
-            return function() {
+        optionValue.addEventListener("click", function (post, option) {
+            return function () {
                 vote(post, option).then(() => {
                     reloadSurvey(post);
                 });
-            }; 
+            };
         }(post, options[i]));
         optionValue.className = "col-10";
         let option = document.createElement("button");
@@ -172,23 +235,23 @@ async function createSurveyElement(post, media) {
         if (voted) {
             option.classList.add("border", "border-3", "border-white");
         }
-        option.id = "option" + post.IDpost + options[i].testo.replace(/ /g,'');
+        option.id = "option" + post.IDpost + options[i].testo.replace(/ /g, '');
         option.innerHTML = options[i].testo;
-        
+
         let optionVotes = document.createElement("div");
         optionVotes.className = "col-2";
         let votes = document.createElement("p");
         let votesForOption = await getVotesForOptionNumber(post.IDpost, options[i].testo);
         votes.className = "survey-votes white-text m-0 pt-2 pb-2";
         votes.innerHTML = calcVotesPercentage(votesForOption, nVotes) + "%";
-        
+
         optionValue.appendChild(option);
         optionVotes.appendChild(votes);
         optionContainer.appendChild(optionValue);
         optionContainer.appendChild(optionVotes);
         survey.appendChild(optionContainer);
     };
-    
+
     let footer = document.createElement("div");
     footer.className = "row";
 
@@ -212,6 +275,10 @@ async function createSurveyElement(post, media) {
     return survey;
 }
 
+/**
+ * Function to reload the survey element for the post passed as parameter after a vote
+ * @param {Object} post 
+ */
 async function reloadSurvey(post) {
     const media = await getMedia(post.IDpost);
     const survey = await createSurveyElement(post, media.data);
@@ -219,12 +286,21 @@ async function reloadSurvey(post) {
     oldSurvey.replaceWith(survey);
 }
 
+/**
+ * Function to get the media(photo, video, text, survey) of the post by the IDpost passed as parameter
+ * @param {int} IDpost 
+ * @returns an associative array with the media and type of the media retrieved
+ */
 async function getMedia(IDpost) {
     const response = await fetch("../../PHP/Home/LoadPostMedia.php?IDpost=" + IDpost);
     const value = await response.json();
     return value;
 }
 
+/**
+ * Function to like the post by the IDpost passed as parameter
+ * @param {int} IDpost 
+ */
 async function like(IDpost) {
     const liked = await checkLike(IDpost, GetUsername());
     const request = liked ? "../../PHP/user/remove_like_post.php" : "../../PHP/user/add_like_post.php";
@@ -250,6 +326,12 @@ async function like(IDpost) {
     }
 }
 
+/**
+ * Function to check if the user has liked the post by the IDpost and the username passed as parameter
+ * @param {int} IDpost 
+ * @param {String} username 
+ * @returns 
+ */
 async function checkLike(IDpost, username) {
     const request = "../../PHP/user/check_post_like.php?IDpost=" + IDpost + "&username=" + username;
     const response = await fetch(request);
@@ -257,17 +339,32 @@ async function checkLike(IDpost, username) {
     return liked;
 }
 
+/**
+ * Function to send a notification email to the user by the ID and the type of the mail to send passed as parameter
+ * @param {int} id 
+ * @param {String} type 
+ */
 async function sendNotificationEmail(id, type) {
     const response = await fetch("../../PHP/user/send_notification_email.php?id=" + id + "&type=" + type);
 }
 
+/**
+ * Function to check if the user is the owner of something by the username passed as parameter
+ * this function compare the username passed as parameter with the current user logged in
+ * @param {String} username 
+ * @returns 
+ */
 async function isOwner(username) {
     if (username == await GetUsername()) {
         return true;
     }
     return false;
-} 
+}
 
+/**
+ * Function to show the comments of the post by the IDpost passed as parameter
+ * @param {int} IDpost 
+ */
 async function showComments(IDpost) {
     //const comModal = document.getElementById("comments-modal");
     const commentsModal = document.getElementById("comments-modal");
@@ -292,7 +389,7 @@ async function showComments(IDpost) {
         let liked = await checkCommentLike(comment.IDcommento, GetUsername());
         let userImage = await loadUserImage(comment.username_utente);
         let nLikes = await loadCommentLikes(comment.IDcommento);
-        
+
         clone.querySelector(".comment-container").setAttribute("name", "comment" + comment.IDcommento);
         if (userImage != null) {
             clone.querySelector("img").src = "../../img/" + userImage;
@@ -300,18 +397,14 @@ async function showComments(IDpost) {
         clone.querySelector("a").textContent = comment.username_utente;
         clone.querySelector("a").href = "/CineVerse/HTML/Profile/SearchUserPage.php?username=" + comment.username_utente;
         clone.querySelector(".comment").textContent = comment.corpo;
-        /*if (comment.owner) {
-            clone.querySelector(".trash-button").classList.remove("invisible");
-            clone.querySelector(".trash-button").addEventListener("click", function() { removeComment(comment.comment_id, post_id); })
-        }*/
         clone.querySelector(".nLikes").innerHTML = nLikes
         const likeButton = clone.querySelector(".like-comment-button");
-        likeButton.addEventListener("click", function () { likeComment(comment.IDcommento)});
+        likeButton.addEventListener("click", function () { likeComment(comment.IDcommento) });
         if (liked) {
             likeButton.innerHTML = "<em class='fa-solid fa-heart' style='color: #ff8500 !important;'></em>";
         }
         const trash = clone.querySelector(".delete-comment-button");
-        trash.addEventListener("click", function() { deleteComment(comment); });
+        trash.addEventListener("click", function () { deleteComment(comment); });
         if (await isOwner(comment.username_utente)) {
             trash.classList.remove("invisible");
         }
@@ -324,21 +417,37 @@ async function showComments(IDpost) {
     const submitCommentButton = modalFooter.querySelector("button");
     const newSubmitCommentButton = submitCommentButton.cloneNode(true);
     submitCommentButton.parentNode.replaceChild(newSubmitCommentButton, submitCommentButton);
-    newSubmitCommentButton.addEventListener("click", function() { submitComment(IDpost); });
+    newSubmitCommentButton.addEventListener("click", function () { submitComment(IDpost); });
 }
 
+/**
+ * Function to load the comments of the post by the IDpost passed as parameter
+ * @param {int} IDpost 
+ * @returns the comments loaded
+ */
 async function loadComments(IDpost) {
     const response = await fetch("../../PHP/user/load_comments.php?IDpost=" + IDpost);
     const comments = await response.json();
     return comments;
 }
 
+/**
+ * Function to load the likes of the comment by the IDcomment passed as parameter
+ * @param {int} IDcomment 
+ * @returns the likes count
+ */
 async function loadCommentLikes(IDcomment) {
     const response = await fetch("../../PHP/user/load_comment_likes.php?IDcomment=" + IDcomment);
     const nLikes = await response.json();
     return nLikes;
 }
 
+/**
+ * Function to check if the user has liked the comment by the IDcomment and the username passed as parameter
+ * @param {int} IDcomment 
+ * @param {String} username 
+ * @returns true if the user has liked, false otherwise
+ */
 async function checkCommentLike(IDcomment, username) {
     const request = "../../PHP/user/check_comment_like.php?IDcomment=" + IDcomment + "&username=" + username;
     const response = await fetch(request);
@@ -346,6 +455,10 @@ async function checkCommentLike(IDcomment, username) {
     return liked;
 }
 
+/**
+ * Function to like the comment by the IDcomment passed as parameter
+ * @param {int} IDcomment 
+ */
 async function likeComment(IDcomment) {
     const liked = await checkCommentLike(IDcomment, GetUsername());
     const request = liked ? "../../PHP/user/remove_like_comment.php" : "../../PHP/user/add_like_comment.php";
@@ -372,10 +485,14 @@ async function likeComment(IDcomment) {
     }
 }
 
+/**
+ * Function to submit a new comment to the post by the IDpost passed as parameter
+ * @param {int} IDpost 
+ */
 async function submitComment(IDpost) {
     const commentsModal = document.getElementById("comments-modal");
     const commentText = commentsModal.querySelector("input").value;
-    commentsModal.querySelector("input").value = ""; 
+    commentsModal.querySelector("input").value = "";
     if (!commentText.replace(/\s/g, '').length) {
         return;
     }
@@ -393,6 +510,10 @@ async function submitComment(IDpost) {
     showComments(IDpost);
 }
 
+/**
+ * Function to delete the comment passed as parameter
+ * @param {Object} comment 
+ */
 async function deleteComment(comment) {
     const response = await fetch("../../PHP/user/delete_comment.php?IDcomment=" + comment.IDcommento);
     const result = await response.json();
