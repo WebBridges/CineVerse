@@ -2,8 +2,8 @@
 
 namespace Post {
 
-    require_once("bootstrap.php");
-    require_once("dbObject.php");
+    require_once ("bootstrap.php");
+    require_once ("dbObject.php");
 
     class DBPost implements \DBObject
     {
@@ -532,6 +532,7 @@ namespace Post {
             return $row["count"];
         }
 
+        /*
         public static function get_all_posts_by_username_utente($username_utente)
         {
             $db = getDB();
@@ -560,10 +561,8 @@ namespace Post {
             }
             return $posts;
         }
+        */
 
-        /**
-         * return post by username_utente that only are foto_video posts
-         */
         public static function get_posts_by_username_utente_foto_video($username_utente)
         {
             $db = getDB();
@@ -592,9 +591,6 @@ namespace Post {
             return $posts;
         }
 
-        /**
-         * return post by username_utente that only are textual posts
-         */
         public static function get_posts_by_username_utente_text($username_utente)
         {
             $db = getDB();
@@ -623,9 +619,6 @@ namespace Post {
             return $posts;
         }
 
-        /**
-         * return post by username_utente that only are survey posts
-         */
         public static function get_posts_by_username_utente_survey($username_utente)
         {
             $db = getDB();
@@ -845,29 +838,6 @@ namespace Post {
             return $comments;
         }
 
-        public static function get_voto_by_username($username_utente, $IDpost, $testo_opzione)
-        {
-            $db = getDB();
-            $query = "SELECT * FROM voto WHERE Username_utente = ? AND IDpost = ? AND testo_opzione = ?";
-            $stmt = $db->prepare($query);
-            $stmt->bind_param("sis", $username_utente, $IDpost, $testo_opzione);
-            $success = $stmt->execute();
-            if (!$success) {
-                throw new \Exception("Error while querying the database: " . $stmt->error);
-            }
-
-            $result = $stmt->get_result();
-            if ($result->num_rows == 0) {
-                return null;
-            }
-            $row = $result->fetch_assoc();
-            return new DBVoto(
-                $row["IDpost"],
-                $row["Username_utente"],
-                $row["testo_opzione"]
-            );
-        }
-
         public static function get_number_of_votes_by_IDpost($IDpost)
         {
             $db = getDB();
@@ -893,25 +863,6 @@ namespace Post {
             $query = "SELECT COUNT(*) AS count FROM voto WHERE IDpost = ? AND testo_opzione = ?";
             $stmt = $db->prepare($query);
             $stmt->bind_param("is", $IDpost, $option);
-            $success = $stmt->execute();
-            if (!$success) {
-                throw new \Exception("Error while querying the database: " . $stmt->error);
-            }
-
-            $result = $stmt->get_result();
-            if ($result->num_rows == 0) {
-                return null;
-            }
-            $row = $result->fetch_assoc();
-            return $row["count"];
-        }
-
-        public static function get_count_opzione_by_IDpost($IDpost, $testo_opzione)
-        {
-            $db = getDB();
-            $query = "SELECT COUNT(*) AS count FROM voto WHERE IDpost = ? AND testo_opzione = ?";
-            $stmt = $db->prepare($query);
-            $stmt->bind_param("is", $IDpost, $testo_opzione);
             $success = $stmt->execute();
             if (!$success) {
                 throw new \Exception("Error while querying the database: " . $stmt->error);
@@ -1041,138 +992,6 @@ namespace Post {
                 throw new \Exception("Error while querying the database: " . $stmt->error);
             }
         }
-
-        /*public static function check_like_commento($IDcommento, $username_utente)
-        {
-            $db = getDB();
-            $query = "SELECT * FROM like_commento WHERE IDcommento = ? AND Username_Utente = ?";
-            $stmt = $db->prepare($query);
-            $stmt->bind_param("is", $IDcommento, $username_utente);
-            $success = $stmt->execute();
-            if (!$success) {
-                throw new \Exception("Error while querying the database: " . $stmt->error);
-            }
-            $result = $stmt->get_result();
-            if ($result->num_rows == 0) {
-                return false;
-            }
-            return true;
-        }*/
-
-        /**
-         * mancano le query per inserire e archiviare i post e inserire i commenti
-         */
-
-
-
-
-
-        /*public static function comments_with_post(\DBDriver $driver, $post_id, $username)
-        {
-            $sql = "SELECT C.*, U.profile_photo
-                    FROM comment C, user U
-                    WHERE C.post_id = ?
-                    AND C.username = U.username";
-            try {
-                $result = $driver->query($sql, $post_id);
-            } catch (\Exception $e) {
-                throw new \Exception("Error while querying the database: " . $e->getMessage());
-            }
-            $comments = array();
-            if ($result->num_rows > 0) {
-                for ($i = 0; $i < $result->num_rows; $i++) {
-                    $row = $result->fetch_array();
-                    $sql = "SELECT * FROM comment_like WHERE comment_id = ? AND username = ?";
-                    try {
-                        $liked = $driver->query($sql, $row["comment_id"], $username)->num_rows > 0;
-                    } catch (\Exception $e) {
-                        throw new \Exception("Error while querying the database: " . $e->getMessage());
-                    }
-                    $owner = false;
-                    $sql = "SELECT * FROM post WHERE post_id = ? AND username = ?";
-                    try {
-                        $owner = $driver->query($sql, $post_id, $username)->num_rows > 0;
-                    } catch (\Exception $e) {
-                        throw new \Exception("Error while querying the database: " . $e->getMessage());
-                    }
-                    if (!$owner) {
-                        $owner = $row["username"] == $username;
-                    }
-                    $comment = new DBComment(
-                        $row["comment_id"],
-                        $row["post_id"],
-                        $row["username"],
-                        $row["profile_photo"],
-                        $row["content"],
-                        $row["likes"],
-                        $liked,
-                        $owner
-                    );
-                    array_push($comments, $comment);
-                }
-            }
-            return $comments;
-        }*/
-        /*
-        public static function insert_comment(\DBDriver $driver, $post_id, $username, $content)
-        {
-            $comment = new DBComment(null, $post_id, $username, null, $content);
-            $comment->db_serialize($driver);
-        }
-
-        public static function delete_comment(\DBDriver $driver, $comment_id)
-        {
-            $com = new DBComment($comment_id);
-            $com->db_delete($driver);
-        }
-
-        public static function insert_like(\DBDriver $driver, $like_id, $username, $type)
-        {
-            $sql = "UPDATE";
-            try {
-                switch ($type) {
-                    case "post":
-                        $like = new DBPostLike($like_id, $username);
-                        $like->db_serialize($driver);
-                        $sql = $sql . " post SET likes = likes + 1 WHERE post_id = ?";
-                        break;
-                    case "comment":
-                        $like = new DBCommentLike($like_id, $username);
-                        $like->db_serialize($driver);
-                        $sql = $sql . " comment SET likes = likes + 1 WHERE comment_id = ?";
-                        break;
-                    default:
-                        throw new \Exception("Invalid type: " . $type);
-                }
-                $driver->query($sql, $like_id);
-            } catch (\Exception $e) {
-                throw new \Exception("Error while querying the database: " . $e->getMessage());
-            }
-        }
-
-        public static function delete_like(\DBDriver $driver, $like_id, $username, $type)
-        {
-            $sql = "UPDATE";
-            try {
-                switch ($type) {
-                    case "post":
-                        $like = new DBPostLike($like_id, $username);
-                        $like->db_delete($driver);
-                        $sql = $sql . " post SET likes = likes - 1 WHERE post_id = ?";
-                        break;
-                    case "comment":
-                        $like = new DBCommentLike($like_id, $username);
-                        $like->db_delete($driver);
-                        $sql = $sql . " comment SET likes = likes - 1 WHERE comment_id = ?";
-                        break;
-                    default:
-                        throw new \Exception("Invalid type: " . $type);
-                }
-                $driver->query($sql, $like_id);
-            } catch (\Exception $e) {
-                throw new \Exception("Error while querying the database: " . $e->getMessage());
-            }
-        }*/
     }
 }
 ?>
