@@ -8,7 +8,7 @@
         <title>CineVerse - Impostazioni</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <link href="../../CSS/Access/AccessStyleBase.css" rel="stylesheet" type="text/css"/>
+        <link href="../../CSS/Access/AccessStyleBase.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <div class="container-fluid d-flex flex-column justify-content-center align-items-center mt-4">
@@ -56,13 +56,10 @@
                                         <input type="password" class="form-control" name="password" id="password" value="" maxlength="30" placeholder="Password" required>
                                     </div>
                                 </div>
-                                <div class="col-8 mt-2 justify-content-center pt-4">
+                                <div class="col-8 mt-2 justify-content-center pt-4 pr-4">
                                     <div class="form-group d-flex align-items-center">
-                                        <label for="twoFactorAuth" class="form-label">Autenticazione a 2 Fattori</label>
-                                        <label class="switch">
-                                            <input type="checkbox" id="checkboxTFA" name="checkboxTFA" />
-                                            <div class="slider round"></div>
-                                        </label>
+                                        <label for="checkboxTFA" class="form-label col-8">Autenticazione a 2 Fattori</label>
+                                        <input type="checkbox" class="form-label col-4" id="checkboxTFA" name="checkboxTFA">
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +93,7 @@
                             <div class="col-md-5 ms-md-4 px-1 d-flex justify-content-center">
                                 <div class="col-8">
                                     <div class="form-group">
-                                        <label for="birthdate" class="form-label">Data di nascita</label>
+                                        <label for="birthDate" class="form-label">Data di nascita</label>
                                         <input type="date" class="form-control" name="birthDate" id="birthDate" required>
                                     </div>
                                 </div>

@@ -9,8 +9,8 @@
         <title>CineVerse - Post</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="../../CSS/Profile/userpage.css"/>
-        <link href="../../CSS/Access/AccessStyleBase.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="../../CSS/Profile/userpage.css">
+        <link href="../../CSS/Access/AccessStyleBase.css" rel="stylesheet" type="text/css">
         
     </head>
     <body>
@@ -77,7 +77,7 @@
                 </form>
             </div>
             <nav class="navbar navbar-custom fixed-bottom navbar-expand mx-auto bottom-navbar border border-1 border-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="bottomNavbarNav">
