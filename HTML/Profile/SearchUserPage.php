@@ -47,7 +47,7 @@
                                 <p id="nPosts">0</p>
                             </div>
                             <div class="col-auto text-center">
-                                <p>Follower</p>
+                                <p>Followers</p>
                                 <p id="nFollower">0</p>
                             </div>
                             <div class="col-auto text-center">
