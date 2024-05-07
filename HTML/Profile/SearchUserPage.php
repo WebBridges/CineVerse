@@ -46,14 +46,14 @@
                                 <p>Post</p>
                                 <p id="nPosts">0</p>
                             </div>
-                            <div class="col-auto text-center">
+                            <button type="button" class="btn col-auto pt-0 pb-0 text-center" id="followers">
                                 <p>Followers</p>
                                 <p id="nFollower">0</p>
-                            </div>
-                            <div class="col-auto text-center">
+                            </button>
+                            <button type="button" class="btn col-auto pt-0 pb-0 text-center" id="following">
                                 <p>Following</p>
                                 <p id="nSeguiti">0</p>
-                            </div>
+                            </button>
                         </div>
                         <div class="col-11" id="buttonField">
                         </div>
