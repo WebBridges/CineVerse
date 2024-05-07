@@ -19,6 +19,13 @@ import { isOwner } from "../Utils/utils.js";
 const urlParams = new URLSearchParams(window.location.search);
 const URLusername = urlParams.get('username');
 
+// Link to button to show followers and following users
+const followers = document.getElementById("followers");
+const following = document.getElementById("following");
+let username = (await GetUsernameInfo(URLusername)).Username;
+followers.addEventListener("click", function () { location.href = "FollowerFollowing.php?username=" + username + "&action=" + "followers"; });
+following.addEventListener("click", function () { location.href = "FollowerFollowing.php?username=" + username + "&action=" + "following"; });
+
 // Function to stop video when modal is closed
 const postModal = document.getElementById("post-modal");
 postModal.addEventListener("hidden.bs.modal", function () {
@@ -98,7 +105,14 @@ async function loadUserInformation(URLusername) {
     document.getElementById("nPosts").innerHTML = nPosts;
     document.getElementById("nFollower").innerHTML = await GetFollowerCount(usernameInfo.Username);
     document.getElementById("nSeguiti").innerHTML = await GetFollowingCount(usernameInfo.Username);
-    document.getElementById("user_description").innerHTML = usernameInfo.Descrizione;
+    const description = usernameInfo.Descrizione;
+    if (description == null || description == "") {
+        document.getElementById("user_description").innerHTML = "";
+        document.getElementsByClassName("user_description")[0].classList.remove("col-auto");
+        document.getElementsByClassName("user_description")[0].classList.add("col-0");
+    } else {
+        document.getElementById("user_description").innerHTML = description;
+    }
     const topicContainer = document.getElementById("topic-container");
     usernameInfo.topics.forEach(element => {
         let div = document.createElement("div");
