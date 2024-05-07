@@ -11,7 +11,7 @@
         <title>CineVerse - Registrazione</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <link href="../../CSS/Access/AccessStyleBase.css" rel="stylesheet" type="text/css"/>
+        <link href="../../CSS/Access/AccessStyleBase.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="col-8 mt-2 mb-2">
                                     <div class="form-group">
-                                        <label for="repeatPassword" class="form-label">Ripeti Password</label>
+                                        <label for="confirmPassword" class="form-label">Ripeti Password</label>
                                         <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" value="" maxlength="30" placeholder="Ripeti Password" required>
                                     </div>
                                 </div> 
@@ -95,7 +95,7 @@
                                 <div class="col-md-9 mt-2 ms-3 ms-md-4">
                                     <div class="col-8 offset-1 offset-md-2">
                                         <div class="form-group">
-                                            <label for="birthdate" class="form-label">Data di nascita:</label>
+                                            <label for="birthDate" class="form-label">Data di nascita:</label>
                                             <input type="date" class="form-control" name="birthDate" id="birthDate" required>
                                         </div>
                                     </div>

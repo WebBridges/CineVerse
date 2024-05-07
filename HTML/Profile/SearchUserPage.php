@@ -7,14 +7,14 @@
 
 <head>
     <title>Cineverse - Profile</title>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
         rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
         crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/d9b18796bb.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="../../CSS/Access/AccessStyleBase.css"/>
-    <link rel="stylesheet" type="text/css" href="../../CSS/Profile/userpage.css"/>
+    <link rel="stylesheet" type="text/css" href="../../CSS/Access/AccessStyleBase.css">
+    <link rel="stylesheet" type="text/css" href="../../CSS/Profile/userpage.css">
 
 </head>
 <body>
@@ -103,7 +103,7 @@
         </main>
         <!--Navbar-->
         <nav class="navbar navbar-custom fixed-bottom navbar-expand mx-auto bottom-navbar border border-1 border-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="bottomNavbarNav">
@@ -146,7 +146,7 @@
           </nav>
     </div>
     <!-- Post Modal -->
-    <div class="modal fade" id="post-modal" tabindex="-1" aria-labelledby="postModal" aria-hidden="true">
+    <div class="modal fade" id="post-modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -233,7 +233,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="comments-modal" tabindex="-1" aria-labelledby="commentsModal" aria-hidden="true">
+    <div class="modal fade" id="comments-modal" tabindex="-1" aria-hidden="true">
         <div
             class="modal-dialog modal-dialog-centered modal-dialog-scrollable align-items-md-center modal-lg">
             <div class="modal-content bg-primary">
@@ -304,3 +304,4 @@
     <script src="../../JAVASCRIPT/Profile/userpage.js" type="module"></script>
     <script src="../../JAVASCRIPT/Profile/SearchUserPage.js" type="module"></script>
 </body>
+</html>
