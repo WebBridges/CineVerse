@@ -10,17 +10,17 @@ body {
 
 #profile_header {
     background-color: #240046;
-    font-size: 50px;
     font-family: 'Electrolize';
 }
 
 main {
-    margin-top: 80px;
+    margin-top: 90px;
     background-color: #3C096C;
 }
 
 #reload {
     color: inherit;
+    font-size: 50px;
     text-decoration: none;
 }
 

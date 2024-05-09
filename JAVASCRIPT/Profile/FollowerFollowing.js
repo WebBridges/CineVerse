@@ -23,7 +23,7 @@ async function retrieveUsers() {
     const users = await response.json();
     
     var usernameNotFound = `<div class=" col-12  d-flex align-items-center px-3"><div>
-                                <p class="pt-3 px-4 text-center usernameLabel">Nessun username</p></div>
+                                <p class="pt-3 px-4 text-center usernameLabel">Nessun utente</p></div>
                                 </div>`;
     if (users.length == 0){
         usersList.innerHTML = usernameNotFound;
