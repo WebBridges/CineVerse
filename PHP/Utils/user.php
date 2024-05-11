@@ -2,10 +2,10 @@
 
 namespace User {
 
-    require_once("bootstrap.php");
+    require_once ("bootstrap.php");
     sec_session_start();
-    require_once("dbObject.php");
-    require_once("authUtilities.php");
+    require_once ("dbObject.php");
+    require_once ("authUtilities.php");
 
     class DBUtente implements \DBObject
     {
@@ -24,8 +24,6 @@ namespace User {
         private $seguiti;
         private $topics;
 
-
-        // TODO: add relationship to other user
         public function __construct(
             $nome = null,
             $cognome = null,
@@ -200,7 +198,7 @@ namespace User {
             $db = getDB();
             $query = "UPDATE utente SET Nome = ?, Cognome = ?, Username = ?, Data_nascita = ?, Email = ?, 
                 Sesso = ?, 2FA = ? WHERE Username = ?";
-            $gender=$sesso!=""?$sesso:null;
+            $gender = $sesso != "" ? $sesso : null;
             $stmt = $db->prepare($query);
             $stmt->bind_param("ssssssis", $nome, $cognome, $username, $data_nascita, $email, $gender, $tFA, $_SESSION['username']);
             $success = $stmt->execute();
@@ -208,11 +206,12 @@ namespace User {
                 throw new \Exception("Error while querying the database: " . mysqli_error($db));
             }
             $_SESSION['username'] = $username;
-            setcookie("token","",time()-3600,"/");
+            setcookie("token", "", time() - 3600, "/");
             set_token_cookie($_SESSION['username'], $_SESSION['remember']);
         }
 
-        public function update_topics_account(array $topic){
+        public function update_topics_account(array $topic)
+        {
             $db = getDB();
             $query = "DELETE FROM topic_utente WHERE Username_Utente = ?";
             $stmt = $db->prepare($query);
@@ -234,7 +233,7 @@ namespace User {
 
         public function update_password(string $password)
         {
-            $hashedPassword =password_hash($password,PASSWORD_DEFAULT);
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $db = getDB();
             $query = "UPDATE utente SET Password = ? WHERE Username = ?";
             $stmt = $db->prepare($query);
@@ -252,13 +251,13 @@ namespace User {
             string $foto_background
         ) {
             $db = getDB();
-            if($foto_profilo===""){
-                $foto_profilo=UserUtility::retrieve_profile_photo($_SESSION['username']);
+            if ($foto_profilo === "") {
+                $foto_profilo = UserUtility::retrieve_profile_photo($_SESSION['username']);
             }
-            if($foto_background===""){
-                $foto_background=UserUtility::retrieve_background($_SESSION['username']);
+            if ($foto_background === "") {
+                $foto_background = UserUtility::retrieve_background($_SESSION['username']);
             }
-            
+
             $query = "UPDATE utente SET Descrizione = ?, Foto_profilo = ?, Foto_background = ? WHERE Username = ?";
             $stmt = $db->prepare($query);
             $stmt->bind_param("ssss", $descrizione, $foto_profilo, $foto_background, $_SESSION['username']);
@@ -310,8 +309,8 @@ namespace User {
             }
             return $user;
         }
-        
 
+        /*
         public static function get_utente_by_email(string $email)
         {
             $db = getDB();
@@ -342,8 +341,8 @@ namespace User {
                 return null;
             }
             return $user;
-
         }
+        */
 
         public static function search_users(string $search)
         {
@@ -368,39 +367,6 @@ namespace User {
                 return $users;
             } else {
                 return null;
-            }
-        }
-
-
-
-        public static function check_if_available($username = "", $email = ""): void
-        {
-            $db = getDB();
-            if (!empty($username)) {
-                $query = "SELECT * FROM utente WHERE username = ?";
-                $stmt = $db->prepare($query);
-                $stmt->bind_param("s", $username);
-                $success = $stmt->execute();
-                if (!$success) {
-                    throw new \Exception("Error while querying the database: " . mysqli_error($db));
-                }
-
-                $result = $stmt->get_result();
-                if ($result->num_rows > 0) {
-                    throw new \Exception("Username already taken");
-                }
-            } else if (!empty($email)) {
-                $query = "SELECT * FROM utente WHERE email = ?";
-                $stmt = $db->prepare($query);
-                $stmt->bind_param("s", $email);
-                $success = $stmt->execute();
-                if (!$success) {
-                    throw new \Exception("Error while querying the database: " . mysqli_error($db));
-                }
-                $result = $stmt->get_result();
-                if ($result->num_rows > 0) {
-                    throw new \Exception("Email already taken");
-                }
             }
         }
 
@@ -438,9 +404,10 @@ namespace User {
             return $users;
         }
 
-        public static function get_topics_by_username(string $username){
+        public static function get_topics_by_username(string $username)
+        {
             $db = getDB();
-            $query="SELECT Nome_tag_Topic FROM topic_utente WHERE Username_Utente = ?";
+            $query = "SELECT Nome_tag_Topic FROM topic_utente WHERE Username_Utente = ?";
             $stmt = $db->prepare($query);
             $stmt->bind_param("s", $username);
             $success = $stmt->execute();
@@ -493,24 +460,6 @@ namespace User {
             }
         }
 
-        public static function retrieve_bio($username)
-        {
-            $db = getDB();
-            $query = "SELECT descrizione FROM utente WHERE username = ?";
-            $stmt = $db->prepare($query);
-            $stmt->bind_param("s", $username);
-            $success = $stmt->execute();
-            if (!$success) {
-                throw new \Exception("Error while querying the database: " . mysqli_error($db));
-            }
-            $result = $stmt->get_result();
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-                return $row["descrizione"];
-            } else {
-                return null;
-            }
-        }
         public static function retrieve_followers($username)
         {
             $db = getDB();
@@ -560,51 +509,6 @@ namespace User {
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
                 return $row["Email"];
-            } else {
-                return null;
-            }
-        }
-
-        public static function insert_2FA($username, $code)
-        {
-            $db = getDB();
-            $query = "SELECT username FROM utente WHERE username = ?";
-            $stmt = $db->prepare($query);
-            $stmt->bind_param("s", $username);
-            $success = $stmt->execute();
-            if (!$success) {
-                throw new \Exception("Error while querying the database: " . mysqli_error($db));
-            }
-
-            $result = $stmt->get_result();
-            if ($result->num_rows > 0) {
-                $query = "UPDATE utente SET 2FA = ? WHERE username = ?";
-                $stmt = $db->prepare($query);
-                $stmt->bind_param("ss", $code, $username);
-                $success = $stmt->execute();
-                if (!$success) {
-                    throw new \Exception("Error while querying the database: " . mysqli_error($db));
-                }
-            } else {
-                throw new \Exception("Error while querying the database: ");
-            }
-        }
-
-        public static function retrieve_2FA($username)
-        {
-            $db = getDB();
-            $query = "SELECT 2FA FROM utente WHERE username = ?";
-            $stmt = $db->prepare($query);
-            $stmt->bind_param("s", $username);
-            $success = $stmt->execute();
-            if (!$success) {
-                throw new \Exception("Error while querying the database: " . mysqli_error($db));
-            }
-
-            $result = $stmt->get_result();
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-                return $row["2FA"];
             } else {
                 return null;
             }
