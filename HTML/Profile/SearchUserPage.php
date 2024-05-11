@@ -174,6 +174,11 @@
                 <div class="modal-footer">
                     <div class="container-fluid" id="post-footer">
                         <div class="row">
+                            <div class="col-8 white-text">
+                                <button class="btn invisible" id="delete-post-button">
+                                    <em class="fa-solid fa-trash" style="color: #ffffff;"> Delete post</em>
+                                </button>
+                            </div>
                             <div class="col-3 text-end pt-1">
                                 <p class="white-text">Like:</p>
                             </div>
