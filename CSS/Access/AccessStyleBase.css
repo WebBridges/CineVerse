@@ -96,7 +96,7 @@ input[name="topic[]"] {
 input[name="topic[]"] + .form-check-label {
     padding: 9px;
     background-color: #ff7900;
-    color: #050301;
+    color: #050301 !important;
     border-radius: 17px;
     cursor: pointer;
     display: inline-block;
@@ -112,6 +112,7 @@ input[name="topic[]"] + .form-check-label:hover {
 /* Change the background color of the custom checkbox when it is checked */
 input[name="topic[]"]:checked + .form-check-label {
     background-color: #7b2cbf;
+    color: #ffffff !important;
 }
 
 #TopicList {
@@ -207,7 +208,7 @@ a:focus {
     font-weight: bold;
     box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.5);
     padding-top: 2px;
-    color: #050301 !important;
+    color: #ffffff !important;
     text-rendering: optimizeLegibility;
 }
 
@@ -215,7 +216,7 @@ a:focus {
     background-color: #5a189a;
     border-color:transparent;
     border:none;
-    color: #050301;
+    color: #ffffff;
     text-rendering: optimizeLegibility;
 }
 
@@ -230,7 +231,7 @@ a:focus {
     font-weight: bold;
     box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.5);
     padding-top: 2px;
-    color: #050301;
+    color: #ffffff;
     text-rendering: optimizeLegibility;
 }
 
