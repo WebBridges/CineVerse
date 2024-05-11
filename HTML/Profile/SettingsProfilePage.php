@@ -22,7 +22,7 @@
                     <div id="BlockBanner" class="col-12 d-flex flex-column justify-content-center align-items-center text-center ">
                         Impostazioni Profilo
                     </div>
-                    <form id="FormRegistration" action="../../PHP/Profile/UpdateProfile.php" method="POST" enctype="multipart/form-data" novalidate>
+                    <form id="FormProfile" action="../../PHP/Profile/UpdateProfile.php" method="POST" enctype="multipart/form-data" novalidate>
                         <div class="row">
                             <div class="col-md-6 mb-4 d-flex mt-3 flex-column justify-content-center align-items-center">
                                 <div class="form-group">

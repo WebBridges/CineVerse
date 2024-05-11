@@ -70,8 +70,8 @@
                         <div class="row container-fluid ">
                             <div class="col-md-6  mb-md-4 d-flex flex-column">
                                 <div class="form-group">
-                                    <p class="offset-2">Indicare il proprio genere (opzionale):</p>
-                                    <div class="col-md-8 ms-5">
+                                    <fieldset class="col-md-8 ms-5">
+                                        <legend class="offset-2" style=" font-size: 1.1em;">Indicare il proprio genere (opzionale):</legend>
                                         <div class="form-check col-8 offset-1 offset-md-2">
                                             <input class="form-check-input" type="radio" name="gender" id="male" value="male">
                                             <label class="form-check-label" for="male">
@@ -90,7 +90,7 @@
                                                 Altro
                                             </label>
                                         </div>
-                                    </div>
+                                    </fieldset>
                                 </div>
                                 <div class="col-md-9 mt-2 ms-3 ms-md-4">
                                     <div class="col-8 offset-1 offset-md-2">

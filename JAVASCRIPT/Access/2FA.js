@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded",function() {
             </div>
             <form id="2FA_Form" class=" mt-1" action="../../PHP/Access/Process2FA.php" method="POST" >
                 <div class="mb-1 mt-1">
+                    <label for="2fa">Codice</label>
                     <input type="text" class="form-control" name="2fa" id="2fa" value="" maxlength="10" placeholder="codice">
                     <div class="invalid-feedback" style="color:#8B0000 !important;">
                         Please provide a valid code

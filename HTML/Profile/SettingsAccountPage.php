@@ -21,7 +21,7 @@
                     <div id="BlockBanner" class="col-12 d-flex flex-column justify-content-center align-items-center text-center ">
                         Impostazioni Account
                     </div>
-                    <form id="FormRegistration" action="../../PHP/Profile/UpdateSettings.php" method="POST" novalidate>
+                    <form id="FormAccount" action="../../PHP/Profile/UpdateSettings.php" method="POST" novalidate>
                         <div class="row container-fluid">
                             <div class="col-md-6  mb-2 d-flex flex-column justify-content-center align-items-center">
                                 <div class="col-8 mt-2">
@@ -67,8 +67,8 @@
                         <div class="row container-fluid ">
                             <div class="col-md-6 mb-md-4 d-flex flex-column">
                                 <div class="form-group">
-                                    <p class="offset-2">genere (opzionale):</p>
-                                    <div class="col-md-8 ms-5">
+                                    <fieldset class="col-md-8 ms-5">
+                                        <legend class="offset-2" style=" font-size: 1.1em;">Indicare il proprio genere (opzionale):</legend>
                                         <div class="form-check col-8 offset-1 offset-md-2">
                                             <input class="form-check-input" type="radio" name="gender" id="male" value="male">
                                             <label class="form-check-label" for="male">
@@ -87,7 +87,7 @@
                                                 Altro
                                             </label>
                                         </div>
-                                    </div>
+                                    </fieldset>
                                 </div>
                             </div>
                             <div class="col-md-5 ms-md-4 px-1 d-flex justify-content-center">
