@@ -27,9 +27,9 @@
                             <div class="col-md-6 mb-4 d-flex mt-3 flex-column justify-content-center align-items-center">
                                 <div class="form-group">
                                     <div>
-                                        <p class="mt-md-0 mt-3 offset-2">Lista dei topic disponibili (massimo 5):</p>
+                                        <p class="mt-md-0 mt-3 offset-md-2 offset-1">Lista dei topic disponibili (massimo 5):</p>
                                     </div>
-                                    <div id="TopicList" class="col-9 offset-2" style="max-height: 170px; overflow-y: auto; display: flex; flex-wrap: wrap;">
+                                    <div id="TopicList" class="col-9 offset-md-2 offset-1" style="max-height: 170px; overflow-y: auto; display: flex; flex-wrap: wrap;">
                                     </div>
                                 </div>
                             </div>

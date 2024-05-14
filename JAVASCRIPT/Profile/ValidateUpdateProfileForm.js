@@ -2,7 +2,7 @@ import { GetUsernameInfo } from "../Utils/utils.js";
 
 document.addEventListener('DOMContentLoaded', async (event) => {
     await LoadUserSettingsAccount();
-    document.getElementById('FormRegistration').addEventListener('submit', async function(e) {
+    document.getElementById('FormProfile').addEventListener('submit', async function(e) {
         e.preventDefault();
         let checkedCount = document.querySelectorAll('input[type="checkbox"].form-check-input:checked').length;
         let errors = document.getElementsByClassName('error-message');

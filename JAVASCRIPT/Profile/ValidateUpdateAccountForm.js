@@ -1,4 +1,4 @@
-document.getElementById('FormRegistration').addEventListener('submit', async function(e) {
+document.getElementById('FormAccount').addEventListener('submit', async function(e) {
     e.preventDefault();
     
     let currentUsername= await GetUsername();
