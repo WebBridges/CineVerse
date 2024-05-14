@@ -41,7 +41,7 @@
                                     <label class="form-check-label" for="checkboxOption" style="color:black">
                                         Risposta multipla
                                     </label>
-                                    <input class="form-check-input" type="radio" name="optionType2" id="checkboxOption" value="checkbox" title="Scelta multipla">
+                                    <input class="form-check-input" type="radio" name="optionType" id="checkboxOption" value="checkbox" title="Scelta multipla">
 
                                 </div>
                             </div>
