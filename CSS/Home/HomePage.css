@@ -43,8 +43,7 @@ main p,
     margin: 0px;
 }
 
-.post-user-photo {
-    height: 100px;
+.post-user-photo, .user_profile_image {
     width: 100px;
     border-radius: 50%;
     aspect-ratio: 1;

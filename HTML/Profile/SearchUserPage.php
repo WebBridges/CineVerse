@@ -137,11 +137,11 @@
                         <div class="col-5 d-flex align-items-center">
                             <h3 class="white-text" id="post-title">Post title</h3>
                         </div>
-                        <div class="col-2">
+                        <div class="col-2 d-flex align-items-center">
                             <img id="post-user-photo" src="../../img/default-user.jpg" alt=""
                                 class="rounded-circle img-fluid img-thumbnail">
                         </div>
-                        <div class="col-3 d-flex align-items-center me-2">
+                        <div class="col-3 d-flex align-items-center p-0">
                             <h3 class="white-text" id="post-username">Username</h3>
                         </div>
                         <div class="col-1 ms-1 me-1">
@@ -207,7 +207,7 @@
                         <div class="comment-container">
                             <div class="row justify-content-start">
                                 <div class="col-2 mb-1 col-lg-1">
-                                    <img src="../../img/default-user.jpg" alt="" class="img-fluid rounded-circle">
+                                    <img src="../../img/default-user.jpg" alt="" class="img-fluid rounded-circle user_profile_image">
                                 </div>
                                 <div class="col">
                                     <a href="#" class="fs-5 white-text">Username</a>

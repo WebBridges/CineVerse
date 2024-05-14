@@ -34,8 +34,7 @@ main p,
 }
 
 
-#user_images {
-    height: 150px;
+#user_images, .user_profile_image{
     width: 150px;
     border-radius: 50%;
     aspect-ratio: 1;
@@ -153,6 +152,7 @@ li {
 }
 
 .sidebar {
+    z-index: 2;
     height: 100%;
     width: 0;
     position: fixed;
