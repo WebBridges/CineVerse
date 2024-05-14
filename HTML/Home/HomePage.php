@@ -160,7 +160,7 @@ include '../../PHP/Utils/auth_request.php';
                         <div class="comment-container">
                             <div class="row justify-content-start">
                                 <div class="col-2 mb-1 col-lg-1">
-                                    <img src="../../img/default-user.jpg" alt="" class="img-fluid rounded-circle">
+                                    <img src="../../img/default-user.jpg" alt="" class="img-fluid rounded-circle user_profile_image">
                                 </div>
                                 <div class="col">
                                     <a href="#" class="fs-5 white-text">Username</a>

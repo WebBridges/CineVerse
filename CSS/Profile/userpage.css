@@ -34,8 +34,7 @@ main p,
 }
 
 
-#user_images {
-    height: 150px;
+#user_images, .user_profile_image{
     width: 150px;
     border-radius: 50%;
     aspect-ratio: 1;
