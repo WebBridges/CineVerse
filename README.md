@@ -1,5 +1,6 @@
 # CineVerse
 Cineverse is a social network for movie, TV series, and entertainment enthusiasts.Share images, videos, polls, and your preferences.<br />
+<br />
 Discover new releases, join discussions, and connect with other fans in the world of entertainment.<br />
 A full description of the project can be found in the "aggiungere".<br />
 The look and feel of the website is described in the "aggiungere mockup".<br />
