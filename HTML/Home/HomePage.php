@@ -56,8 +56,7 @@ include '../../PHP/Utils/auth_request.php';
                                 </button>
                             </div>
                             <div class="col-8 post-description-container">
-                                <p class="white-text post-description">Post description can be very long and take the
-                                    whole page</p>
+                                <p class="white-text post-description"></p>
                             </div>
                         </div>
                     </div>

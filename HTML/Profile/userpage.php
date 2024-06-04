@@ -190,8 +190,7 @@ include '../../PHP/Utils/auth_request.php';
                             </button>
                         </div>
                         <div class="col-8" id="post-description-container">
-                            <p class="white-text" id="post-description">Post description can be very long and take the
-                                whole page</p>
+                            <p class="white-text" id="post-description"></p>
                         </div>
                     </div>
                 </div>
