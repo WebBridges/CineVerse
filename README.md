@@ -2,9 +2,7 @@
 Cineverse is a social network for movie, TV series, and entertainment enthusiasts.Share images, videos, polls, and your preferences.<br />
 Discover new releases, join discussions, and connect with other fans in the world of entertainment.<br />
 <br />
-A full description of the project can be found in the "aggiungere".<br />
 The look and feel of the website is described in the "aggiungere mockup".<br />
-Lastly the color palette used in the website can be viewed in " aggiungere color palette".<br />
 ## Autori: 
 - Bacchini Lorenzo (lorenzo.bacchini4@studio.unibo.it)
 - Mattia Burreli (mattia.burreli@studio.unibo.it)
